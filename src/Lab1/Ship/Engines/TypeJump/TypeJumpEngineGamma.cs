@@ -7,7 +7,7 @@ public class TypeJumpEngineGamma : TypeEngineJump
         CapacityGravityFuel = fuel;
     }
 
-    public override int Duration(int astronomicUnits)
+    public override void Duration(int astronomicUnits)
     {
         if (astronomicUnits >= 300) throw new CustomExceptions("Too far to move");
 
@@ -20,7 +20,5 @@ public class TypeJumpEngineGamma : TypeEngineJump
 
             CapacityGravityFuel -= i;
         }
-
-        return CapacityGravityFuel;
     }
 }

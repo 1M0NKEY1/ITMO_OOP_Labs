@@ -10,7 +10,7 @@ public class HullClassThree : Hull
         HullDefencePoint = 20;
     }
 
-    public override int Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, int classOfObstacles)
     {
         switch (classOfObstacles)
         {
@@ -26,7 +26,5 @@ public class HullClassThree : Hull
             default:
                 throw new CustomExceptions("No such class of obstacle");
         }
-
-        return HullDefencePoint;
     }
 }

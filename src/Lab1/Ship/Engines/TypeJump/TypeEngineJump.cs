@@ -3,5 +3,5 @@
 public abstract class TypeEngineJump
 {
     protected int CapacityGravityFuel { get; set; }
-    public abstract int Duration(int astronomicUnits);
+    public abstract void Duration(int astronomicUnits);
 }

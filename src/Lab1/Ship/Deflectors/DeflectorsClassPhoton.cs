@@ -7,13 +7,12 @@ public class DeflectorsClassPhoton : Deflector
     public DeflectorsClassPhoton()
     {
         DestroyedDeflector = false;
-        DeflectorDefencePoint = 3;
+        PhotonDeflectorDefencePoint = 3;
     }
 
-    public override int Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, int classOfObstacles)
     {
-        if (classOfObstacles is not (int)Obstacles.Flashes) return DeflectorDefencePoint;
-        DeflectorDefencePoint -= countOfObstacles;
-        return DeflectorDefencePoint;
+        if (classOfObstacles is not (int)Obstacles.Flashes) return;
+        PhotonDeflectorDefencePoint -= countOfObstacles;
     }
 }

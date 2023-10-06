@@ -15,12 +15,17 @@ public class Route
     private readonly MiningBuild _extractedPlasmFuel = new MiningBuild();
     private readonly MiningBuild _extractedGravityFuel = new MiningBuild();
 
-    private FuelExchange _fuelExchange = new FuelExchange();
-    private int _countOfSteps;
+    private readonly FuelExchange _fuelExchange = new FuelExchange();
 
-    public Route(int countOfSteps, int plasmFuel, int gravityFuel)
+    private StarShip? _currentShip;
+    private Environment? _currentEnvironment;
+    private Deflector? _currentDeflector;
+    private Hull? _currentHull;
+    private Engine? _currentEngine;
+    private TypeEngineJump? _currentJumpEngine;
+
+    public Route(int plasmFuel, int gravityFuel)
     {
-        _countOfSteps = countOfSteps;
         _extractedPlasmFuel.ExtractedPlasmFuel = plasmFuel;
         _extractedGravityFuel.ExtractedGravityFuel = gravityFuel;
     }
@@ -44,36 +49,48 @@ public class Route
 
     public void Step(int ship, int environment, int obstacles1, int obstacles2, int astronomicUnits)
     {
-        StarShip starship = GetShip(ship);
-        Environment env = GetEnvironment(environment, obstacles1, obstacles2, astronomicUnits);
-        Deflector defl = GetDeflector(starship.ClassOfDeflectors);
-        Hull hull = GetHull(starship.ClassOfHull);
-        Engine engine = GetEngine(starship.ClassOfEngine);
-        TypeEngineJump jumpEngine = GetJumpEngine(starship.ClassOfJumpEngine);
+        _currentShip = GetShip(ship);
+        _currentEnvironment = GetEnvironment(environment, obstacles1, obstacles2, astronomicUnits);
+        _currentDeflector = GetDeflector(_currentShip.ClassOfDeflectors);
+        _currentHull = GetHull(_currentShip.ClassOfHull);
+        _currentEngine = GetEngine(_currentShip.ClassOfEngine);
+        _currentJumpEngine = GetJumpEngine(_currentShip.ClassOfJumpEngine);
 
-        if (env.Conditions(starship.ClassOfEngine))
+        if (_currentEnvironment.Conditions(_currentShip.ClassOfEngine))
         {
-            if (defl.DefenceTurnOff())
+            if (_currentEnvironment.ClassOfObstacle1 is (int)Obstacles.Flashes)
             {
-                if (hull.Defence())
+                _currentDeflector.Damage(obstacles1, (int)Obstacles.Flashes);
+                if (_currentDeflector.PhotonDeflectorDefencePoint < 0)
                 {
-                    starship.Destroy();
+                    _currentShip.Crew = false;
+                    throw new CustomExceptions("Crew died");
                 }
-
-                hull.Damage(obstacles1, env.ClassOfObstacle1);
-                hull.Damage(obstacles2, env.ClassOfObstacle2);
             }
 
-            defl.Damage(obstacles1, env.ClassOfObstacle1);
-            defl.Damage(obstacles2, env.ClassOfObstacle2);
+            if (_currentDeflector.DefenceTurnOff())
+            {
+                if (_currentHull.Defence())
+                {
+                    _currentShip.Destroy();
+                }
+
+                _currentHull.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
+                _currentHull.Damage(obstacles2, _currentEnvironment.ClassOfObstacle2);
+            }
+
+            _currentDeflector.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
+            _currentDeflector.Damage(obstacles2, _currentEnvironment.ClassOfObstacle2);
 
             if (environment is (int)SelectEnvironment.SuperFog)
             {
-                jumpEngine.Duration(astronomicUnits);
+                _currentJumpEngine.Duration(astronomicUnits);
             }
 
-            engine.Duration(astronomicUnits, starship.Size);
+            _currentEngine.Duration(astronomicUnits, _currentShip.Size);
         }
+
+        throw new CustomExceptions("Step failed");
     }
 
     private static Environment GetEnvironment(int environment, int obstacles1, int obstacles2, int astronomicUnits)

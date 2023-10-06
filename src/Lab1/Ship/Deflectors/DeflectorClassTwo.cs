@@ -10,7 +10,7 @@ public class DeflectorClassTwo : Deflector
         DeflectorDefencePoint = 10;
     }
 
-    public override int Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, int classOfObstacles)
     {
         switch (classOfObstacles)
         {
@@ -36,10 +36,11 @@ public class DeflectorClassTwo : Deflector
                 DestroyedDeflector = true;
                 DeflectorDefencePoint = 0;
                 break;
+            case (int)Obstacles.Flashes:
+                PhotonDeflectorDefencePoint -= countOfObstacles;
+                break;
             default:
                 throw new CustomExceptions("No such class of deflectors");
         }
-
-        return DeflectorDefencePoint;
     }
 }

@@ -4,7 +4,7 @@ public abstract class Hull
 {
     public bool HullDestroyed { get; protected set; }
     protected int HullDefencePoint { get; set; }
-    public abstract int Damage(int countOfObstacles, int classOfObstacles);
+    public abstract void Damage(int countOfObstacles, int classOfObstacles);
 
     public bool Defence()
     {

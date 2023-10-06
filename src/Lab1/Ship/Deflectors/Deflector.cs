@@ -2,12 +2,12 @@
 
 public abstract class Deflector
 {
-    public bool PhotonDeflectorDefencePoint { get; set; }
+    public int PhotonDeflectorDefencePoint { get; set; }
     public bool DestroyedDeflector { get; protected set; }
     public bool Emitter { get; set; }
     protected int DeflectorDefencePoint { get; set; }
 
-    public abstract int Damage(int countOfObstacles, int classOfObstacles);
+    public abstract void Damage(int countOfObstacles, int classOfObstacles);
     public bool DefenceTurnOff()
     {
         if (DeflectorDefencePoint <= 0)
