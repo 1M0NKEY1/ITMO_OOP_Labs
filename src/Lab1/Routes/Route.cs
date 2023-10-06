@@ -47,7 +47,7 @@ public class Route
         };
     }
 
-    public void Step(int ship, int environment, int obstacles1, int obstacles2, int astronomicUnits)
+    public bool Step(int ship, int environment, int obstacles1, int obstacles2, int astronomicUnits)
     {
         _currentShip = GetShip(ship);
         _currentEnvironment = GetEnvironment(environment, obstacles1, obstacles2, astronomicUnits);
@@ -85,12 +85,17 @@ public class Route
             if (environment is (int)SelectEnvironment.SuperFog)
             {
                 _currentJumpEngine.Duration(astronomicUnits);
+                if (_currentJumpEngine.TooFar)
+                {
+                    return false;
+                }
             }
 
             _currentEngine.Duration(astronomicUnits, _currentShip.Size);
+            return true;
         }
 
-        throw new CustomExceptions("Step failed");
+        return false;
     }
 
     private static Environment GetEnvironment(int environment, int obstacles1, int obstacles2, int astronomicUnits)

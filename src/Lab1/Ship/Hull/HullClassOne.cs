@@ -25,6 +25,8 @@ public class HullClassOne : Hull
                 HullDestroyed = true;
                 HullDefencePoint = 0;
                 break;
+            case (int)Obstacles.Flashes:
+                break;
             default:
                 throw new CustomExceptions("No such class of obstacle");
         }

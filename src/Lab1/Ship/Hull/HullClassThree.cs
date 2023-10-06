@@ -23,6 +23,8 @@ public class HullClassThree : Hull
             case (int)Obstacles.SpaceWhales:
                 HullDefencePoint = 0;
                 break;
+            case (int)Obstacles.Flashes:
+                break;
             default:
                 throw new CustomExceptions("No such class of obstacle");
         }

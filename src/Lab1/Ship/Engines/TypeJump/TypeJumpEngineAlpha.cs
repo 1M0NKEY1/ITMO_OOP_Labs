@@ -4,12 +4,17 @@ public class TypeJumpEngineAlpha : TypeEngineJump
 {
     public TypeJumpEngineAlpha(int fuel)
     {
+        TooFar = false;
         CapacityGravityFuel = fuel;
     }
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= 100) throw new CustomExceptions("Too far to move");
+        if (astronomicUnits >= 100)
+        {
+            TooFar = true;
+            return;
+        }
 
         for (int i = 1; i <= astronomicUnits; i++)
         {
