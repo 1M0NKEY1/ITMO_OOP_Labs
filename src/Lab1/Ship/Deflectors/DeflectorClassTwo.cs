@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
 public class DeflectorClassTwo : Deflector
 {
@@ -12,10 +14,10 @@ public class DeflectorClassTwo : Deflector
     {
         switch (classOfObstacles)
         {
-            case 1:
+            case (int)Obstacles.Asteroids:
                 DeflectorDefencePoint -= countOfObstacles;
                 break;
-            case 2:
+            case (int)Obstacles.Meteorites:
                 if (countOfObstacles >= 3)
                 {
                     DeflectorDefencePoint = 0;
@@ -25,7 +27,7 @@ public class DeflectorClassTwo : Deflector
 
                 DeflectorDefencePoint -= (int)(3.33 * countOfObstacles);
                 break;
-            case 3:
+            case (int)Obstacles.SpaceWhales:
                 if (Emitter)
                 {
                     break;

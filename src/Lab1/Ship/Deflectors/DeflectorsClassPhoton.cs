@@ -12,12 +12,8 @@ public class DeflectorsClassPhoton : Deflector
 
     public override int Damage(int countOfObstacles, int classOfObstacles)
     {
-        if (classOfObstacles is (int)Obstacles.Flashes)
-        {
-            DeflectorDefencePoint -= countOfObstacles;
-            return DeflectorDefencePoint;
-        }
-
+        if (classOfObstacles is not (int)Obstacles.Flashes) return DeflectorDefencePoint;
+        DeflectorDefencePoint -= countOfObstacles;
         return DeflectorDefencePoint;
     }
 }

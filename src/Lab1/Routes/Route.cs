@@ -74,8 +74,6 @@ public class Route
 
             engine.Duration(astronomicUnits, starship.Size);
         }
-
-        throw new CustomExceptions("Step is successfully finished");
     }
 
     private static Environment GetEnvironment(int environment, int obstacles1, int obstacles2, int astronomicUnits)

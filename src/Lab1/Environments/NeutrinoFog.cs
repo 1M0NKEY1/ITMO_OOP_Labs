@@ -13,11 +13,6 @@ public class NeutrinoFog : Environment
 
     public override bool Conditions(int engineType)
     {
-        if (engineType == (int)SelectEngine.TypeEngineE)
-        {
-            return true;
-        }
-
-        return false;
+        return engineType == (int)SelectEngine.TypeEngineE;
     }
 }

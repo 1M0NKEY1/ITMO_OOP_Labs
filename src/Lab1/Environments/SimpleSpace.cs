@@ -15,11 +15,6 @@ public class SimpleSpace : Environment
 
     public override bool Conditions(int engineType)
     {
-        if (engineType is (int)SelectEngine.TypeEngineC or (int)SelectEngine.TypeEngineE)
-        {
-            return true;
-        }
-
-        return false;
+        return engineType is (int)SelectEngine.TypeEngineC or (int)SelectEngine.TypeEngineE;
     }
 }

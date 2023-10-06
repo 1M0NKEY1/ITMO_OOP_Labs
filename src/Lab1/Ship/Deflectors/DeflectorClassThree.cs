@@ -17,10 +17,10 @@ public class DeflectorClassThree : Deflector
             case (int)Obstacles.Asteroids:
                 DeflectorDefencePoint -= countOfObstacles;
                 break;
-            case 2:
+            case (int)Obstacles.Meteorites:
                 DeflectorDefencePoint -= 4 * countOfObstacles;
                 break;
-            case 3:
+            case (int)Obstacles.SpaceWhales:
                 if (Emitter)
                 {
                     break;

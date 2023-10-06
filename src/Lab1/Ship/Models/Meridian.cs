@@ -23,14 +23,10 @@ public class Meridian : StarShip
 
     public override void Destroy()
     {
-        if (_deflectorClassTwo.DefenceTurnOff())
-        {
-            if (_hullClassTwo.Defence())
-            {
-                Crew = false;
-                Destroyed = true;
-                throw new CustomExceptions("Meridian destroyed");
-            }
-        }
+        if (!_deflectorClassTwo.DefenceTurnOff()) return;
+        if (!_hullClassTwo.Defence()) return;
+        Crew = false;
+        Destroyed = true;
+        throw new CustomExceptions("Meridian destroyed");
     }
 }

@@ -14,11 +14,6 @@ public class SuperFog : Environment
 
     public override bool Conditions(int engineType)
     {
-        if (engineType is (int)SelectJumpEngine.Alpha or (int)SelectJumpEngine.Gamma or (int)SelectJumpEngine.Omega)
-        {
-            return true;
-        }
-
-        return false;
+        return engineType is (int)SelectJumpEngine.Alpha or (int)SelectJumpEngine.Gamma or (int)SelectJumpEngine.Omega;
     }
 }

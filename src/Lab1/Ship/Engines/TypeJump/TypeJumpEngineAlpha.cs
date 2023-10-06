@@ -9,6 +9,8 @@ public class TypeJumpEngineAlpha : TypeEngineJump
 
     public override int Duration(int astronomicUnits)
     {
+        if (astronomicUnits >= 100) throw new CustomExceptions("Too far to move");
+
         for (int i = 1; i <= astronomicUnits; i++)
         {
             if (CapacityGravityFuel <= 0)

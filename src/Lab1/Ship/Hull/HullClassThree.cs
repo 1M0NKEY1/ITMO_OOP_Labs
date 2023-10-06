@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class HullClassThree : Hull
 {
@@ -12,13 +14,13 @@ public class HullClassThree : Hull
     {
         switch (classOfObstacles)
         {
-            case 1:
+            case (int)Obstacles.Asteroids:
                 HullDefencePoint -= countOfObstacles;
                 break;
-            case 2:
+            case (int)Obstacles.Meteorites:
                 HullDefencePoint -= countOfObstacles * 4;
                 break;
-            case 3:
+            case (int)Obstacles.SpaceWhales:
                 HullDefencePoint = 0;
                 break;
             default:

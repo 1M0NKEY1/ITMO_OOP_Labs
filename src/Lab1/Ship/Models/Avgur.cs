@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Avgur : StarShip
 {
-    private DeflectorClassThree _deflectorClassThree = new DeflectorClassThree();
-    private HullClassThree _hullClassThree = new HullClassThree();
+    private readonly DeflectorClassThree _deflectorClassThree = new DeflectorClassThree();
+    private readonly HullClassThree _hullClassThree = new HullClassThree();
 
     public Avgur(bool emitter, bool photonDeflector)
     {
@@ -23,14 +23,10 @@ public class Avgur : StarShip
 
     public override void Destroy()
     {
-        if (_deflectorClassThree.DestroyedDeflector)
-        {
-            if (_hullClassThree.HullDestroyed)
-            {
-                Crew = false;
-                Destroyed = true;
-                throw new CustomExceptions("Avgur destroyed");
-            }
-        }
+        if (!_deflectorClassThree.DestroyedDeflector) return;
+        if (!_hullClassThree.HullDestroyed) return;
+        Crew = false;
+        Destroyed = true;
+        throw new CustomExceptions("Avgur destroyed");
     }
 }

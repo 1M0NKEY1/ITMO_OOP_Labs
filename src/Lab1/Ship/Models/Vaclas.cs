@@ -23,14 +23,10 @@ public class Vaclas : StarShip
 
     public override void Destroy()
     {
-        if (_deflectorClassOne.DestroyedDeflector)
-        {
-            if (_hullClassOne.HullDestroyed)
-            {
-                Crew = false;
-                Destroyed = true;
-                throw new CustomExceptions("Vaclas destroyed");
-            }
-        }
+        if (!_deflectorClassOne.DestroyedDeflector) return;
+        if (!_hullClassOne.HullDestroyed) return;
+        Crew = false;
+        Destroyed = true;
+        throw new CustomExceptions("Vaclas destroyed");
     }
 }

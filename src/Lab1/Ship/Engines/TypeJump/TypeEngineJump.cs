@@ -2,6 +2,6 @@
 
 public abstract class TypeEngineJump
 {
-    public int CapacityGravityFuel { get; set; }
+    protected int CapacityGravityFuel { get; set; }
     public abstract int Duration(int astronomicUnits);
 }

@@ -21,11 +21,9 @@ public class WalkingShuttle : StarShip
 
     public override void Destroy()
     {
-        if (_hullClassOne.HullDestroyed)
-        {
-            Crew = false;
-            Destroyed = true;
-            throw new CustomExceptions("WalkingShuttle destroyed");
-        }
+        if (!_hullClassOne.HullDestroyed) return;
+        Crew = false;
+        Destroyed = true;
+        throw new CustomExceptions("WalkingShuttle destroyed");
     }
 }
