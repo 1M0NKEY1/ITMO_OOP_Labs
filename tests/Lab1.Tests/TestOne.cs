@@ -7,15 +7,15 @@ public class TestOne
 {
     public static bool IsFinishedRoute(int ship)
     {
-        var route = new Route(true, true);
-        return !route.Step(ship, (int)SelectEnvironment.SuperFog, 0, 0, 300);
+        var route = new Route(false, 300, 300);
+        return route.Step(ship, (int)SelectEnvironment.SuperFog, 0, 0, 300);
     }
 
     [Theory]
     [InlineData((int)SelectShip.WalkingShuttle, (int)SelectShip.Avgur)]
     public void AllNumbersAreOddWithInlineData(int walkingShuttle, int avgur)
     {
-        Assert.True(IsFinishedRoute(walkingShuttle));
-        Assert.True(IsFinishedRoute(avgur));
+        Assert.False(IsFinishedRoute(walkingShuttle));
+        Assert.False(IsFinishedRoute(avgur));
     }
 }

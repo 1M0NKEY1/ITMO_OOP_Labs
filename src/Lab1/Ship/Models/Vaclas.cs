@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Vaclas : StarShip
 {
-    private DeflectorClassOne _deflectorClassOne = new DeflectorClassOne();
+    private DeflectorClassOne _deflectorClassOne = new DeflectorClassOne(false);
     private HullClassOne _hullClassOne = new HullClassOne();
 
-    public Vaclas(bool emitter, bool photonDeflector)
+    public Vaclas(bool photonDeflector)
     {
         Crew = true;
-        Emitter = emitter;
-        PhotonDeflector = photonDeflector;
+        Emitter = false;
+        _deflectorClassOne.PhotonDeflector = photonDeflector;
         ClassOfDeflectors = (int)SelectDeflectors.DeflectorsClassOne;
         ClassOfEngine = (int)SelectEngine.TypeEngineE;
         ClassOfHull = (int)SelectHull.HullClassTwo;
@@ -25,6 +25,12 @@ public class Vaclas : StarShip
     {
         if (!_deflectorClassOne.DestroyedDeflector) return;
         if (!_hullClassOne.HullDestroyed) return;
+        if (_deflectorClassOne.PhotonDeflectorDefencePoint < 0)
+        {
+            Crew = false;
+            Destroyed = false;
+        }
+
         Crew = false;
         Destroyed = true;
         throw new CustomExceptions("Vaclas destroyed");

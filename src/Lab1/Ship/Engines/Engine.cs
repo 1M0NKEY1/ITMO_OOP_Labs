@@ -3,7 +3,6 @@
 public abstract class Engine
 {
     protected int CapacityPlasmFuel { get; set; }
-
     public abstract int Duration(int astronomicUnits, int size);
     protected int StartEngine()
     {

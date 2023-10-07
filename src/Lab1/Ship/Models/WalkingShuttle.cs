@@ -6,16 +6,15 @@ public class WalkingShuttle : StarShip
 {
     private HullClassOne _hullClassOne = new HullClassOne();
 
-    public WalkingShuttle(bool emitter, bool photonDeflector)
+    public WalkingShuttle(bool photonDeflector)
     {
         Crew = true;
-        Emitter = emitter;
+        Emitter = false;
         PhotonDeflector = photonDeflector;
         ClassOfDeflectors = 0;
         ClassOfEngine = (int)SelectEngine.TypeEngineC;
         ClassOfHull = (int)SelectHull.HullClassOne;
         Size = (int)SelectSize.Small;
-        ClassOfJumpEngine = 0;
         Destroyed = false;
     }
 

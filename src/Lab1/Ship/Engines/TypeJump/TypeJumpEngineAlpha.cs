@@ -18,11 +18,6 @@ public class TypeJumpEngineAlpha : TypeEngineJump
 
         for (int i = 1; i <= astronomicUnits; i++)
         {
-            if (CapacityGravityFuel <= 0)
-            {
-                throw new CustomExceptions("Gravity fuel tank is empty");
-            }
-
             CapacityGravityFuel -= i;
         }
     }

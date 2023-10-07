@@ -14,11 +14,6 @@ public class TypeEngineC : Engine
         CapacityPlasmFuel = StartEngine();
         for (int i = 1; i <= astronomicUnits; i++)
         {
-            if (CapacityPlasmFuel <= 0)
-            {
-                throw new CustomExceptions("Plasm fuel tank is empty");
-            }
-
             switch (size)
             {
                 case (int)SelectSize.Small:

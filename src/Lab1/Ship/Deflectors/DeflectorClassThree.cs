@@ -4,10 +4,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
 public class DeflectorClassThree : Deflector
 {
-    public DeflectorClassThree()
+    public DeflectorClassThree(bool photon)
     {
         DestroyedDeflector = false;
         DeflectorDefencePoint = 40;
+        if (photon)
+        {
+            PhotonDeflectorDefencePoint = 3;
+        }
     }
 
     public override void Damage(int countOfObstacles, int classOfObstacles)

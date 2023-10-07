@@ -10,7 +10,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Routes;
 
 public class Route
 {
-    private readonly bool _emitter;
     private readonly bool _photon;
     private readonly MiningBuild _extractedPlasmFuel = new MiningBuild();
     private readonly MiningBuild _extractedGravityFuel = new MiningBuild();
@@ -24,16 +23,11 @@ public class Route
     private Engine? _currentEngine;
     private TypeEngineJump? _currentJumpEngine;
 
-    public Route(int plasmFuel, int gravityFuel)
+    public Route(bool photon, int plasmFuel, int gravityFuel)
     {
+        _photon = photon;
         _extractedPlasmFuel.ExtractedPlasmFuel = plasmFuel;
         _extractedGravityFuel.ExtractedGravityFuel = gravityFuel;
-    }
-
-    public Route(bool emitter, bool photon)
-    {
-        _emitter = emitter;
-        _photon = photon;
     }
 
     public int CostOfStep(int environment, int astronomicUnits)
@@ -50,29 +44,47 @@ public class Route
     public bool Step(int ship, int environment, int obstacles1, int obstacles2, int astronomicUnits)
     {
         _currentShip = GetShip(ship);
-        _currentEnvironment = GetEnvironment(environment, obstacles1, obstacles2, astronomicUnits);
+        _currentEnvironment = GetEnvironment(environment, obstacles1, obstacles2);
         _currentDeflector = GetDeflector(_currentShip.ClassOfDeflectors);
         _currentHull = GetHull(_currentShip.ClassOfHull);
         _currentEngine = GetEngine(_currentShip.ClassOfEngine);
         _currentJumpEngine = GetJumpEngine(_currentShip.ClassOfJumpEngine);
 
-        if (_currentEnvironment.Conditions(_currentShip.ClassOfEngine))
+        if (_currentEnvironment.ExtraConditions(_currentShip.ClassOfJumpEngine))
         {
-            if (_currentEnvironment.ClassOfObstacle1 is (int)Obstacles.Flashes)
+            if (_currentShip.PhotonDeflector)
             {
+                _currentJumpEngine.Duration(astronomicUnits);
+                if (_currentJumpEngine.TooFar)
+                {
+                    return false;
+                }
+
                 _currentDeflector.Damage(obstacles1, (int)Obstacles.Flashes);
                 if (_currentDeflector.PhotonDeflectorDefencePoint < 0)
                 {
                     _currentShip.Crew = false;
-                    throw new CustomExceptions("Crew died");
+                    return false;
                 }
+
+                return true;
             }
 
+            return false;
+        }
+
+        if (_currentEnvironment.Conditions(_currentShip.ClassOfEngine) ||
+            _currentEnvironment.ExtraConditions(_currentShip.ClassOfEngine))
+        {
             if (_currentDeflector.DefenceTurnOff())
             {
                 if (_currentHull.Defence())
                 {
                     _currentShip.Destroy();
+                    if (!_currentShip.Destroyed)
+                    {
+                        return false;
+                    }
                 }
 
                 _currentHull.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
@@ -82,15 +94,6 @@ public class Route
             _currentDeflector.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
             _currentDeflector.Damage(obstacles2, _currentEnvironment.ClassOfObstacle2);
 
-            if (environment is (int)SelectEnvironment.SuperFog)
-            {
-                _currentJumpEngine.Duration(astronomicUnits);
-                if (_currentJumpEngine.TooFar)
-                {
-                    return false;
-                }
-            }
-
             _currentEngine.Duration(astronomicUnits, _currentShip.Size);
             return true;
         }
@@ -98,25 +101,14 @@ public class Route
         return false;
     }
 
-    private static Environment GetEnvironment(int environment, int obstacles1, int obstacles2, int astronomicUnits)
+    private static Environment GetEnvironment(int environment, int obstacles1, int obstacles2)
     {
         return environment switch
         {
-            (int)SelectEnvironment.SimpleSpace => new SimpleSpace(astronomicUnits, obstacles1, obstacles2),
-            (int)SelectEnvironment.NeutrinoFog => new NeutrinoFog(astronomicUnits, obstacles1),
-            (int)SelectEnvironment.SuperFog => new SuperFog(astronomicUnits, obstacles1),
+            (int)SelectEnvironment.SimpleSpace => new SimpleSpace(obstacles1, obstacles2),
+            (int)SelectEnvironment.NeutrinoFog => new NeutrinoFog(obstacles1),
+            (int)SelectEnvironment.SuperFog => new SuperFog(obstacles1),
             _ => throw new CustomExceptions("No such type of environment"),
-        };
-    }
-
-    private static Deflector GetDeflector(int deflector)
-    {
-        return deflector switch
-        {
-            (int)SelectDeflectors.DeflectorsClassOne => new DeflectorClassOne(),
-            (int)SelectDeflectors.DeflectorsClassTwo => new DeflectorClassTwo(),
-            (int)SelectDeflectors.DeflectorsClassThree => new DeflectorClassThree(),
-            _ => throw new CustomExceptions("No such type of deflector"),
         };
     }
 
@@ -128,6 +120,17 @@ public class Route
             (int)SelectHull.HullClassTwo => new HullClassTwo(),
             (int)SelectHull.HullClassThree => new HullClassThree(),
             _ => throw new CustomExceptions("No such type of hull"),
+        };
+    }
+
+    private Deflector GetDeflector(int deflector)
+    {
+        return deflector switch
+        {
+            (int)SelectDeflectors.DeflectorsClassOne => new DeflectorClassOne(_photon),
+            (int)SelectDeflectors.DeflectorsClassTwo => new DeflectorClassTwo(_photon),
+            (int)SelectDeflectors.DeflectorsClassThree => new DeflectorClassThree(_photon),
+            _ => throw new CustomExceptions("No such type of deflector"),
         };
     }
 
@@ -156,11 +159,11 @@ public class Route
     {
         return ship switch
         {
-            (int)SelectShip.Avgur => new Avgur(_emitter, _photon),
-            (int)SelectShip.Meridian => new Meridian(_emitter, _photon),
-            (int)SelectShip.Stella => new Stella(_emitter, _photon),
-            (int)SelectShip.Vaclas => new Vaclas(_emitter, _photon),
-            (int)SelectShip.WalkingShuttle => new WalkingShuttle(_emitter, _photon),
+            (int)SelectShip.Avgur => new Avgur(_photon),
+            (int)SelectShip.Meridian => new Meridian(_photon),
+            (int)SelectShip.Stella => new Stella(_photon),
+            (int)SelectShip.Vaclas => new Vaclas(_photon),
+            (int)SelectShip.WalkingShuttle => new WalkingShuttle(_photon),
             _ => throw new CustomExceptions("No such type of ship"),
         };
     }

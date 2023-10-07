@@ -4,11 +4,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SimpleSpace : Environment
 {
-    public SimpleSpace(int astronomicUnits, int countOfAsteroids, int countOfMeteorites)
+    public SimpleSpace(int countOfAsteroids, int countOfMeteorites)
     {
         ClassOfObstacle1 = (int)Obstacles.Asteroids;
         ClassOfObstacle2 = (int)Obstacles.Meteorites;
-        LengthOfStep = astronomicUnits;
         CountOfAsteroids = countOfAsteroids;
         CountOfMeteorites = countOfMeteorites;
     }
@@ -16,5 +15,10 @@ public class SimpleSpace : Environment
     public override bool Conditions(int engineType)
     {
         return engineType is (int)SelectEngine.TypeEngineC or (int)SelectEngine.TypeEngineE;
+    }
+
+    public override bool ExtraConditions(int engineJumpType)
+    {
+        return true;
     }
 }

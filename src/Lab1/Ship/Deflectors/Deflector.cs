@@ -2,6 +2,7 @@
 
 public abstract class Deflector
 {
+    public bool PhotonDeflector { get; set; }
     public int PhotonDeflectorDefencePoint { get; set; }
     public bool DestroyedDeflector { get; protected set; }
     public bool Emitter { get; set; }

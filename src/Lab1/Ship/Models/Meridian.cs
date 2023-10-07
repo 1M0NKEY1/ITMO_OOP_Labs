@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Meridian : StarShip
 {
-    private DeflectorClassTwo _deflectorClassTwo = new DeflectorClassTwo();
+    private DeflectorClassTwo _deflectorClassTwo = new DeflectorClassTwo(false);
     private HullClassTwo _hullClassTwo = new HullClassTwo();
 
-    public Meridian(bool emitter, bool photonDeflector)
+    public Meridian(bool photonDeflector)
     {
         Crew = true;
-        Emitter = emitter;
-        PhotonDeflector = photonDeflector;
+        Emitter = true;
+        _deflectorClassTwo.PhotonDeflector = photonDeflector;
         ClassOfDeflectors = (int)SelectDeflectors.DeflectorsClassTwo;
         ClassOfEngine = (int)SelectEngine.TypeEngineE;
         ClassOfHull = (int)SelectHull.HullClassTwo;
@@ -25,6 +25,12 @@ public class Meridian : StarShip
     {
         if (!_deflectorClassTwo.DefenceTurnOff()) return;
         if (!_hullClassTwo.Defence()) return;
+        if (_deflectorClassTwo.PhotonDeflectorDefencePoint < 0)
+        {
+            Crew = false;
+            Destroyed = false;
+        }
+
         Crew = false;
         Destroyed = true;
         throw new CustomExceptions("Meridian destroyed");

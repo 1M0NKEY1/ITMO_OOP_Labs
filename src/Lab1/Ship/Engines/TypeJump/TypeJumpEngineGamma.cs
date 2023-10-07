@@ -15,14 +15,11 @@ public class TypeJumpEngineGamma : TypeEngineJump
             return;
         }
 
-        for (int i = 1; i <= astronomicUnits; i ^= 2)
+        int i = 2;
+        while (i <= astronomicUnits)
         {
-            if (CapacityGravityFuel <= 0)
-            {
-                throw new CustomExceptions("Gravity fuel tank is empty");
-            }
-
             CapacityGravityFuel -= i;
+            i <<= 1;
         }
     }
 }

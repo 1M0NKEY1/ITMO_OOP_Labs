@@ -4,16 +4,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SuperFog : Environment
 {
-    public SuperFog(int astronomicUnits, int countOfFlashes)
+    public SuperFog(int countOfFlashes)
     {
-        AcceptToFly = false;
-        LengthOfStep = astronomicUnits;
         ClassOfObstacle1 = (int)Obstacles.Flashes;
         CountOfFlashes = countOfFlashes;
     }
 
     public override bool Conditions(int engineType)
     {
-        return engineType is (int)SelectJumpEngine.Alpha or (int)SelectJumpEngine.Gamma or (int)SelectJumpEngine.Omega;
+        return false;
+    }
+
+    public override bool ExtraConditions(int engineJumpType)
+    {
+        return engineJumpType is (int)SelectJumpEngine.Alpha or (int)SelectJumpEngine.Gamma
+            or (int)SelectJumpEngine.Omega;
     }
 }
