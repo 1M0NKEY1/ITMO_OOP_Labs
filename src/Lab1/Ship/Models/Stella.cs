@@ -5,19 +5,29 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Stella : StarShip
 {
-    private DeflectorClassOne _deflectorClassOne = new DeflectorClassOne(false);
-    private HullClassOne _hullClassOne = new HullClassOne();
+    private readonly DeflectorClassOne _deflectorClassOne = new(false);
+    private readonly DeflOne _deflOne = new();
+
+    private readonly HullClassOne _hullClassOne = new();
+    private readonly HullOne _hullOne = new();
+
+    private readonly EngineC _engineC = new();
+    private readonly Omega _omega = new();
+
+    private readonly Small _small = new();
 
     public Stella(bool photonDeflector)
     {
         Crew = true;
-        Emitter = false;
+        _deflectorClassOne.Emitter = false;
         _deflectorClassOne.PhotonDeflector = photonDeflector;
-        ClassOfDeflectors = (int)SelectDeflectors.DeflectorsClassOne;
-        ClassOfEngine = (int)SelectEngine.TypeEngineC;
-        ClassOfHull = (int)SelectHull.HullClassOne;
-        Size = (int)SelectSize.Small;
-        ClassOfJumpEngine = (int)SelectJumpEngine.Omega;
+
+        ClassOfDeflectors = _deflOne.GetNumOfDeflector();
+        ClassOfEngine = _engineC.GetNumOfEngine();
+        ClassOfHull = _hullOne.GetNumOfHull();
+        Size = _small.GetNumOfSize();
+        ClassOfJumpEngine = _omega.GetNumOfJumpEngine();
+
         Destroyed = false;
     }
 

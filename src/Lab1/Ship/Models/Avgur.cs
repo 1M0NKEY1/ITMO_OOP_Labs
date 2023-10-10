@@ -5,19 +5,29 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Avgur : StarShip
 {
-    private readonly DeflectorClassThree _deflectorClassThree = new DeflectorClassThree(false);
-    private readonly HullClassThree _hullClassThree = new HullClassThree();
+    private readonly DeflectorClassThree _deflectorClassThree = new(false);
+    private readonly DeflThree _deflThree = new();
+
+    private readonly HullClassThree _hullClassThree = new();
+    private readonly HullThree _hullThree = new();
+
+    private readonly EngineE _engineE = new();
+    private readonly Alpha _alpha = new();
+
+    private readonly Big _big = new();
 
     public Avgur(bool photonDeflector)
     {
         Crew = true;
-        Emitter = false;
+        _deflectorClassThree.Emitter = false;
         _deflectorClassThree.PhotonDeflector = photonDeflector;
-        ClassOfDeflectors = (int)SelectDeflectors.DeflectorsClassThree;
-        ClassOfEngine = (int)SelectEngine.TypeEngineE;
-        ClassOfHull = (int)SelectHull.HullClassThree;
-        Size = (int)SelectSize.Big;
-        ClassOfJumpEngine = (int)SelectJumpEngine.Alpha;
+
+        ClassOfDeflectors = _deflThree.GetNumOfDeflector();
+        ClassOfEngine = _engineE.GetNumOfEngine();
+        ClassOfHull = _hullThree.GetNumOfHull();
+        Size = _big.GetNumOfSize();
+        ClassOfJumpEngine = _alpha.GetNumOfJumpEngine();
+
         Destroyed = false;
     }
 

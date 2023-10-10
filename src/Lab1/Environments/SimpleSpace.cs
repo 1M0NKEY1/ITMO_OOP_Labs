@@ -4,17 +4,23 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SimpleSpace : Environment
 {
+    private readonly Asteroids _asteroids = new();
+    private readonly Meteorites _meteorites = new();
+
+    private readonly EngineC _engineC = new();
+    private readonly EngineE _engineE = new();
+
     public SimpleSpace(int countOfAsteroids, int countOfMeteorites)
     {
-        ClassOfObstacleOne = (int)Obstacles.Asteroids;
-        ClassOfObstacleTwo = (int)Obstacles.Meteorites;
+        ClassOfObstacleOne = _asteroids.GetNumOfObstacle();
+        ClassOfObstacleTwo = _meteorites.GetNumOfObstacle();
         CountOfAsteroids = countOfAsteroids;
         CountOfMeteorites = countOfMeteorites;
     }
 
     public override bool Conditions(int engineType)
     {
-        return engineType is (int)SelectEngine.TypeEngineC or (int)SelectEngine.TypeEngineE;
+        return engineType == _engineC.GetNumOfEngine() || engineType == _engineE.GetNumOfEngine();
     }
 
     public override bool ExtraConditions(int engineJumpType)

@@ -4,6 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
 
 public class TypeEngineC : Engine
 {
+    private readonly Small? _small = new();
+    private readonly Middle? _middle = new();
+    private readonly Big? _big = new();
     public TypeEngineC(int fuel)
     {
         CapacityPlasmFuel = fuel;
@@ -14,19 +17,20 @@ public class TypeEngineC : Engine
         CapacityPlasmFuel = StartEngine();
         for (int i = 1; i <= astronomicUnits; i++)
         {
-            switch (size)
+            if (_small != null && size == _small.GetNumOfSize())
             {
-                case (int)SelectSize.Small:
-                    CapacityPlasmFuel -= i;
-                    break;
-                case (int)SelectSize.Middle:
-                    ++i;
-                    CapacityPlasmFuel -= i;
-                    break;
-                case (int)SelectSize.Big:
-                    ++i; ++i;
-                    CapacityPlasmFuel -= i;
-                    break;
+                CapacityPlasmFuel -= i;
+            }
+            else if (_middle != null && size == _middle.GetNumOfSize())
+            {
+                ++i;
+                CapacityPlasmFuel -= i;
+            }
+            else if (_big != null && size == _big.GetNumOfSize())
+            {
+                ++i;
+                ++i;
+                CapacityPlasmFuel -= i;
             }
         }
 

@@ -4,6 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class HullClassTwo : Hull
 {
+    private readonly Asteroids? _asteroids = new();
+    private readonly Meteorites? _meteorites = new();
+    private readonly SpaceWhales? _spaceWhales = new();
     public HullClassTwo()
     {
         HullDestroyed = false;
@@ -12,20 +15,18 @@ public class HullClassTwo : Hull
 
     public override void Damage(int countOfObstacles, int classOfObstacles)
     {
-        switch (classOfObstacles)
+        if (_asteroids != null && classOfObstacles == _asteroids.GetNumOfObstacle())
         {
-            case (int)Obstacles.Asteroids:
-                HullDefencePoint -= countOfObstacles;
-                break;
-            case (int)Obstacles.Meteorites:
-                HullDefencePoint -= (int)(countOfObstacles * 2.5);
-                break;
-            case (int)Obstacles.SpaceWhales:
-                HullDestroyed = true;
-                HullDefencePoint = 0;
-                break;
-            case (int)Obstacles.Flashes:
-                break;
+            HullDefencePoint -= countOfObstacles;
+        }
+        else if (_meteorites != null && classOfObstacles == _meteorites.GetNumOfObstacle())
+        {
+            HullDefencePoint -= (int)(countOfObstacles * 2.5);
+        }
+        else if (_spaceWhales != null && classOfObstacles == _spaceWhales.GetNumOfObstacle())
+        {
+            HullDestroyed = true;
+            HullDefencePoint = 0;
         }
     }
 }

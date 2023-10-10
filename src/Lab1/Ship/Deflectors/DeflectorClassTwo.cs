@@ -4,6 +4,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
 public class DeflectorClassTwo : Deflector
 {
+    private readonly Asteroids? _asteroids = new();
+    private readonly Meteorites? _meteorites = new();
+    private readonly SpaceWhales? _spaceWhales = new();
+    private readonly Flashes? _flashes = new();
     public DeflectorClassTwo(bool photon)
     {
         DestroyedDeflector = false;
@@ -16,33 +20,33 @@ public class DeflectorClassTwo : Deflector
 
     public override void Damage(int countOfObstacles, int classOfObstacles)
     {
-        switch (classOfObstacles)
+        if (_asteroids != null && _asteroids.GetNumOfObstacle() == classOfObstacles)
         {
-            case (int)Obstacles.Asteroids:
-                DeflectorDefencePoint -= countOfObstacles;
-                break;
-            case (int)Obstacles.Meteorites:
-                if (countOfObstacles >= 3)
-                {
-                    DeflectorDefencePoint = 0;
-                    DestroyedDeflector = true;
-                    break;
-                }
-
-                DeflectorDefencePoint -= (int)(3.33 * countOfObstacles);
-                break;
-            case (int)Obstacles.SpaceWhales:
-                if (Emitter)
-                {
-                    break;
-                }
-
-                DestroyedDeflector = true;
+            DeflectorDefencePoint -= countOfObstacles;
+        }
+        else if (_meteorites != null && _meteorites.GetNumOfObstacle() == classOfObstacles)
+        {
+            if (countOfObstacles >= 3)
+            {
                 DeflectorDefencePoint = 0;
-                break;
-            case (int)Obstacles.Flashes:
-                PhotonDeflectorDefencePoint -= countOfObstacles;
-                break;
+                DestroyedDeflector = true;
+            }
+
+            DeflectorDefencePoint -= (int)(3.33 * countOfObstacles);
+        }
+        else if (_spaceWhales != null && _spaceWhales.GetNumOfObstacle() == classOfObstacles)
+        {
+            if (Emitter)
+            {
+                return;
+            }
+
+            DestroyedDeflector = true;
+            DeflectorDefencePoint = 0;
+        }
+        else if (_flashes != null && _flashes.GetNumOfObstacle() == classOfObstacles)
+        {
+            PhotonDeflectorDefencePoint -= countOfObstacles;
         }
     }
 }

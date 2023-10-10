@@ -5,19 +5,29 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Vaclas : StarShip
 {
-    private DeflectorClassOne _deflectorClassOne = new DeflectorClassOne(false);
-    private HullClassOne _hullClassOne = new HullClassOne();
+    private readonly DeflectorClassOne _deflectorClassOne = new(false);
+    private readonly DeflOne _deflOne = new();
+
+    private readonly HullClassOne _hullClassOne = new();
+    private readonly HullTwo _hullTwo = new();
+
+    private readonly EngineE _engineE = new();
+    private readonly Gamma _gamma = new();
+
+    private readonly Middle _middle = new();
 
     public Vaclas(bool photonDeflector)
     {
         Crew = true;
-        Emitter = false;
+        _deflectorClassOne.Emitter = false;
         _deflectorClassOne.PhotonDeflector = photonDeflector;
-        ClassOfDeflectors = (int)SelectDeflectors.DeflectorsClassOne;
-        ClassOfEngine = (int)SelectEngine.TypeEngineE;
-        ClassOfHull = (int)SelectHull.HullClassTwo;
-        Size = (int)SelectSize.Middle;
-        ClassOfJumpEngine = (int)SelectJumpEngine.Gamma;
+
+        ClassOfDeflectors = _deflOne.GetNumOfDeflector();
+        ClassOfEngine = _engineE.GetNumOfEngine();
+        ClassOfHull = _hullTwo.GetNumOfHull();
+        Size = _middle.GetNumOfSize();
+        ClassOfJumpEngine = _gamma.GetNumOfJumpEngine();
+
         Destroyed = false;
     }
 

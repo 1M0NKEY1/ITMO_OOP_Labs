@@ -9,7 +9,5 @@ public abstract class StarShip
     public int ClassOfJumpEngine { get; protected init; }
     public int Size { get; protected init; }
     public bool Destroyed { get; set; }
-    public bool Emitter { get; set; }
-    public bool PhotonDeflector { get; set; }
     public abstract void Destroy();
 }

@@ -4,17 +4,21 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class WalkingShuttle : StarShip
 {
-    private HullClassOne _hullClassOne = new HullClassOne();
+    private readonly HullClassOne _hullClassOne = new();
+    private readonly HullOne _hullOne = new();
 
-    public WalkingShuttle(bool photonDeflector)
+    private readonly EngineC _engineC = new();
+
+    private readonly Small _small = new();
+
+    public WalkingShuttle()
     {
         Crew = true;
-        Emitter = false;
-        PhotonDeflector = photonDeflector;
         ClassOfDeflectors = 0;
-        ClassOfEngine = (int)SelectEngine.TypeEngineC;
-        ClassOfHull = (int)SelectHull.HullClassOne;
-        Size = (int)SelectSize.Small;
+        ClassOfEngine = _engineC.GetNumOfEngine();
+        ClassOfHull = _hullOne.GetNumOfHull();
+        Size = _small.GetNumOfSize();
+
         Destroyed = false;
     }
 

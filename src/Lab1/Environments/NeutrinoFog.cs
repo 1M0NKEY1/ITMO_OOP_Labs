@@ -1,17 +1,23 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class NeutrinoFog : Environment
 {
-    public NeutrinoFog(int countsOfSpaceWhales)
+    private readonly SpaceWhales _spaceWhales = new();
+
+    private readonly EngineE _engineE = new();
+
+    public NeutrinoFog(int countOfSpaceWhales)
     {
-        CountsOfSpaceWhales = countsOfSpaceWhales;
+        ClassOfObstacleOne = _spaceWhales.GetNumOfObstacle();
+        CountOfSpaceWhales = countOfSpaceWhales;
     }
 
     public override bool Conditions(int engineType)
     {
-        return engineType == (int)SelectEngine.TypeEngineE;
+        return engineType == _engineE.GetNumOfEngine();
     }
 
     public override bool ExtraConditions(int engineJumpType)
