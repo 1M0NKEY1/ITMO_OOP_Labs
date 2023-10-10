@@ -2,8 +2,8 @@
 
 public abstract class Environment
 {
-    public int ClassOfObstacle1 { get; protected init; }
-    public int ClassOfObstacle2 { get; protected init; }
+    public int ClassOfObstacleOne { get; protected init; }
+    public int ClassOfObstacleTwo { get; protected init; }
     protected int CountOfAsteroids { get; set; }
     protected int CountOfMeteorites { get; set; }
     protected int CountsOfSpaceWhales { get; set; }

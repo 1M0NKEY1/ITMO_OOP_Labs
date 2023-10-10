@@ -32,8 +32,6 @@ public class TypeEngineE : Engine
                     ++i; ++i;
                     CapacityPlasmFuel -= i;
                     break;
-                default:
-                    throw new CustomExceptions("No such type of size");
             }
         }
 

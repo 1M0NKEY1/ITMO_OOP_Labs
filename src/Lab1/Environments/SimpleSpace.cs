@@ -6,8 +6,8 @@ public class SimpleSpace : Environment
 {
     public SimpleSpace(int countOfAsteroids, int countOfMeteorites)
     {
-        ClassOfObstacle1 = (int)Obstacles.Asteroids;
-        ClassOfObstacle2 = (int)Obstacles.Meteorites;
+        ClassOfObstacleOne = (int)Obstacles.Asteroids;
+        ClassOfObstacleTwo = (int)Obstacles.Meteorites;
         CountOfAsteroids = countOfAsteroids;
         CountOfMeteorites = countOfMeteorites;
     }

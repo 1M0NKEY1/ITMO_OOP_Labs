@@ -6,7 +6,7 @@ public class SuperFog : Environment
 {
     public SuperFog(int countOfFlashes)
     {
-        ClassOfObstacle1 = (int)Obstacles.Flashes;
+        ClassOfObstacleOne = (int)Obstacles.Flashes;
         CountOfFlashes = countOfFlashes;
     }
 

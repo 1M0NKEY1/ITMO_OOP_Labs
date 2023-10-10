@@ -43,8 +43,6 @@ public class DeflectorClassTwo : Deflector
             case (int)Obstacles.Flashes:
                 PhotonDeflectorDefencePoint -= countOfObstacles;
                 break;
-            default:
-                throw new CustomExceptions("No such class of deflectors");
         }
     }
 }

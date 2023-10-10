@@ -25,8 +25,6 @@ public class HullClassThree : Hull
                 break;
             case (int)Obstacles.Flashes:
                 break;
-            default:
-                throw new CustomExceptions("No such class of obstacle");
         }
     }
 }

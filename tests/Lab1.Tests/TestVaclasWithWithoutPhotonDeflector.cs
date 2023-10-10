@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestThree
+public class TestVaclasWithWithoutPhotonDeflector
 {
     public static bool IsFinishedRoute(int ship)
     {

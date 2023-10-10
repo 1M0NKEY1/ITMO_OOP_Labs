@@ -10,9 +10,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Routes;
 
 public class Route
 {
+    private static int _gravityFuel;
+    private static int _plasmFuel;
     private readonly bool _photon;
-    private readonly MiningBuild _extractedPlasmFuel = new MiningBuild();
-    private readonly MiningBuild _extractedGravityFuel = new MiningBuild();
+    private readonly ExtractedPlasmFuel _extractedPlasmFuel = new ExtractedPlasmFuel(_gravityFuel);
+    private readonly ExtractedGravityFuel _extractedGravityFuel = new ExtractedGravityFuel(_plasmFuel);
 
     private readonly FuelExchange _fuelExchange = new FuelExchange();
 
@@ -26,8 +28,8 @@ public class Route
     public Route(bool photon, int plasmFuel, int gravityFuel)
     {
         _photon = photon;
-        _extractedPlasmFuel.ExtractedPlasmFuel = plasmFuel;
-        _extractedGravityFuel.ExtractedGravityFuel = gravityFuel;
+        _gravityFuel = gravityFuel;
+        _plasmFuel = plasmFuel;
     }
 
     public int CostOfStep(int environment, int astronomicUnits)
@@ -87,12 +89,12 @@ public class Route
                     }
                 }
 
-                _currentHull.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
-                _currentHull.Damage(obstacles2, _currentEnvironment.ClassOfObstacle2);
+                _currentHull.Damage(obstacles1, _currentEnvironment.ClassOfObstacleOne);
+                _currentHull.Damage(obstacles2, _currentEnvironment.ClassOfObstacleTwo);
             }
 
-            _currentDeflector.Damage(obstacles1, _currentEnvironment.ClassOfObstacle1);
-            _currentDeflector.Damage(obstacles2, _currentEnvironment.ClassOfObstacle2);
+            _currentDeflector.Damage(obstacles1, _currentEnvironment.ClassOfObstacleOne);
+            _currentDeflector.Damage(obstacles2, _currentEnvironment.ClassOfObstacleTwo);
 
             _currentEngine.Duration(astronomicUnits, _currentShip.Size);
             return true;

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestTwo
+public class TestSpaceWhaleVaclasAvgurMeridian
 {
     public static bool IsFinishedRoute(int ship)
     {
