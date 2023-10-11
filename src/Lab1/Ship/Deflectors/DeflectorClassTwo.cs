@@ -8,8 +8,9 @@ public class DeflectorClassTwo : Deflector
     private readonly Meteorites? _meteorites = new();
     private readonly SpaceWhales? _spaceWhales = new();
     private readonly Flashes? _flashes = new();
-    public DeflectorClassTwo(bool photon)
+    public DeflectorClassTwo(bool photon, bool emitter)
     {
+        Emitter = emitter;
         DestroyedDeflector = false;
         DeflectorDefencePoint = 10;
         if (photon)
@@ -28,7 +29,7 @@ public class DeflectorClassTwo : Deflector
         {
             if (countOfObstacles >= 3)
             {
-                DeflectorDefencePoint = 0;
+                DeflectorDefencePoint = -1;
                 DestroyedDeflector = true;
             }
 

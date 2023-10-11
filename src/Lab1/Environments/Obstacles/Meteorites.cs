@@ -6,7 +6,7 @@ public class Meteorites : Obstacles
 
     public override void SetNumOfObstacle()
     {
-        Meteorite = 1;
+        Meteorite = 2;
     }
 
     public override int GetNumOfObstacle()

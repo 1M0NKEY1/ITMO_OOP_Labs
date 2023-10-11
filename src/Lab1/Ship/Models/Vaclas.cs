@@ -16,11 +16,9 @@ public class Vaclas : StarShip
 
     private readonly Middle _middle = new();
 
-    public Vaclas(bool photonDeflector)
+    public Vaclas()
     {
         Crew = true;
-        _deflectorClassOne.Emitter = false;
-        _deflectorClassOne.PhotonDeflector = photonDeflector;
 
         ClassOfDeflectors = _deflOne.GetNumOfDeflector();
         ClassOfEngine = _engineE.GetNumOfEngine();

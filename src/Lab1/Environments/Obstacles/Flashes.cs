@@ -6,7 +6,7 @@ public class Flashes : Obstacles
 
     public override void SetNumOfObstacle()
     {
-        Flash = 3;
+        Flash = 4;
     }
 
     public override int GetNumOfObstacle()

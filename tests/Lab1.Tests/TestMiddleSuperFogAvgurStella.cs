@@ -3,20 +3,20 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestAvgurWalkingShuttleMiddleSuperFog
+public class TestMiddleSuperFogAvgurStella
 {
     private static readonly NumOfSuperFog _numOfSuperFog = new();
     public static bool IsFinishedRoute(int ship)
     {
-        var route = new Route(false, 300, 300);
+        var route = new Route(true, 10000, 300);
         return route.Step(ship, _numOfSuperFog.GetNumOfEnvironment(), 0, 0, 300);
     }
 
     [Theory]
-    [InlineData(1, 5)]
-    public void AllNumbersAreOddWithInlineData(int walkingShuttle, int avgur)
+    [InlineData(5, 4)]
+    public void AllNumbersAreOddWithInlineData(int avgur, int stella)
     {
-        Assert.False(IsFinishedRoute(walkingShuttle));
         Assert.False(IsFinishedRoute(avgur));
+        Assert.True(IsFinishedRoute(stella));
     }
 }

@@ -16,11 +16,9 @@ public class Avgur : StarShip
 
     private readonly Big _big = new();
 
-    public Avgur(bool photonDeflector)
+    public Avgur()
     {
         Crew = true;
-        _deflectorClassThree.Emitter = false;
-        _deflectorClassThree.PhotonDeflector = photonDeflector;
 
         ClassOfDeflectors = _deflThree.GetNumOfDeflector();
         ClassOfEngine = _engineE.GetNumOfEngine();

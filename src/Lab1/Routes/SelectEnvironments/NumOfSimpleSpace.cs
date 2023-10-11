@@ -1,17 +1,17 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Routes;
 
-public class NFog : SelectEnvironment
+public class NumOfSimpleSpace : SelectEnvironment
 {
-    private int NeutFog { get; set; }
+    private int Space { get; set; }
 
     public override void SetNumOfEnvironment()
     {
-        NeutFog = 3;
+        Space = 1;
     }
 
     public override int GetNumOfEnvironment()
     {
         SetNumOfEnvironment();
-        return NeutFog;
+        return Space;
     }
 }

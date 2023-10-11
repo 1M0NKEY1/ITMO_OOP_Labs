@@ -16,11 +16,9 @@ public class Stella : StarShip
 
     private readonly Small _small = new();
 
-    public Stella(bool photonDeflector)
+    public Stella()
     {
         Crew = true;
-        _deflectorClassOne.Emitter = false;
-        _deflectorClassOne.PhotonDeflector = photonDeflector;
 
         ClassOfDeflectors = _deflOne.GetNumOfDeflector();
         ClassOfEngine = _engineC.GetNumOfEngine();

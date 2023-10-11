@@ -12,15 +12,14 @@ public class Route
 {
     private static int _gravityFuel;
     private static int _plasmFuel;
+
     private readonly bool _photon;
-    private readonly ExtractedPlasmFuel _extractedPlasmFuel = new(_gravityFuel);
-    private readonly ExtractedGravityFuel _extractedGravityFuel = new(_plasmFuel);
 
     private readonly FuelExchange _fuelExchange = new();
 
-    private readonly NFog _nFog = new();
-    private readonly SFog _sFog = new();
-    private readonly SSpace _sSpace = new();
+    private readonly NumOfNeutrinoFog _numOfNeutrinoFog = new();
+    private readonly NumOfSuperFog _numOfSuperFog = new();
+    private readonly NumOfSimpleSpace _numOfSimpleSpace = new();
 
     private readonly Flashes _flashes = new();
 
@@ -59,216 +58,231 @@ public class Route
         _plasmFuel = plasmFuel;
     }
 
-    public int CostOfStep(int environment, int astronomicUnits)
+    public int CostOfStep(int environment, int astronomicUnits, int ship)
     {
-        if (environment == _sSpace.GetNumOfEnvironment())
+        _currentShip = GetShip(ship);
+        if (_currentShip != null)
         {
-            return _fuelExchange.ExchangeCostOfPlasmFuel(astronomicUnits);
+            _currentEngine = GetEngine(_currentShip.ClassOfEngine);
+            _currentJumpEngine = GetJumpEngine(_currentShip.ClassOfJumpEngine);
+            if (_currentEngine != null)
+            {
+                int size = _currentShip.Size;
+
+                if (environment == _numOfSimpleSpace.GetNumOfEnvironment())
+                {
+                    return (_plasmFuel - _currentEngine.Duration(astronomicUnits, size)) * _fuelExchange.ExchangeCostOfPlasmFuel(astronomicUnits);
+                }
+
+                if (environment == _numOfNeutrinoFog.GetNumOfEnvironment())
+                {
+                    return (_plasmFuel - _currentEngine.Duration(astronomicUnits, size)) * _fuelExchange.ExchangeCostOfPlasmFuel(astronomicUnits);
+                }
+
+                if (environment == _numOfSuperFog.GetNumOfEnvironment())
+                {
+                    return _fuelExchange.ExchangeCostOfGravityFuel(astronomicUnits);
+                }
+            }
         }
-        else if (environment == _nFog.GetNumOfEnvironment())
-        {
-            return _fuelExchange.ExchangeCostOfPlasmFuel(astronomicUnits);
-        }
-        else if (environment == _sFog.GetNumOfEnvironment())
-        {
-            return _fuelExchange.ExchangeCostOfGravityFuel(astronomicUnits);
-        }
-        else
-        {
-            throw new CustomExceptions("No such type of environment");
-        }
+
+        throw new CustomExceptions("something happened");
     }
 
     public bool Step(int ship, int environment, int obstaclesOne, int obstaclesTwo, int astronomicUnits)
     {
         _currentShip = GetShip(ship);
         _currentEnvironment = GetEnvironment(environment, obstaclesOne, obstaclesTwo);
-        _currentDeflector = GetDeflector(_currentShip.ClassOfDeflectors);
-        _currentHull = GetHull(_currentShip.ClassOfHull);
-        _currentEngine = GetEngine(_currentShip.ClassOfEngine);
-        _currentJumpEngine = GetJumpEngine(_currentShip.ClassOfJumpEngine);
-
-        if (environment == _sFog.GetNumOfEnvironment())
+        if (_currentShip != null)
         {
-            if (_currentEnvironment.ExtraConditions(_currentShip.ClassOfJumpEngine))
+            _currentDeflector = GetDeflector(_currentShip.ClassOfDeflectors);
+            _currentHull = GetHull(_currentShip.ClassOfHull);
+            _currentEngine = GetEngine(_currentShip.ClassOfEngine);
+            _currentJumpEngine = GetJumpEngine(_currentShip.ClassOfJumpEngine);
+
+            if (environment == _numOfSuperFog.GetNumOfEnvironment())
             {
-                if (_photon)
+                if (_currentEnvironment != null && _currentEnvironment.ExtraConditions(_currentShip.ClassOfJumpEngine))
                 {
-                    _currentJumpEngine.Duration(astronomicUnits);
-                    if (_currentJumpEngine.TooFar)
+                    if (_photon)
                     {
-                        return false;
-                    }
-
-                    _currentDeflector.Damage(obstaclesOne, _flashes.GetNumOfObstacle());
-                    if (_currentDeflector.PhotonDeflectorDefencePoint < 0)
-                    {
-                        _currentShip.Crew = false;
-                        return false;
-                    }
-
-                    return true;
-                }
-
-                return false;
-            }
-        }
-        else
-        {
-            if (_currentEnvironment.Conditions(_currentShip.ClassOfEngine))
-            {
-                if (!_currentDeflector.DefenceTurnOff())
-                {
-                    if (_currentHull.Defence())
-                    {
-                        _currentShip.Destroy();
-                        if (_currentShip.Destroyed)
+                        _currentJumpEngine?.Duration(astronomicUnits);
+                        if (_currentJumpEngine is { TooFar: true })
                         {
                             return false;
                         }
+
+                        _currentDeflector?.Damage(obstaclesOne, _flashes.GetNumOfObstacle());
+                        if (_currentDeflector is { PhotonDeflectorDefencePoint: < 0 })
+                        {
+                            _currentShip.Crew = false;
+                            return false;
+                        }
+
+                        return true;
                     }
 
-                    _currentHull.Damage(obstaclesOne, _currentEnvironment.ClassOfObstacleOne);
-                    _currentHull.Damage(obstaclesTwo, _currentEnvironment.ClassOfObstacleTwo);
-                }
-
-                _currentDeflector.Damage(obstaclesOne, _currentEnvironment.ClassOfObstacleOne);
-                _currentDeflector.Damage(obstaclesTwo, _currentEnvironment.ClassOfObstacleTwo);
-
-                if (_currentDeflector.DefenceTurnOff())
-                {
                     return false;
                 }
+            }
+            else
+            {
+                if (_currentEnvironment != null && _currentEnvironment.Conditions(_currentShip.ClassOfEngine))
+                {
+                    if (_currentDeflector != null && _currentDeflector.DefenceTurnOff())
+                    {
+                        if (_currentHull != null && _currentHull.Defence())
+                        {
+                            _currentShip.Destroy();
+                            if (_currentShip.Destroyed)
+                            {
+                                return false;
+                            }
+                        }
 
-                _currentEngine.Duration(astronomicUnits, _currentShip.Size);
-                return true;
+                        _currentHull?.Damage(obstaclesOne, _currentEnvironment.ClassOfObstacleOne);
+                        _currentHull?.Damage(obstaclesTwo, _currentEnvironment.ClassOfObstacleTwo);
+                    }
+
+                    _currentDeflector?.Damage(obstaclesOne, _currentEnvironment.ClassOfObstacleOne);
+                    _currentDeflector?.Damage(obstaclesTwo, _currentEnvironment.ClassOfObstacleTwo);
+
+                    if (_currentDeflector != null && _currentDeflector.DefenceTurnOff())
+                    {
+                        return false;
+                    }
+
+                    _currentEngine?.Duration(astronomicUnits, _currentShip.Size);
+                    return true;
+                }
             }
         }
 
         return false;
     }
 
-    private Environment GetEnvironment(int environment, int obstacles1, int obstacles2)
+    private Environment? GetEnvironment(int environment, int obstacles1, int obstacles2)
     {
-        if (environment == _sSpace.GetNumOfEnvironment())
+        if (environment == _numOfSimpleSpace.GetNumOfEnvironment())
         {
             return new SimpleSpace(obstacles1, obstacles2);
         }
-        else if (environment == _nFog.GetNumOfEnvironment())
+
+        if (environment == _numOfNeutrinoFog.GetNumOfEnvironment())
         {
             return new NeutrinoFog(obstacles1);
         }
-        else if (environment == _sFog.GetNumOfEnvironment())
+
+        if (environment == _numOfSuperFog.GetNumOfEnvironment())
         {
             return new SuperFog(obstacles1);
         }
-        else
-        {
-            throw new CustomExceptions("No such type of environment");
-        }
+
+        return null;
     }
 
-    private Hull GetHull(int hull)
+    private Hull? GetHull(int hull)
     {
         if (hull == _hullOne.GetNumOfHull())
         {
             return new HullClassOne();
         }
-        else if (hull == _hullTwo.GetNumOfHull())
+
+        if (hull == _hullTwo.GetNumOfHull())
         {
             return new HullClassTwo();
         }
-        else if (hull == _hullThree.GetNumOfHull())
+
+        if (hull == _hullThree.GetNumOfHull())
         {
             return new HullClassThree();
         }
-        else
-        {
-            throw new CustomExceptions("No such type of hull");
-        }
+
+        return null;
     }
 
-    private Deflector GetDeflector(int deflector)
+    private Deflector? GetDeflector(int deflector)
     {
         if (deflector == _deflOne.GetNumOfDeflector())
         {
             return new DeflectorClassOne(_photon);
         }
-        else if (deflector == _deflTwo.GetNumOfDeflector())
+
+        if (deflector == _deflTwo.GetNumOfDeflector())
         {
-            return new DeflectorClassTwo(_photon);
+            return new DeflectorClassTwo(_photon, true);
         }
-        else if (deflector == _deflThree.GetNumOfDeflector())
+
+        if (deflector == _deflThree.GetNumOfDeflector())
         {
             return new DeflectorClassThree(_photon);
         }
-        else
-        {
-            throw new CustomExceptions("No such type of deflector");
-        }
+
+        return null;
     }
 
-    private Engine GetEngine(int engine)
+    private Engine? GetEngine(int engine)
     {
         if (engine == _engineC.GetNumOfEngine())
         {
-            return new TypeEngineC(_extractedPlasmFuel.ExtractedPlasmFuel);
+            return new TypeEngineC(_plasmFuel);
         }
-        else if (engine == _engineE.GetNumOfEngine())
+
+        if (engine == _engineE.GetNumOfEngine())
         {
-            return new TypeEngineE(_extractedPlasmFuel.ExtractedPlasmFuel);
+            return new TypeEngineE(_plasmFuel);
         }
-        else
-        {
-            throw new CustomExceptions("No such type of engine");
-        }
+
+        return null;
     }
 
-    private TypeEngineJump GetJumpEngine(int jumpEngine)
+    private TypeEngineJump? GetJumpEngine(int jumpEngine)
     {
         if (jumpEngine == _alpha.GetNumOfJumpEngine())
         {
-            return new TypeJumpEngineAlpha(_extractedGravityFuel.ExtractedGravityFuel);
+            return new TypeJumpEngineAlpha(_gravityFuel);
         }
-        else if (jumpEngine == _omega.GetNumOfJumpEngine())
+
+        if (jumpEngine == _omega.GetNumOfJumpEngine())
         {
-            return new TypeJumpEngineOmega(_extractedGravityFuel.ExtractedGravityFuel);
+            return new TypeJumpEngineOmega(_gravityFuel);
         }
-        else if (jumpEngine == _gamma.GetNumOfJumpEngine())
+
+        if (jumpEngine == _gamma.GetNumOfJumpEngine())
         {
-            return new TypeJumpEngineGamma(_extractedGravityFuel.ExtractedGravityFuel);
+            return new TypeJumpEngineGamma(_gravityFuel);
         }
-        else
-        {
-            throw new CustomExceptions("No such type of jump engine");
-        }
+
+        return null;
     }
 
-    private StarShip GetShip(int ship)
+    private StarShip? GetShip(int ship)
     {
         if (ship == _shipAvgur.GetNumOfShip())
         {
-            return new Avgur(_photon);
+            return new Avgur();
         }
-        else if (ship == _shipStella.GetNumOfShip())
+
+        if (ship == _shipStella.GetNumOfShip())
         {
-            return new Stella(_photon);
+            return new Stella();
         }
-        else if (ship == _shipMeridian.GetNumOfShip())
+
+        if (ship == _shipMeridian.GetNumOfShip())
         {
-            return new Meridian(_photon);
+            return new Meridian();
         }
-        else if (ship == _shipVaclas.GetNumOfShip())
+
+        if (ship == _shipVaclas.GetNumOfShip())
         {
-            return new Vaclas(_photon);
+            return new Vaclas();
         }
-        else if (ship == _shipWalkingShuttle.GetNumOfShip())
+
+        if (ship == _shipWalkingShuttle.GetNumOfShip())
         {
             return new WalkingShuttle();
         }
-        else
-        {
-            throw new CustomExceptions("No such type of ship");
-        }
+
+        return null;
     }
 }

@@ -30,11 +30,6 @@ public class DeflectorClassThree : Deflector
         }
         else if (_spaceWhales != null && _spaceWhales.GetNumOfObstacle() == classOfObstacles)
         {
-            if (Emitter)
-            {
-                return;
-            }
-
             DeflectorDefencePoint -= countOfObstacles;
         }
         else if (_flashes != null && _flashes.GetNumOfObstacle() == classOfObstacles)

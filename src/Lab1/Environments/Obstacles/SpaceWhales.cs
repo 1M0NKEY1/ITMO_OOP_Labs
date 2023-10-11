@@ -6,7 +6,7 @@ public class SpaceWhales : Obstacles
 
     public override void SetNumOfObstacle()
     {
-        SpaceWhale = 2;
+        SpaceWhale = 3;
     }
 
     public override int GetNumOfObstacle()

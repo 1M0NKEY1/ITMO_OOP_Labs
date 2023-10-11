@@ -5,6 +5,8 @@ public class FuelExchange : MiningBuild
     private const int _rateForPlasm = 10;
     private const int _rateForGravity = 15;
 
+    private const int Extracted = 1000;
+
     public int ExchangeCostOfPlasmFuel(int astronomicUnits)
     {
         return astronomicUnits * PriceOfPlasmFuel();
@@ -17,6 +19,7 @@ public class FuelExchange : MiningBuild
 
     private int PriceOfPlasmFuel()
     {
+        ExtractedPlasmFuel = Extracted;
         int price = ExtractedPlasmFuel * _rateForPlasm;
 
         return price;
@@ -24,6 +27,7 @@ public class FuelExchange : MiningBuild
 
     private int PriceOfGravityFuel()
     {
+        ExtractedGravityFuel = Extracted;
         int price = ExtractedGravityFuel * _rateForGravity;
 
         return price;

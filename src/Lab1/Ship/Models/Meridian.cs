@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Meridian : StarShip
 {
-    private readonly DeflectorClassTwo _deflectorClassTwo = new(false);
+    private readonly DeflectorClassTwo _deflectorClassTwo = new(false, true);
     private readonly DeflTwo _deflTwo = new();
 
     private readonly HullClassTwo _hullClassTwo = new();
@@ -15,11 +15,9 @@ public class Meridian : StarShip
 
     private readonly Middle _middle = new();
 
-    public Meridian(bool photonDeflector)
+    public Meridian()
     {
         Crew = true;
-        _deflectorClassTwo.Emitter = true;
-        _deflectorClassTwo.PhotonDeflector = photonDeflector;
 
         ClassOfDeflectors = _deflTwo.GetNumOfDeflector();
         ClassOfEngine = _engineE.GetNumOfEngine();

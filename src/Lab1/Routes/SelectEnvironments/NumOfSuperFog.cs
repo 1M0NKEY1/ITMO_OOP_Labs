@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Routes;
 
-public class SFog : SelectEnvironment
+public class NumOfSuperFog : SelectEnvironment
 {
     private int Fog { get; set; }
 

@@ -8,6 +8,6 @@ public abstract class StarShip
     public int ClassOfEngine { get; protected init; }
     public int ClassOfJumpEngine { get; protected init; }
     public int Size { get; protected init; }
-    public bool Destroyed { get; set; }
+    public bool Destroyed { get; protected set; }
     public abstract void Destroy();
 }

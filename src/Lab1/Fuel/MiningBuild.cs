@@ -2,6 +2,6 @@
 
 public class MiningBuild
 {
-    public int ExtractedPlasmFuel { get; protected set; }
-    public int ExtractedGravityFuel { get; protected set; }
+    protected int ExtractedPlasmFuel { get; set; }
+    protected int ExtractedGravityFuel { get; set; }
 }

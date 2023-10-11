@@ -20,23 +20,18 @@ public class DeflectorClassOne : Deflector
 
     public override void Damage(int countOfObstacles, int classOfObstacles)
     {
-        if (_asteroids != null && _asteroids.GetNumOfObstacle() == classOfObstacles)
+        if (_asteroids != null && classOfObstacles == _asteroids.GetNumOfObstacle())
         {
             DeflectorDefencePoint -= countOfObstacles;
         }
-        else if (_meteorites != null && _meteorites.GetNumOfObstacle() == classOfObstacles)
+        else if (_meteorites != null && classOfObstacles == _meteorites.GetNumOfObstacle())
         {
             DeflectorDefencePoint -= 2 * countOfObstacles;
         }
-        else if (_spaceWhales != null && _spaceWhales.GetNumOfObstacle() == classOfObstacles)
+        else if (_spaceWhales != null && classOfObstacles == _spaceWhales.GetNumOfObstacle())
         {
-            if (Emitter)
-            {
-                return;
-            }
-
             DestroyedDeflector = true;
-            DeflectorDefencePoint = 0;
+            DeflectorDefencePoint = -1;
         }
         else if (_flashes != null && _flashes.GetNumOfObstacle() == classOfObstacles)
         {

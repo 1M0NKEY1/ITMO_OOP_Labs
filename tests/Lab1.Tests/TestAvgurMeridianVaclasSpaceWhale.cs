@@ -5,15 +5,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 public class TestAvgurMeridianVaclasSpaceWhale
 {
-    private readonly NFog _nFog = new();
-
-    private readonly ShipAvgur _shipAvgur = new();
-    private readonly ShipMeridian _shipMeridian = new();
-    private readonly ShipVaclas _shipVaclas = new();
-    public bool IsFinishedRoute(int ship)
+    private static readonly NumOfNeutrinoFog _numOfNeutrinoFog = new();
+    public static bool IsFinishedRoute(int ship)
     {
         var route = new Route(true, 300, 300);
-        if (route.Step(ship, _nFog.GetNumOfEnvironment(), 1, 0, 300))
+        if (route.Step(ship, _numOfNeutrinoFog.GetNumOfEnvironment(), 1, 0, 300))
         {
             return true;
         }
@@ -22,7 +18,7 @@ public class TestAvgurMeridianVaclasSpaceWhale
     }
 
     [Theory]
-    [InlineData(_ship, (int)SelectShip.Avgur, (int)SelectShip.Meridian)]
+    [InlineData(2, 5, 3)]
     public void AllNumbersAreOddWithInlineData(int vaclas, int avgur, int meridian)
     {
         Assert.False(IsFinishedRoute(vaclas));

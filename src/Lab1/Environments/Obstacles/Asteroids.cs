@@ -6,7 +6,7 @@ public class Asteroids : Obstacles
 
     public override void SetNumOfObstacle()
     {
-        Asteroid = 0;
+        Asteroid = 1;
     }
 
     public override int GetNumOfObstacle()
