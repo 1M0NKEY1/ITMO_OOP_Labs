@@ -9,7 +9,7 @@ public class Meridian : StarShip
     private static int _fuel;
     private readonly Deflector _deflectorClassTwo = new DeflectorClassTwo(true);
     private readonly Hull _hullClassTwo = new HullClassTwo();
-    private readonly Engine _engineE = new TypeEngineC(_fuel);
+    private readonly Engine _engineE = new TypeEngineE(_fuel);
     private readonly ShipSize _middle = new Middle();
 
     public Meridian(int plasmFuel)

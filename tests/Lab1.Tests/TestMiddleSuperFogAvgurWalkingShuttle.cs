@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
+public class TestMiddleSuperFogAvgurWalkingShuttle : IEnumerable<object[]>
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -18,7 +18,7 @@ public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
     {
         get
         {
-            yield return new object[] { new Avgur(PlasmFuel, GravityFuel), new Stella(PlasmFuel, GravityFuel) };
+            yield return new object[] { new WalkingShuttle(PlasmFuel), new Avgur(PlasmFuel, GravityFuel) };
         }
     }
 
@@ -44,10 +44,10 @@ public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestMiddleSuperFogAvgurStella))]
-    public void AllObjectsAreOddWithMemberDataFromDataGenerator(Avgur avgur, Stella stella)
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestMiddleSuperFogAvgurWalkingShuttle))]
+    public void AllObjectsAreOddWithMemberDataFromDataGenerator(WalkingShuttle walkingShuttle, Avgur avgur)
     {
+        Assert.False(IsFinishedStep(walkingShuttle));
         Assert.False(IsFinishedStep(avgur));
-        Assert.True(IsFinishedStep(stella));
     }
 }

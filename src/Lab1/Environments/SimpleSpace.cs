@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SimpleSpace : Environment
 {
-    private readonly IList<object> _obstacles = new List<object>();
+    private readonly IList<Obstacles> _obstacles = new List<Obstacles>();
 
     public SimpleSpace(IList<Obstacles> classOfObstacle)
     {
@@ -23,7 +23,7 @@ public class SimpleSpace : Environment
     {
         if (ship == null) return false;
 
-        if (ship.ClassOfEngine is not TypeEngineC or TypeEngineE) return false;
+        if (ship.ClassOfEngine is not (TypeEngineC or TypeEngineE)) return false;
 
         if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff())
         {
@@ -32,11 +32,17 @@ public class SimpleSpace : Environment
                 ship.Destroy();
                 if (ship.Destroyed) return false;
 
-                ship.ClassOfHull?.Damage(_obstacles.Count, _obstacles);
+                for (int i = 0; i < _obstacles.Count; i++)
+                {
+                    ship.ClassOfHull?.Damage(_obstacles.Count, _obstacles, i);
+                }
             }
         }
 
-        ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles);
+        for (int i = 0; i < _obstacles.Count; i++)
+        {
+            ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles, i);
+        }
 
         if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff()) return false;
 

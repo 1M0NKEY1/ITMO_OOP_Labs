@@ -13,18 +13,18 @@ public class HullClassOne : Hull
         HullDefencePoint = DefencePoint;
     }
 
-    public override void Damage(int countOfObstacles, IList<object> obstacle)
+    public override void Damage(int countOfObstacles, IList<Obstacles> obstacle, int iStep)
     {
-        if (obstacle is Asteroids)
+        if (obstacle[iStep] is Asteroids)
         {
             HullDefencePoint -= countOfObstacles;
         }
-        else if (obstacle is Meteorites)
+        else if (obstacle[iStep] is Meteorites)
         {
             HullDestroyed = true;
             HullDefencePoint = EndDefence;
         }
-        else if (obstacle is SpaceWhales)
+        else if (obstacle[iStep] is SpaceWhales)
         {
             HullDestroyed = true;
             HullDefencePoint = EndDefence;

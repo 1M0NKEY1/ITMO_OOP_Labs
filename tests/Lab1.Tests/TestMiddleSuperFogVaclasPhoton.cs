@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
+public class TestMiddleSuperFogVaclasPhoton : IEnumerable<object[]>
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -18,17 +18,28 @@ public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
     {
         get
         {
-            yield return new object[] { new Avgur(PlasmFuel, GravityFuel), new Stella(PlasmFuel, GravityFuel) };
+            yield return new object[] { new Vaclas(PlasmFuel, GravityFuel) };
         }
     }
 
     public static bool IsFinishedStep(StarShip? ship)
     {
+        _obstacles.Add(new Flashes());
+
         var superFog = new SuperFog(_obstacles);
         if (ship != null)
         {
             ship.Photon = PhotonOn;
         }
+
+        return superFog.Stage(ship, AstronomicUnits);
+    }
+
+    public static bool IsFinishedStepTwo(StarShip? ship)
+    {
+        _obstacles.Add(new Flashes());
+
+        var superFog = new SuperFog(_obstacles);
 
         return superFog.Stage(ship, AstronomicUnits);
     }
@@ -44,10 +55,10 @@ public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestMiddleSuperFogAvgurStella))]
-    public void AllObjectsAreOddWithMemberDataFromDataGenerator(Avgur avgur, Stella stella)
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestMiddleSuperFogVaclasPhoton))]
+    public void AllObjectsAreOddWithMemberDataFromDataGenerator(Vaclas vaclas)
     {
-        Assert.False(IsFinishedStep(avgur));
-        Assert.True(IsFinishedStep(stella));
+        Assert.False(IsFinishedStep(vaclas));
+        Assert.False(IsFinishedStepTwo(vaclas));
     }
 }

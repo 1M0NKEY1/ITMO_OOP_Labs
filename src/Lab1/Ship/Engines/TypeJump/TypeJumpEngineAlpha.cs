@@ -11,7 +11,7 @@ public class TypeJumpEngineAlpha : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= LimitForAlpha)
+        if (astronomicUnits > LimitForAlpha)
         {
             TooFar = true;
             return;

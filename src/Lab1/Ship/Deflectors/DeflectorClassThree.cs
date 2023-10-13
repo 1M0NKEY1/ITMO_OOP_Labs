@@ -19,23 +19,22 @@ public class DeflectorClassThree : Deflector
         }
     }
 
-    public override void Damage(int countOfObstacles, IList<object> obstacle)
+    public override void Damage(int countOfObstacles, IList<Obstacles> obstacle, int iStep)
     {
-        if (obstacle is Asteroids)
+        switch (obstacle[iStep])
         {
-            DeflectorDefencePoint -= countOfObstacles;
-        }
-        else if (obstacle is Meteorites)
-        {
-            DeflectorDefencePoint -= ClassThreeRate * countOfObstacles;
-        }
-        else if (obstacle is SpaceWhales)
-        {
-            DeflectorDefencePoint -= countOfObstacles;
-        }
-        else if (obstacle is Flashes)
-        {
-            PhotonDeflectorDefencePoint -= countOfObstacles;
+            case Asteroids:
+                DeflectorDefencePoint -= countOfObstacles;
+                break;
+            case Meteorites:
+                DeflectorDefencePoint -= ClassThreeRate * countOfObstacles;
+                break;
+            case SpaceWhales:
+                DeflectorDefencePoint -= countOfObstacles;
+                break;
+            case Flashes:
+                PhotonDeflectorDefencePoint -= countOfObstacles;
+                break;
         }
     }
 }

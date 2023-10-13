@@ -10,7 +10,7 @@ public class TypeJumpEngineOmega : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= LimitForOmega)
+        if (astronomicUnits > LimitForOmega)
         {
             TooFar = true;
             return;

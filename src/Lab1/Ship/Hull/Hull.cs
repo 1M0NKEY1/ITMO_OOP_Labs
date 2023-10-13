@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
@@ -6,7 +7,7 @@ public abstract class Hull
 {
     public bool HullDestroyed { get; protected set; }
     protected int HullDefencePoint { get; set; }
-    public abstract void Damage(int countOfObstacles, IList<object> obstacle);
+    public abstract void Damage(int countOfObstacles, IList<Obstacles> obstacle, int iStep);
 
     public bool Defence()
     {

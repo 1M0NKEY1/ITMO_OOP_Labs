@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SuperFog : Environment
 {
-    private readonly IList<object> _obstacles = new List<object>();
+    private readonly IList<Obstacles> _obstacles = new List<Obstacles>();
 
     public SuperFog(IList<Obstacles> classOfObstacle)
     {
@@ -23,7 +23,7 @@ public class SuperFog : Environment
     {
         if (ship == null) return false;
 
-        if (ship.ClassOfJumpEngine is not TypeJumpEngineAlpha or TypeJumpEngineOmega or TypeJumpEngineGamma)
+        if (ship.ClassOfJumpEngine is not (TypeJumpEngineAlpha or TypeJumpEngineOmega or TypeJumpEngineGamma))
         {
             return false;
         }
@@ -33,7 +33,10 @@ public class SuperFog : Environment
         ship.ClassOfJumpEngine.Duration(astronomicUnits);
         if (ship.ClassOfJumpEngine is { TooFar: true }) return false;
 
-        ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles);
+        for (int i = 0; i < _obstacles.Count; i++)
+        {
+            ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles, i);
+        }
 
         return ship.ClassOfDeflectors is not { PhotonDeflectorDefencePoint: < 0 };
     }

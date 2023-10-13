@@ -10,7 +10,7 @@ public class TypeJumpEngineGamma : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= LimitForGama)
+        if (astronomicUnits > LimitForGama)
         {
             TooFar = true;
             return;

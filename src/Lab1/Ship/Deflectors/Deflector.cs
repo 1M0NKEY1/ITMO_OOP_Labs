@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
@@ -10,7 +11,7 @@ public abstract class Deflector
     protected bool Emitter { get; init; }
     protected int DeflectorDefencePoint { get; set; }
 
-    public abstract void Damage(int countOfObstacles, IList<object> obstacle);
+    public abstract void Damage(int countOfObstacles, IList<Obstacles> obstacle, int iStep);
     public bool DefenceTurnOff()
     {
         if (DeflectorDefencePoint < 0)

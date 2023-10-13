@@ -6,31 +6,26 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
+public class TestNeutrinoFogWalkingShutleVaclas : IEnumerable<object[]>
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
-    private const int AstronomicUnits = 300;
-    private const bool PhotonOn = true;
+    private const int AstronomicUnits = 100;
 
     private static readonly IList<Obstacles> _obstacles = new List<Obstacles>();
     public static IEnumerable<object[]> GetObjects
     {
         get
         {
-            yield return new object[] { new Avgur(PlasmFuel, GravityFuel), new Stella(PlasmFuel, GravityFuel) };
+            yield return new object[] { new WalkingShuttle(PlasmFuel), new Vaclas(PlasmFuel, GravityFuel) };
         }
     }
 
     public static bool IsFinishedStep(StarShip? ship)
     {
-        var superFog = new SuperFog(_obstacles);
-        if (ship != null)
-        {
-            ship.Photon = PhotonOn;
-        }
+        var neutrinoFog = new NeutrinoFog(_obstacles);
 
-        return superFog.Stage(ship, AstronomicUnits);
+        return neutrinoFog.Stage(ship, AstronomicUnits);
     }
 
     IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
@@ -44,10 +39,10 @@ public class TestMiddleSuperFogAvgurStella : IEnumerable<object[]>
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestMiddleSuperFogAvgurStella))]
-    public void AllObjectsAreOddWithMemberDataFromDataGenerator(Avgur avgur, Stella stella)
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestNeutrinoFogWalkingShutleVaclas))]
+    public void AllObjectsAreOddWithMemberDataFromDataGenerator(WalkingShuttle walkingShuttle, Vaclas vaclas)
     {
-        Assert.False(IsFinishedStep(avgur));
-        Assert.True(IsFinishedStep(stella));
+        Assert.False(IsFinishedStep(walkingShuttle));
+        Assert.True(IsFinishedStep(vaclas));
     }
 }
