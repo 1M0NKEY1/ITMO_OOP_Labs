@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestNeutrinoFogWalkingShutleVaclas : IEnumerable<object[]>
+public class TestNeutrinoFogWalkingShutleVaclas
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -26,11 +26,6 @@ public class TestNeutrinoFogWalkingShutleVaclas : IEnumerable<object[]>
         var neutrinoFog = new NeutrinoFog(_obstacles);
 
         return neutrinoFog.Stage(ship, AstronomicUnits);
-    }
-
-    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
     }
 
     public IEnumerator GetEnumerator()

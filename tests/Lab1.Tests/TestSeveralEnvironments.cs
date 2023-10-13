@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestSeveralEnvironments : IEnumerable<object[]>
+public class TestSeveralEnvironments
 {
     private const int PlasmFuel = 100000000;
     private const int GravityFuel = 1000000;
@@ -33,11 +33,6 @@ public class TestSeveralEnvironments : IEnumerable<object[]>
         var simpleSpace = new SimpleSpace(_obstacles);
 
         return simpleSpace.Stage(ship, AstronomicUnits);
-    }
-
-    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
     }
 
     public IEnumerator GetEnumerator()

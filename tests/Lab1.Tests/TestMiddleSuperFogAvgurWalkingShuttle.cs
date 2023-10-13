@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestMiddleSuperFogAvgurWalkingShuttle : IEnumerable<object[]>
+public class TestMiddleSuperFogAvgurWalkingShuttle
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -31,11 +31,6 @@ public class TestMiddleSuperFogAvgurWalkingShuttle : IEnumerable<object[]>
         }
 
         return superFog.Stage(ship, AstronomicUnits);
-    }
-
-    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
     }
 
     public IEnumerator GetEnumerator()

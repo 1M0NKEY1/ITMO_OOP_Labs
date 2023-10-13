@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestCostSmallSimpleSpaceWalkingShuttleVaclas : IEnumerable<object[]>
+public class TestCostSmallSimpleSpaceWalkingShuttleVaclas
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -28,11 +28,6 @@ public class TestCostSmallSimpleSpaceWalkingShuttleVaclas : IEnumerable<object[]
         var costOfStage = new CostOfStage(PlasmFuel, GravityFuel);
         return costOfStage.Cost(shipOne, simpleSpace, AstronomicUnits) <
                costOfStage.Cost(shipTwo, simpleSpace, AstronomicUnits);
-    }
-
-    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
     }
 
     public IEnumerator GetEnumerator()

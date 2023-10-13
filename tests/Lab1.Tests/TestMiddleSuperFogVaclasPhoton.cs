@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestMiddleSuperFogVaclasPhoton : IEnumerable<object[]>
+public class TestMiddleSuperFogVaclasPhoton
 {
     private const int PlasmFuel = 1000000;
     private const int GravityFuel = 1000000;
@@ -42,11 +42,6 @@ public class TestMiddleSuperFogVaclasPhoton : IEnumerable<object[]>
         var superFog = new SuperFog(_obstacles);
 
         return superFog.Stage(ship, AstronomicUnits);
-    }
-
-    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
     }
 
     public IEnumerator GetEnumerator()
