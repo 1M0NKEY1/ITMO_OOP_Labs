@@ -1,22 +1,39 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Routes;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class TestAvgurWalkingShuttleMiddleSuperFog
+public class Te : IEnumerable<object[]>
 {
-    private static readonly NumOfSuperFog _numOfSuperFog = new();
-    public static bool IsFinishedRoute(int ship)
+    public static IEnumerable<object[]> GetNumbers()
     {
-        var route = new Route(false, 300, 300);
-        return route.Step(ship, _numOfSuperFog.GetNumOfEnvironment(), 0, 0, 300);
+        yield return new object[] { 5, 1, 3, 9 };
+        yield return new object[] { 228, 239, 1488, 9 };
+    }
+
+    public static bool IsOddNumber(int number)
+    {
+        return number % 2 != 0;
+    }
+
+    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return GetEnumerator();
     }
 
     [Theory]
-    [InlineData(1, 5)]
-    public void AllNumbersAreOddWithInlineData(int walkingShuttle, int avgur)
+    [MemberData(nameof(GetNumbers), MemberType = typeof(TMP))]
+    public void AllNumbersAreOddWithMemberDataFromDataGenerator(int a, int b, int c, int d)
     {
-        Assert.False(IsFinishedRoute(walkingShuttle));
-        Assert.False(IsFinishedRoute(avgur));
+        Assert.True(IsOddNumber(a));
+        Assert.True(IsOddNumber(b));
+        Assert.True(IsOddNumber(c));
+        Assert.True(IsOddNumber(d));
     }
 }

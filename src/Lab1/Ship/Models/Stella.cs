@@ -1,32 +1,33 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
-using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines.TypeJump;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Stella : StarShip
 {
-    private readonly DeflectorClassOne _deflectorClassOne = new(false);
-    private readonly DeflOne _deflOne = new();
+    private static int _fuel;
+    private static int _gravityFuel;
+    private readonly Deflector _deflectorClassOne = new DeflectorClassOne();
+    private readonly Hull _hullClassOne = new HullClassOne();
+    private readonly Engine _engineC = new TypeEngineC(_fuel);
+    private readonly TypeEngineJump _omega = new TypeJumpEngineOmega(_gravityFuel);
+    private readonly ShipSize _small = new Small();
 
-    private readonly HullClassOne _hullClassOne = new();
-    private readonly HullOne _hullOne = new();
-
-    private readonly EngineC _engineC = new();
-    private readonly Omega _omega = new();
-
-    private readonly Small _small = new();
-
-    public Stella()
+    public Stella(int plasmFuel, int gravityFuel)
     {
         Crew = true;
-
-        ClassOfDeflectors = _deflOne.GetNumOfDeflector();
-        ClassOfEngine = _engineC.GetNumOfEngine();
-        ClassOfHull = _hullOne.GetNumOfHull();
-        Size = _small.GetNumOfSize();
-        ClassOfJumpEngine = _omega.GetNumOfJumpEngine();
-
         Destroyed = false;
+        _deflectorClassOne.Photon = Photon;
+        _fuel = plasmFuel;
+        _gravityFuel = gravityFuel;
+
+        ClassOfDeflectors = _deflectorClassOne;
+        ClassOfHull = _hullClassOne;
+        ClassOfEngine = _engineC;
+        ClassOfJumpEngine = _omega;
+        ClassOfSize = _small;
     }
 
     public override void Destroy()

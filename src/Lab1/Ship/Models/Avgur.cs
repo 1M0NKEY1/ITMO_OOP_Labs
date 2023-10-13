@@ -1,32 +1,33 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
-using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines.TypeJump;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Avgur : StarShip
 {
-    private readonly DeflectorClassThree _deflectorClassThree = new(false);
-    private readonly DeflThree _deflThree = new();
+    private static int _fuel;
+    private static int _gravityFuel;
+    private readonly Deflector _deflectorClassThree = new DeflectorClassThree();
+    private readonly Hull _hullClassThree = new HullClassThree();
+    private readonly Engine _engineE = new TypeEngineE(_fuel);
+    private readonly TypeEngineJump _alpha = new TypeJumpEngineAlpha(_gravityFuel);
+    private readonly ShipSize _big = new Big();
 
-    private readonly HullClassThree _hullClassThree = new();
-    private readonly HullThree _hullThree = new();
-
-    private readonly EngineE _engineE = new();
-    private readonly Alpha _alpha = new();
-
-    private readonly Big _big = new();
-
-    public Avgur()
+    public Avgur(int plasmFuel, int gravityFuel)
     {
         Crew = true;
-
-        ClassOfDeflectors = _deflThree.GetNumOfDeflector();
-        ClassOfEngine = _engineE.GetNumOfEngine();
-        ClassOfHull = _hullThree.GetNumOfHull();
-        Size = _big.GetNumOfSize();
-        ClassOfJumpEngine = _alpha.GetNumOfJumpEngine();
-
         Destroyed = false;
+        _deflectorClassThree.Photon = Photon;
+        _fuel = plasmFuel;
+        _gravityFuel = gravityFuel;
+
+        ClassOfDeflectors = _deflectorClassThree;
+        ClassOfHull = _hullClassThree;
+        ClassOfEngine = _engineE;
+        ClassOfJumpEngine = _alpha;
+        ClassOfSize = _big;
     }
 
     public override void Destroy()

@@ -3,7 +3,7 @@
 public abstract class Engine
 {
     protected int CapacityPlasmFuel { get; set; }
-    public abstract int Duration(int astronomicUnits, int size);
+    public abstract int Duration(int astronomicUnits, object size);
     protected int StartEngine()
     {
         return CapacityPlasmFuel - (CapacityPlasmFuel / 100);

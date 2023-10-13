@@ -1,32 +1,33 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class HullClassThree : Hull
 {
-    private readonly Asteroids? _asteroids = new();
-    private readonly Meteorites? _meteorites = new();
-    private readonly SpaceWhales? _spaceWhales = new();
+    private const int DefencePoint = 20;
+    private const int ClassTwoRate = 4;
+    private const int EndDefence = 0;
     public HullClassThree()
     {
         HullDestroyed = false;
-        HullDefencePoint = 20;
+        HullDefencePoint = DefencePoint;
     }
 
-    public override void Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, IList<object> obstacle)
     {
-        if (_asteroids != null && classOfObstacles == _asteroids.GetNumOfObstacle())
+        if (obstacle is Asteroids)
         {
             HullDefencePoint -= countOfObstacles;
         }
-        else if (_meteorites != null && classOfObstacles == _meteorites.GetNumOfObstacle())
+        else if (obstacle is Meteorites)
         {
-            HullDefencePoint -= countOfObstacles * 4;
+            HullDefencePoint -= countOfObstacles * ClassTwoRate;
         }
-        else if (_spaceWhales != null && classOfObstacles == _spaceWhales.GetNumOfObstacle())
+        else if (obstacle is SpaceWhales)
         {
             HullDestroyed = true;
-            HullDefencePoint = 0;
+            HullDefencePoint = EndDefence;
         }
     }
 }

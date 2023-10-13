@@ -3,6 +3,6 @@
 public abstract class TypeEngineJump
 {
     public bool TooFar { get; protected set; }
-    protected int CapacityGravityFuel { get; set; }
+    public int CapacityGravityFuel { get; protected set; }
     public abstract void Duration(int astronomicUnits);
 }

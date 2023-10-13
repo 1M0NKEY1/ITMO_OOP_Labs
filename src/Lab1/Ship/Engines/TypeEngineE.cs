@@ -1,32 +1,29 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
 
 public class TypeEngineE : Engine
 {
-    private readonly Small? _small = new();
-    private readonly Middle? _middle = new();
-    private readonly Big? _big = new();
     public TypeEngineE(int fuel)
     {
         CapacityPlasmFuel = fuel;
     }
 
-    public override int Duration(int astronomicUnits, int size)
+    public override int Duration(int astronomicUnits, object size)
     {
         CapacityPlasmFuel = StartEngine();
         for (int i = 1; i <= astronomicUnits; i *= 2)
         {
-            if (_small != null && size == _small.GetNumOfSize())
+            if (size is Small)
             {
                 CapacityPlasmFuel -= i;
             }
-            else if (_middle != null && size == _middle.GetNumOfSize())
+            else if (size is Middle)
             {
                 ++i;
                 CapacityPlasmFuel -= i;
             }
-            else if (_big != null && size == _big.GetNumOfSize())
+            else if (size is Big)
             {
                 ++i;
                 ++i;

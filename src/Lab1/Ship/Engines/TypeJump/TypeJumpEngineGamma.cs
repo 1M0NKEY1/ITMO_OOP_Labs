@@ -2,6 +2,7 @@
 
 public class TypeJumpEngineGamma : TypeEngineJump
 {
+    private const int LimitForGama = 500;
     public TypeJumpEngineGamma(int fuel)
     {
         CapacityGravityFuel = fuel;
@@ -9,7 +10,7 @@ public class TypeJumpEngineGamma : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= 300)
+        if (astronomicUnits >= LimitForGama)
         {
             TooFar = true;
             return;

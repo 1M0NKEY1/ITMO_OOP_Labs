@@ -1,17 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
-public class Asteroids : Obstacles
+public class Asteroids : SimpleSpaceObstacles
 {
-    private int Asteroid { get; set; }
-
-    public override void SetNumOfObstacle()
+    public Asteroids()
     {
-        Asteroid = 1;
-    }
-
-    public override int GetNumOfObstacle()
-    {
-        SetNumOfObstacle();
-        return Asteroid;
     }
 }

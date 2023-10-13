@@ -1,17 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
-public class SpaceWhales : Obstacles
+public class SpaceWhales : NeutrinoFogObstacles
 {
-    private int SpaceWhale { get; set; }
-
-    public override void SetNumOfObstacle()
+    public SpaceWhales()
     {
-        SpaceWhale = 3;
-    }
-
-    public override int GetNumOfObstacle()
-    {
-        SetNumOfObstacle();
-        return SpaceWhale;
     }
 }

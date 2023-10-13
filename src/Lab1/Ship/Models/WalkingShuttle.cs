@@ -1,25 +1,24 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class WalkingShuttle : StarShip
 {
-    private readonly HullClassOne _hullClassOne = new();
-    private readonly HullOne _hullOne = new();
+    private static int _fuel;
+    private readonly Hull _hullClassOne = new HullClassOne();
+    private readonly Engine _engineC = new TypeEngineC(_fuel);
+    private readonly ShipSize _small = new Small();
 
-    private readonly EngineC _engineC = new();
-
-    private readonly Small _small = new();
-
-    public WalkingShuttle()
+    public WalkingShuttle(int plasmFuel)
     {
         Crew = true;
-        ClassOfDeflectors = 0;
-        ClassOfEngine = _engineC.GetNumOfEngine();
-        ClassOfHull = _hullOne.GetNumOfHull();
-        Size = _small.GetNumOfSize();
-
         Destroyed = false;
+        _fuel = plasmFuel;
+
+        ClassOfHull = _hullClassOne;
+        ClassOfEngine = _engineC;
+        ClassOfSize = _small;
     }
 
     public override void Destroy()

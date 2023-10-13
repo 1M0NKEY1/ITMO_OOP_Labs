@@ -1,27 +1,48 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
-using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class NeutrinoFog : Environment
 {
-    private readonly SpaceWhales _spaceWhales = new();
+    private readonly IList<object> _obstacles = new List<object>();
 
-    private readonly EngineE _engineE = new();
-
-    public NeutrinoFog(int countOfSpaceWhales)
+    public NeutrinoFog(IList<Obstacles> classOfObstacle)
     {
-        ClassOfObstacleOne = _spaceWhales.GetNumOfObstacle();
-        CountOfSpaceWhales = countOfSpaceWhales;
+        foreach (Obstacles obstacle in classOfObstacle)
+        {
+            if (obstacle is NeutrinoFogObstacles)
+            {
+                _obstacles.Add(obstacle);
+            }
+        }
     }
 
-    public override bool Conditions(int engineType)
+    public override bool Stage(StarShip? ship, int astronomicUnits)
     {
-        return engineType == _engineE.GetNumOfEngine();
-    }
+        if (ship == null) return false;
 
-    public override bool ExtraConditions(int engineJumpType)
-    {
+        if (ship.ClassOfEngine is not TypeEngineE) return false;
+
+        if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff())
+        {
+            if (ship.ClassOfHull != null && ship.ClassOfHull.Defence())
+            {
+                ship.Destroy();
+                if (ship.Destroyed) return false;
+
+                ship.ClassOfHull?.Damage(_obstacles.Count, _obstacles);
+            }
+        }
+
+        ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles);
+
+        if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff()) return false;
+
+        if (ship.ClassOfSize != null) ship.ClassOfEngine?.Duration(astronomicUnits, ship.ClassOfSize);
+
         return true;
     }
 }

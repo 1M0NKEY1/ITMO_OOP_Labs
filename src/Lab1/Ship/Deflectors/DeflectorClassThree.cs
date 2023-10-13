@@ -1,38 +1,39 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
 public class DeflectorClassThree : Deflector
 {
-    private readonly Asteroids? _asteroids = new();
-    private readonly Meteorites? _meteorites = new();
-    private readonly SpaceWhales? _spaceWhales = new();
-    private readonly Flashes? _flashes = new();
-    public DeflectorClassThree(bool photon)
+    private const int PhotonPoints = 3;
+    private const int DefencePoints = 40;
+    private const int ClassThreeRate = 4;
+
+    public DeflectorClassThree()
     {
         DestroyedDeflector = false;
-        DeflectorDefencePoint = 40;
-        if (photon)
+        DeflectorDefencePoint = DefencePoints;
+        if (Photon)
         {
-            PhotonDeflectorDefencePoint = 3;
+            PhotonDeflectorDefencePoint = PhotonPoints;
         }
     }
 
-    public override void Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, IList<object> obstacle)
     {
-        if (_asteroids != null && _asteroids.GetNumOfObstacle() == classOfObstacles)
+        if (obstacle is Asteroids)
         {
             DeflectorDefencePoint -= countOfObstacles;
         }
-        else if (_meteorites != null && _meteorites.GetNumOfObstacle() == classOfObstacles)
+        else if (obstacle is Meteorites)
         {
-            DeflectorDefencePoint -= 4 * countOfObstacles;
+            DeflectorDefencePoint -= ClassThreeRate * countOfObstacles;
         }
-        else if (_spaceWhales != null && _spaceWhales.GetNumOfObstacle() == classOfObstacles)
+        else if (obstacle is SpaceWhales)
         {
             DeflectorDefencePoint -= countOfObstacles;
         }
-        else if (_flashes != null && _flashes.GetNumOfObstacle() == classOfObstacles)
+        else if (obstacle is Flashes)
         {
             PhotonDeflectorDefencePoint -= countOfObstacles;
         }

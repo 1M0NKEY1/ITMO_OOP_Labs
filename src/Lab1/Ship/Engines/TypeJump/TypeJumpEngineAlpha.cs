@@ -2,6 +2,7 @@
 
 public class TypeJumpEngineAlpha : TypeEngineJump
 {
+    private const int LimitForAlpha = 100;
     public TypeJumpEngineAlpha(int fuel)
     {
         TooFar = false;
@@ -10,7 +11,7 @@ public class TypeJumpEngineAlpha : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= 100)
+        if (astronomicUnits >= LimitForAlpha)
         {
             TooFar = true;
             return;

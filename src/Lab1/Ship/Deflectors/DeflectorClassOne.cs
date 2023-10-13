@@ -1,39 +1,41 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Environments;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
 
 public class DeflectorClassOne : Deflector
 {
-    private readonly Asteroids? _asteroids = new();
-    private readonly Meteorites? _meteorites = new();
-    private readonly SpaceWhales? _spaceWhales = new();
-    private readonly Flashes? _flashes = new();
-    public DeflectorClassOne(bool photon)
+    private const int PhotonPoints = 3;
+    private const int DefencePoints = 2;
+    private const int ClassOneRate = 2;
+    private const int EndDefence = -1;
+
+    public DeflectorClassOne()
     {
         DestroyedDeflector = false;
-        DeflectorDefencePoint = 2;
-        if (photon)
+        DeflectorDefencePoint = DefencePoints;
+        if (Photon)
         {
-            PhotonDeflectorDefencePoint = 3;
+            PhotonDeflectorDefencePoint = PhotonPoints;
         }
     }
 
-    public override void Damage(int countOfObstacles, int classOfObstacles)
+    public override void Damage(int countOfObstacles, IList<object> obstacle)
     {
-        if (_asteroids != null && classOfObstacles == _asteroids.GetNumOfObstacle())
+        if (obstacle is Asteroids)
         {
             DeflectorDefencePoint -= countOfObstacles;
         }
-        else if (_meteorites != null && classOfObstacles == _meteorites.GetNumOfObstacle())
+        else if (obstacle is Meteorites)
         {
-            DeflectorDefencePoint -= 2 * countOfObstacles;
+            DeflectorDefencePoint -= ClassOneRate * countOfObstacles;
         }
-        else if (_spaceWhales != null && classOfObstacles == _spaceWhales.GetNumOfObstacle())
+        else if (obstacle is SpaceWhales)
         {
             DestroyedDeflector = true;
-            DeflectorDefencePoint = -1;
+            DeflectorDefencePoint = EndDefence;
         }
-        else if (_flashes != null && _flashes.GetNumOfObstacle() == classOfObstacles)
+        else if (obstacle is Flashes)
         {
             PhotonDeflectorDefencePoint -= countOfObstacles;
         }

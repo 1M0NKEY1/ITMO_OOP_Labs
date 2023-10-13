@@ -2,6 +2,7 @@
 
 public class TypeJumpEngineOmega : TypeEngineJump
 {
+    private const int LimitForOmega = 300;
     public TypeJumpEngineOmega(int fuel)
     {
         CapacityGravityFuel = fuel;
@@ -9,7 +10,7 @@ public class TypeJumpEngineOmega : TypeEngineJump
 
     public override void Duration(int astronomicUnits)
     {
-        if (astronomicUnits >= 500)
+        if (astronomicUnits >= LimitForOmega)
         {
             TooFar = true;
             return;

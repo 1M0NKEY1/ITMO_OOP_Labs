@@ -1,30 +1,40 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines.TypeJump;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SuperFog : Environment
 {
-    private readonly Flashes _flashes = new();
+    private readonly IList<object> _obstacles = new List<object>();
 
-    private readonly Alpha _alpha = new();
-    private readonly Omega _omega = new();
-    private readonly Gamma _gamma = new();
-
-    public SuperFog(int countOfFlashes)
+    public SuperFog(IList<Obstacles> classOfObstacle)
     {
-        ClassOfObstacleOne = _flashes.GetNumOfObstacle();
-        CountOfFlashes = countOfFlashes;
+        foreach (Obstacles obstacle in classOfObstacle)
+        {
+            if (obstacle is SuperFogObstacles)
+            {
+                _obstacles.Add(obstacle);
+            }
+        }
     }
 
-    public override bool Conditions(int engineType)
+    public override bool Stage(StarShip? ship, int astronomicUnits)
     {
-        return false;
-    }
+        if (ship == null) return false;
 
-    public override bool ExtraConditions(int engineJumpType)
-    {
-        return engineJumpType == _alpha.GetNumOfJumpEngine() ||
-               engineJumpType == _omega.GetNumOfJumpEngine() ||
-               engineJumpType == _gamma.GetNumOfJumpEngine();
+        if (ship.ClassOfJumpEngine is not TypeJumpEngineAlpha or TypeJumpEngineOmega or TypeJumpEngineGamma)
+        {
+            return false;
+        }
+
+        if (!ship.Photon) return false;
+
+        ship.ClassOfJumpEngine.Duration(astronomicUnits);
+        if (ship.ClassOfJumpEngine is { TooFar: true }) return false;
+
+        ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles);
+
+        return ship.ClassOfDeflectors is not { PhotonDeflectorDefencePoint: < 0 };
     }
 }

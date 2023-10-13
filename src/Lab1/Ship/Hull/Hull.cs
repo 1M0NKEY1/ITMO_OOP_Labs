@@ -1,10 +1,12 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1;
+﻿using System.Collections.Generic;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public abstract class Hull
 {
     public bool HullDestroyed { get; protected set; }
     protected int HullDefencePoint { get; set; }
-    public abstract void Damage(int countOfObstacles, int classOfObstacles);
+    public abstract void Damage(int countOfObstacles, IList<object> obstacle);
 
     public bool Defence()
     {

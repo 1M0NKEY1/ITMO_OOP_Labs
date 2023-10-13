@@ -1,38 +1,39 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
-using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines.TypeJump;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Vaclas : StarShip
 {
-    private readonly DeflectorClassOne _deflectorClassOne = new(false);
-    private readonly DeflOne _deflOne = new();
+    private static int _fuel;
+    private static int _gravityFuel;
+    private readonly Deflector _deflectorClassOne = new DeflectorClassOne();
+    private readonly Hull _hullClassTwo = new HullClassTwo();
+    private readonly Engine _engineE = new TypeEngineE(_fuel);
+    private readonly TypeEngineJump _gamma = new TypeJumpEngineGamma(_gravityFuel);
+    private readonly ShipSize _middle = new Middle();
 
-    private readonly HullClassOne _hullClassOne = new();
-    private readonly HullTwo _hullTwo = new();
-
-    private readonly EngineE _engineE = new();
-    private readonly Gamma _gamma = new();
-
-    private readonly Middle _middle = new();
-
-    public Vaclas()
+    public Vaclas(int plasmFuel, int gravityFuel)
     {
         Crew = true;
-
-        ClassOfDeflectors = _deflOne.GetNumOfDeflector();
-        ClassOfEngine = _engineE.GetNumOfEngine();
-        ClassOfHull = _hullTwo.GetNumOfHull();
-        Size = _middle.GetNumOfSize();
-        ClassOfJumpEngine = _gamma.GetNumOfJumpEngine();
-
         Destroyed = false;
+        _deflectorClassOne.Photon = Photon;
+        _fuel = plasmFuel;
+        _gravityFuel = gravityFuel;
+
+        ClassOfDeflectors = _deflectorClassOne;
+        ClassOfHull = _hullClassTwo;
+        ClassOfEngine = _engineE;
+        ClassOfJumpEngine = _gamma;
+        ClassOfSize = _middle;
     }
 
     public override void Destroy()
     {
         if (!_deflectorClassOne.DestroyedDeflector) return;
-        if (!_hullClassOne.HullDestroyed) return;
+        if (!_hullClassTwo.HullDestroyed) return;
         if (_deflectorClassOne.PhotonDeflectorDefencePoint < 0)
         {
             Crew = false;

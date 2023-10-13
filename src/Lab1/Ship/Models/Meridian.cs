@@ -1,31 +1,28 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Deflectors;
-using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Size;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 public class Meridian : StarShip
 {
-    private readonly DeflectorClassTwo _deflectorClassTwo = new(false, true);
-    private readonly DeflTwo _deflTwo = new();
+    private static int _fuel;
+    private readonly Deflector _deflectorClassTwo = new DeflectorClassTwo(true);
+    private readonly Hull _hullClassTwo = new HullClassTwo();
+    private readonly Engine _engineE = new TypeEngineC(_fuel);
+    private readonly ShipSize _middle = new Middle();
 
-    private readonly HullClassTwo _hullClassTwo = new();
-    private readonly HullTwo _hullTwo = new();
-
-    private readonly EngineE _engineE = new();
-
-    private readonly Middle _middle = new();
-
-    public Meridian()
+    public Meridian(int plasmFuel)
     {
         Crew = true;
-
-        ClassOfDeflectors = _deflTwo.GetNumOfDeflector();
-        ClassOfEngine = _engineE.GetNumOfEngine();
-        ClassOfHull = _hullTwo.GetNumOfHull();
-        Size = _middle.GetNumOfSize();
-        ClassOfJumpEngine = 0;
-
         Destroyed = false;
+        _deflectorClassTwo.Photon = Photon;
+        _fuel = plasmFuel;
+
+        ClassOfDeflectors = _deflectorClassTwo;
+        ClassOfHull = _hullClassTwo;
+        ClassOfEngine = _engineE;
+        ClassOfSize = _middle;
     }
 
     public override void Destroy()

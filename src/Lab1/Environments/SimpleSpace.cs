@@ -1,30 +1,47 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models.SelectComponents;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Ship.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments;
 
 public class SimpleSpace : Environment
 {
-    private readonly Asteroids _asteroids = new();
-    private readonly Meteorites _meteorites = new();
+    private readonly IList<object> _obstacles = new List<object>();
 
-    private readonly EngineC _engineC = new();
-    private readonly EngineE _engineE = new();
-
-    public SimpleSpace(int countOfAsteroids, int countOfMeteorites)
+    public SimpleSpace(IList<Obstacles> classOfObstacle)
     {
-        ClassOfObstacleOne = _asteroids.GetNumOfObstacle();
-        ClassOfObstacleTwo = _meteorites.GetNumOfObstacle();
-        CountOfAsteroids = countOfAsteroids;
-        CountOfMeteorites = countOfMeteorites;
+        foreach (Obstacles obstacle in classOfObstacle)
+        {
+            if (obstacle is SimpleSpaceObstacles)
+            {
+                _obstacles.Add(obstacle);
+            }
+        }
     }
 
-    public override bool Conditions(int engineType)
+    public override bool Stage(StarShip? ship, int astronomicUnits)
     {
-        return engineType == _engineC.GetNumOfEngine() || engineType == _engineE.GetNumOfEngine();
-    }
+        if (ship == null) return false;
 
-    public override bool ExtraConditions(int engineJumpType)
-    {
+        if (ship.ClassOfEngine is not TypeEngineC or TypeEngineE) return false;
+
+        if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff())
+        {
+            if (ship.ClassOfHull != null && ship.ClassOfHull.Defence())
+            {
+                ship.Destroy();
+                if (ship.Destroyed) return false;
+
+                ship.ClassOfHull?.Damage(_obstacles.Count, _obstacles);
+            }
+        }
+
+        ship.ClassOfDeflectors?.Damage(_obstacles.Count, _obstacles);
+
+        if (ship.ClassOfDeflectors != null && ship.ClassOfDeflectors.DefenceTurnOff()) return false;
+
+        if (ship.ClassOfSize != null) ship.ClassOfEngine?.Duration(astronomicUnits, ship.ClassOfSize);
+
         return true;
     }
 }
