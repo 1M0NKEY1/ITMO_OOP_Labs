@@ -5,16 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="BIOS\" />
-      <Folder Include="Computer\ComputerCase\" />
-      <Folder Include="Computer\CoolingSystem\" />
-      <Folder Include="Computer\Motherboard\" />
-      <Folder Include="Computer\PowerUnit\" />
-      <Folder Include="Computer\RAM\" />
-      <Folder Include="Computer\SSD\" />
-      <Folder Include="Computer\VideoCard\" />
-      <Folder Include="WiFiAdapter\" />
-      <Folder Include="XMPProfile\" />
+      <Folder Include="ComputerAccessories\SecondaryComponents\" />
     </ItemGroup>
 
 </Project>

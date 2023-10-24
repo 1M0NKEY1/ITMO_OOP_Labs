@@ -1,0 +1,12 @@
+﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards;
+
+public abstract class VideoCard
+{
+    public abstract int VideoCardLength { get; }
+    public abstract int VideoCardWidth { get; }
+    public abstract PCIVersions PCIVersion { get; }
+    public abstract int ChipFrequency { get; }
+    public abstract int VideoCardPower { get; }
+}
