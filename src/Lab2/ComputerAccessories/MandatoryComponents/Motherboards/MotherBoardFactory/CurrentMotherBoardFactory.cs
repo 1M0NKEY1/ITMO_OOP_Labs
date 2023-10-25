@@ -1,30 +1,34 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType;
-using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
-using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.BIOS;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SataTypeDir;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards.MotherBoardFactory;
 
 public class CurrentMotherBoardFactory : MotherBoardFactory
 {
+    private readonly string _name;
     private readonly SocketTypes _socket;
-    private readonly int _pci;
-    private readonly int _sata;
-    private readonly object _chipSet;
-    private readonly Ram _ddr;
+    private readonly PCIVersions _pci;
+    private readonly SataType _sata;
+    private readonly Chip _chipSet;
+    private readonly int _ddr;
     private readonly int _ramTableCount;
     private readonly int _formFactorMother;
-    private readonly Bios _motheBoardBios;
+    private readonly int _motheBoardBios;
 
     public CurrentMotherBoardFactory(
+        string name,
         SocketTypes socket,
-        int pci,
-        int sata,
-        object chipSet,
-        Ram ddr,
+        PCIVersions pci,
+        SataType sata,
+        Chip chipSet,
+        int ddr,
         int ramTableCount,
         int formFactorMother,
-        Bios motherBoardBios)
+        int motherBoardBios)
     {
+        _name = name;
         _socket = socket;
         _pci = pci;
         _sata = sata;
@@ -38,6 +42,7 @@ public class CurrentMotherBoardFactory : MotherBoardFactory
     public override MotherBoard CreateMotherBoard()
     {
         return new CurrentMotherBoard(
+            _name,
             _socket,
             _pci,
             _sata,

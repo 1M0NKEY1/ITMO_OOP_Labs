@@ -1,6 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
-
-namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.BIOS;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.BIOS;
 
 public class CurrentBios : Bios
 {
@@ -11,12 +9,6 @@ public class CurrentBios : Bios
     {
         _biosType = biosType;
         _biosVersion = biosVersion;
-    }
-
-    //Сделать лист для доступных процессоров
-    public override bool AvailableCPU(CPU cpu)
-    {
-        if 
     }
 
     public override int BiosType => _biosType;

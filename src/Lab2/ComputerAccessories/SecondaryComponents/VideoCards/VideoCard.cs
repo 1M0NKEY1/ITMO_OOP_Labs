@@ -4,6 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards;
 
 public abstract class VideoCard
 {
+    public abstract string Name { get; }
     public abstract int VideoCardLength { get; }
     public abstract int VideoCardWidth { get; }
     public abstract PCIVersions PCIVersion { get; }
