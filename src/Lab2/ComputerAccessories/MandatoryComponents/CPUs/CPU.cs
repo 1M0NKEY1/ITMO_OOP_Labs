@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
 public abstract class CPU
 {
-    public abstract string CPUName { get; }
+    public abstract string Name { get; }
     public abstract int CoreFrequency { get; }
     public abstract int Cores { get; }
     public abstract SocketTypes Socket { get; }

@@ -33,7 +33,7 @@ public class AmdCPU : CPU
         _powerConsumption = powerConsumption;
     }
 
-    public override string CPUName => _name;
+    public override string Name => _name;
     public override int CoreFrequency => _coreFrequency;
     public override int Cores => _cores;
     public override SocketTypes Socket => _socket;
