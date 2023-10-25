@@ -4,15 +4,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Repos;
 
 public class Repository
 {
-    private ComponentsDataBase _componentsData = new();
+    private readonly ComponentsDataBase _componentsData = new();
 
     public object? SearchComponentByName(object component, string name)
     {
         return _componentsData.GetByName(component, name);
     }
 
-    public object AddComponent()
+    public void AddComponent(object component)
     {
-        
+        _componentsData.AddNewComponent(component);
     }
 }
