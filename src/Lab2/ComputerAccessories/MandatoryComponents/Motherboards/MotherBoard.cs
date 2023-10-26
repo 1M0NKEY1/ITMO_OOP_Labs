@@ -1,11 +1,12 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SataTypeDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
 
-public abstract class MotherBoard
+public abstract class MotherBoard : IComponent
 {
     public abstract string Name { get; }
     public abstract SocketTypes Socket { get; }
@@ -16,4 +17,5 @@ public abstract class MotherBoard
     public abstract int RamTableCount { get; }
     public abstract int FormFactorMother { get; }
     public abstract int MotherBoardBios { get; }
+    public abstract bool AvailableRamForMotherboard(Ram ram);
 }

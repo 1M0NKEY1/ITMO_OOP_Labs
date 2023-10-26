@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SataTypeDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
@@ -48,4 +49,9 @@ public class CurrentMotherBoard : MotherBoard
     public override int RamTableCount => _ramTableCount;
     public override int FormFactorMother => _formFactorMother;
     public override int MotherBoardBios => _motherBoardBios;
+
+    public override bool AvailableRamForMotherboard(Ram ram)
+    {
+        return ram.RamPower == RamTableCount && ram.VersionDDR == _ddr;
+    }
 }

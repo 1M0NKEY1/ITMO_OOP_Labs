@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards;
 
-public abstract class VideoCard
+public abstract class VideoCard : IComponent
 {
     public abstract string Name { get; }
     public abstract int VideoCardLength { get; }

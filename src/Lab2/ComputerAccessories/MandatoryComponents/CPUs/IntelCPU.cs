@@ -1,8 +1,10 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
-public class IntelCPU : CPU
+public class IntelCPU : Cpu
 {
     private readonly string _name;
     private readonly int _coreFrequency;
@@ -41,4 +43,13 @@ public class IntelCPU : CPU
     public override int SupportedMemory => _supportedMemory;
     public override int TDP => _tdp;
     public override int PowerConsumption => _powerConsumption;
+    public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
+    {
+        return motherBoard.Socket == _socket;
+    }
+
+    public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
+    {
+        return coolingSystems.CoolingTDP < _tdp;
+    }
 }

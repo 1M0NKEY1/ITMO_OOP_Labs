@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs;
 
-public abstract class SSD
+public abstract class SSD : IComponent
 {
     public abstract string Name { get; }
     public abstract InputTypes InputType { get; }

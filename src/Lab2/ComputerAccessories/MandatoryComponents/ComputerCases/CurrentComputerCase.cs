@@ -1,4 +1,7 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
+
+namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 
 public class CurrentComputerCase : ComputerCases
 {
@@ -27,4 +30,14 @@ public class CurrentComputerCase : ComputerCases
     public override int VideoCardWidth => _width;
     public override int MotherboardFormFactor => _motherboardFormFactor;
     public override int CaseDimensions => _caseDimensions;
+
+    public override bool AvailableMotherBoardForCase(MotherBoard motherBoard)
+    {
+        return motherBoard.FormFactorMother < _motherboardFormFactor;
+    }
+
+    public override bool AvailableCoolingSystemForCase(CoolingSystems coolingSystems)
+    {
+        return coolingSystems.CoolingDimensions < _width;
+    }
 }

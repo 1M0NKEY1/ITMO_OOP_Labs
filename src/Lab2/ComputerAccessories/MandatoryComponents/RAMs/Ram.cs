@@ -1,8 +1,9 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.XMPProfile;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories;
+using Itmo.ObjectOrientedProgramming.Lab2.XMPProfile;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
 
-public abstract class Ram
+public abstract class Ram : IComponent
 {
     public abstract string Name { get; }
     public abstract int MemoryLimits { get; }

@@ -1,22 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
-using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.Factory;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType.OnlyAmd;
-using Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit.Factory;
-using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM.Factory;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SataTypeDir;
-using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards.MotherBoardFactory;
-using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs.Factory;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs.InputTypeDir;
-using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.Factory;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
 using Itmo.ObjectOrientedProgramming.Lab2.WiFiAdapters;
@@ -24,7 +20,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.XMPProfile;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.DataBase;
 
-public class ComponentsDataBase
+public static class ComponentsDataBase
 {
     private const string NameFormula = "Formula CL-3303W RGB";
     private const int LengthFormula = 310;
@@ -172,59 +168,49 @@ public class ComponentsDataBase
     private const bool BluetoothMercus = true;
     private const int AdapterPowerMercus = 5;
 
-    private readonly IList<ComputerCases> _caseList = new List<ComputerCases>();
-    private readonly IList<CoolingSystems> _coolingSystemAmd = new List<CoolingSystems>();
-    private readonly IList<CoolingSystems> _coolingSystemIntel = new List<CoolingSystems>();
-    private readonly IList<CPU> _amdCpu = new List<CPU>();
-    private readonly IList<CPU> _intelCpu = new List<CPU>();
-    private readonly IList<MotherBoard> _motherboard = new List<MotherBoard>();
-    private readonly IList<PowerUnit> _powerUnits = new List<PowerUnit>();
-    private readonly IList<Ram> _ramSelections = new List<Ram>();
-    private readonly IList<SSD> _ssd = new List<SSD>();
-    private readonly IList<VideoCard> _gpu = new List<VideoCard>();
-    private readonly IList<WifiAdapter> _wifiAdapters = new List<WifiAdapter>();
+    private static readonly IList<IComponent> _allComponents = new List<IComponent>();
 
-    public ComponentsDataBase()
+    public static void FillDataBase()
     {
-        _caseList.Add(new CurrentComputerCase(
+        _allComponents.Add(new CurrentComputerCase(
             NameFormula,
             LengthFormula,
             WidthFormula,
             FormFactorFormula,
             DimensionsFormula));
 
-        _caseList.Add(new CurrentComputerCase(
+        _allComponents.Add(new CurrentComputerCase(
             NameFormulaCr,
             LengthFormulaCr,
             WidthFormulaCr,
             FormFactorFormulaCr,
             DimensionsFormulaCr));
 
-        _coolingSystemAmd.Add(new CoolingSystemFactoryAmd(
+        _allComponents.Add(new CoolingSystemFactoryAmd(
             NameDeep,
             CoolingDimensionsDeep,
             CoolingTdpDeep,
             new AMFive()).CreateCoolingSystem());
 
-        _coolingSystemAmd.Add(new CoolingSystemFactoryAmd(
+        _allComponents.Add(new CoolingSystemFactoryAmd(
             NameSe,
             CoolingDimensionsSe,
             CoolingTdpSe,
             new WRXEight()).CreateCoolingSystem());
 
-        _coolingSystemIntel.Add(new CoolingSystemFactoryIntel(
+        _allComponents.Add(new CoolingSystemFactoryIntel(
             NameJons,
             CoolingDimensionsJons,
             CoolingTdpJons,
             new LGAOneOneFiveOne()).CreateCoolingSystem());
 
-        _coolingSystemIntel.Add(new CoolingSystemFactoryIntel(
+        _allComponents.Add(new CoolingSystemFactoryIntel(
             NameNoctua,
             CoolingDimensionsNoctua,
             CoolingTdpNoctua,
             new LGATwoZeroSixSix()).CreateCoolingSystem());
 
-        _amdCpu.Add(new AmdCPUFactory(
+        _allComponents.Add(new AmdCPUFactory(
             NameRyzenth,
             CoreFrequencyRyzenth,
             CoreRyzenth,
@@ -234,7 +220,7 @@ public class ComponentsDataBase
             TdpRyzenth,
             PowerRyzenth).CreateCPU());
 
-        _amdCpu.Add(new AmdCPUFactory(
+        _allComponents.Add(new AmdCPUFactory(
             NameRyzenNine,
             CoreFrequencyRyzenNine,
             CoreRyzenNine,
@@ -244,7 +230,7 @@ public class ComponentsDataBase
             TdpRyzenNine,
             PowerRyzenNine).CreateCPU());
 
-        _amdCpu.Add(new AmdCPUFactory(
+        _allComponents.Add(new AmdCPUFactory(
             NameRyzenSeven,
             CoreFrequencyRyzenSeven,
             CoreRyzenSeven,
@@ -254,7 +240,7 @@ public class ComponentsDataBase
             TdpRyzenSeven,
             PowerRyzenSeven).CreateCPU());
 
-        _amdCpu.Add(new AmdCPUFactory(
+        _allComponents.Add(new AmdCPUFactory(
             NameRyzenFive,
             CoreFrequencyRyzenFive,
             CoreRyzenFive,
@@ -264,7 +250,7 @@ public class ComponentsDataBase
             TdpRyzenFive,
             PowerRyzenFive).CreateCPU());
 
-        _intelCpu.Add(new IntelCPUFactory(
+        _allComponents.Add(new IntelCPUFactory(
             NameIntelNine,
             CoreFrequencyIntelNine,
             CoreIntelNine,
@@ -274,7 +260,7 @@ public class ComponentsDataBase
             TdpIntelNine,
             PowerIntelNine).CreateCPU());
 
-        _intelCpu.Add(new IntelCPUFactory(
+        _allComponents.Add(new IntelCPUFactory(
             NameIntelSeven,
             CoreFrequencyIntelSeven,
             CoreIntelSeven,
@@ -284,7 +270,7 @@ public class ComponentsDataBase
             TdpIntelSeven,
             PowerIntelSeven).CreateCPU());
 
-        _intelCpu.Add(new IntelCPUFactory(
+        _allComponents.Add(new IntelCPUFactory(
             NameIntelFive,
             CoreFrequencyIntelFive,
             CoreIntelFive,
@@ -294,7 +280,7 @@ public class ComponentsDataBase
             TdpIntelFive,
             PowerIntelFive).CreateCPU());
 
-        _motherboard.Add(new CurrentMotherBoardFactory(
+        _allComponents.Add(new CurrentMotherBoardFactory(
             NameGigabyte,
             new AMFive(),
             new PCIE3(),
@@ -305,7 +291,7 @@ public class ComponentsDataBase
             FormFactorGigabyte,
             BiosTypeGigabyte).CreateMotherBoard());
 
-        _motherboard.Add(new CurrentMotherBoardFactory(
+        _allComponents.Add(new CurrentMotherBoardFactory(
             NameEsonic,
             new LGAOneOneFiveOne(),
             new PCIE4(),
@@ -316,15 +302,15 @@ public class ComponentsDataBase
             FormFactorEsonic,
             BiosTypeEsconic).CreateMotherBoard());
 
-        _powerUnits.Add(new CurrentPowerUnitFactory(
+        _allComponents.Add(new CurrentPowerUnitFactory(
             NameCouger,
             PowerLimitsCouger).CreatePowerUnits());
 
-        _powerUnits.Add(new CurrentPowerUnitFactory(
+        _allComponents.Add(new CurrentPowerUnitFactory(
             NameExeGate,
             PowerLimitsExeGate).CreatePowerUnits());
 
-        _ramSelections.Add(new DDR4Factory(
+        _allComponents.Add(new DDR4Factory(
             NameFour,
             MemoryLimitsFour,
             new Xmp(20, 20, 20),
@@ -332,7 +318,7 @@ public class ComponentsDataBase
             VersionDDRFour,
             PowerFour).CreateRam());
 
-        _ramSelections.Add(new DDR5Factory(
+        _allComponents.Add(new DDR5Factory(
             NameFive,
             MemoryLimitsFive,
             new Xmp(20, 12, 18),
@@ -340,21 +326,21 @@ public class ComponentsDataBase
             VersionDDRFive,
             PowerFive).CreateRam());
 
-        _ssd.Add(new CurrentSSDFactory(
+        _allComponents.Add(new CurrentSSDFactory(
             NameKingston,
             new TypeSata(),
             MemoryKingston,
             SpeedKingston,
             PowerKingston).CreateSSD());
 
-        _ssd.Add(new CurrentSSDFactory(
+        _allComponents.Add(new CurrentSSDFactory(
             NameNetac,
             new TypePCIE(),
             MemoryNetac,
             SpeedNetac,
             PowerNetac).CreateSSD());
 
-        _gpu.Add(new CurrentVideoCardFactory(
+        _allComponents.Add(new CurrentVideoCardFactory(
             NameGigabyteForce,
             LebgthGigabyte,
             WidthGigabyte,
@@ -362,7 +348,7 @@ public class ComponentsDataBase
             FrequencyGigabyte,
             PowerGigabyte).CreateVideoCard());
 
-        _gpu.Add(new CurrentVideoCardFactory(
+        _allComponents.Add(new CurrentVideoCardFactory(
             NameNvideo,
             LebgthNvideo,
             WidthNvideo,
@@ -370,14 +356,14 @@ public class ComponentsDataBase
             FrequencyNvideo,
             PowerNvideo).CreateVideoCard());
 
-        _wifiAdapters.Add(new CurrentWifiAdapter(
+        _allComponents.Add(new CurrentWifiAdapter(
             NameLtx,
             VersionLtx,
             BluetoothLtx,
             new PCIE3(),
             AdapterPowerLtx));
 
-        _wifiAdapters.Add(new CurrentWifiAdapter(
+        _allComponents.Add(new CurrentWifiAdapter(
             NameMercus,
             VersionMercus,
             BluetoothMercus,
@@ -385,141 +371,14 @@ public class ComponentsDataBase
             AdapterPowerMercus));
     }
 
-    public object? GetByName(object component, string name)
+    public static IComponent? GetByName(string name)
     {
-        if (name == null) return null;
-        switch (component)
-        {
-            case ComputerCases:
-                foreach (ComputerCases comp in _caseList)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case CoolingSystemAmd:
-                foreach (CoolingSystemAmd comp in _coolingSystemAmd)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case CoolingSystemIntel:
-                foreach (CoolingSystemIntel comp in _coolingSystemIntel)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case AmdCPU:
-                foreach (CPU comp in _amdCpu)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case IntelCPU:
-                foreach (IntelCPU comp in _intelCpu)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case MotherBoard:
-                foreach (MotherBoard comp in _motherboard)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case PowerUnit:
-                foreach (PowerUnit comp in _powerUnits)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case Ram:
-                foreach (Ram comp in _ramSelections)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case SSD:
-                foreach (SSD comp in _ssd)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case VideoCard:
-                foreach (VideoCard comp in _gpu)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-            case WifiAdapter:
-                foreach (WifiAdapter comp in _wifiAdapters)
-                {
-                    if (name.Equals(comp.Name, System.StringComparison.Ordinal))
-                        return comp;
-                }
-
-                break;
-        }
-
-        return null;
+        return _allComponents.FirstOrDefault(comp =>
+            name.Equals(comp.Name, System.StringComparison.Ordinal));
     }
 
-    public void AddNewComponent(object component)
+    public static void AddNewComponent(IComponent component)
     {
-        switch (component)
-        {
-            case ComputerCases cases:
-                _caseList.Add(cases);
-                break;
-            case CoolingSystemAmd cases:
-                _coolingSystemAmd.Add(cases);
-                break;
-            case CoolingSystemIntel cases:
-                _coolingSystemIntel.Add(cases);
-                break;
-            case AmdCPU cases:
-                _amdCpu.Add(cases);
-                break;
-            case IntelCPU cases:
-                _intelCpu.Add(cases);
-                break;
-            case MotherBoard cases:
-                _motherboard.Add(cases);
-                break;
-            case PowerUnit cases:
-                _powerUnits.Add(cases);
-                break;
-            case Ram cases:
-                _ramSelections.Add(cases);
-                break;
-            case SSD cases:
-                _ssd.Add(cases);
-                break;
-            case VideoCard cases:
-                _gpu.Add(cases);
-                break;
-            case WifiAdapter cases:
-                _wifiAdapters.Add(cases);
-                break;
-        }
+        _allComponents.Add(component);
     }
 }

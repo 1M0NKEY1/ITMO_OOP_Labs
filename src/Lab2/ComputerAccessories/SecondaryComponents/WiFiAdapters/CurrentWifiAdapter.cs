@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
+using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.WiFiAdapters;
 
@@ -29,4 +30,9 @@ public class CurrentWifiAdapter : WifiAdapter
     public override bool Bluetooth => _bluetooth;
     public override PCIVersions WifiPciVersions => _wifiPciVersion;
     public override int WifiAdapterPower => _wifiAdapterPower;
+
+    public override bool AvailablePCE(MotherBoard motherBoard)
+    {
+        return motherBoard.Pci == _wifiPciVersion;
+    }
 }

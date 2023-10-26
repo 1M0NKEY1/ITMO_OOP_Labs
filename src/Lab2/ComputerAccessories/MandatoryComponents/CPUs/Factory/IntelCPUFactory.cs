@@ -33,7 +33,7 @@ public class IntelCPUFactory : CPUFactory
         _powerConsumption = powerConsumption;
     }
 
-    public override CPU CreateCPU()
+    public override Cpu CreateCPU()
     {
         return new IntelCPU(
             _name,
