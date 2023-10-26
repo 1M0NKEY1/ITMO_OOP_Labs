@@ -48,8 +48,6 @@ public class TestBuidWithoutProblems
 
     public bool CompleteBuild()
     {
-        ComponentsDataBase.FillDataBase();
-
         return _buildComputer.Create() is not null;
     }
 
@@ -66,6 +64,8 @@ public class TestBuidWithoutProblems
         string videoCardName,
         string wifiAdapterName)
     {
+        ComponentsDataBase.FillDataBase();
+
         _buildComputer.WithComputerCase((ComputerCases?)ComponentsDataBase.GetByName(caseName)
                                         ?? throw new CreateBuilderNullException(caseName));
         _buildComputer.WithCoolingSystem((CoolingSystems?)ComponentsDataBase.GetByName(coolingName)
