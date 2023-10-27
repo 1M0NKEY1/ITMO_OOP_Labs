@@ -14,11 +14,11 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Tests;
 
-public class TestBuildWithoutProblems
+public class TestWithIncompabilityComponents
 {
     private const string _caseName = "Formula Crystal Z5";
-    private const string _coolingName = "ID-Cooling SE-207-TRX BLACK";
-    private const string _cpuName = "Ryzen 5 7600 OEM";
+    private const string _coolingName = "DEEPCOOL GAMMAXX 400K";
+    private const string _cpuName = "Intel Core i9-10900x";
     private const string _motherboardName = "GIGABYTE B550M AORUS ELITE";
     private const string _powerUnitName = "ExeGate UN850";
     private const string _ramName = "DDR4-3200";
@@ -27,6 +27,7 @@ public class TestBuildWithoutProblems
     private const string _wifiAdapterName = "USB LTX-W04 3dBi";
 
     private readonly BuildComputer _buildComputer = new();
+
     public static IEnumerable<object[]> GetObjects
     {
         get
@@ -50,11 +51,11 @@ public class TestBuildWithoutProblems
     {
         IList<ComputerBuildResult> result = buildComputer.GetResultMessage();
 
-        return result is [ComputerBuildResult.Success];
+        return result is [ComputerBuildResult.WrongSocket];
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestBuildWithoutProblems))]
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestWithIncompabilityComponents))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
         string caseName,
         string coolingName,

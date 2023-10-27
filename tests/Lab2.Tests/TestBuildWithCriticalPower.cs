@@ -14,19 +14,23 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Tests;
 
-public class TestBuildWithoutProblems
+/// <summary>
+/// Current Power = 650 but accessable Power = 650.
+/// </summary>
+public class TestBuildWithCriticalPower
 {
     private const string _caseName = "Formula Crystal Z5";
     private const string _coolingName = "ID-Cooling SE-207-TRX BLACK";
     private const string _cpuName = "Ryzen 5 7600 OEM";
     private const string _motherboardName = "GIGABYTE B550M AORUS ELITE";
-    private const string _powerUnitName = "ExeGate UN850";
+    private const string _powerUnitName = "Cougar VTE X2 750";
     private const string _ramName = "DDR4-3200";
     private const string _ssdName = "Netac 1 ТБ M.2 NT01NV7000-1T0-E4X";
-    private const string _videocardName = "NVIDIA GeForce GTX 1650";
+    private const string _videocardName = "GIGABYTE GeForce RTX 4060 Ti EAGLE";
     private const string _wifiAdapterName = "USB LTX-W04 3dBi";
 
     private readonly BuildComputer _buildComputer = new();
+
     public static IEnumerable<object[]> GetObjects
     {
         get
@@ -50,11 +54,11 @@ public class TestBuildWithoutProblems
     {
         IList<ComputerBuildResult> result = buildComputer.GetResultMessage();
 
-        return result is [ComputerBuildResult.Success];
+        return result is [ComputerBuildResult.Success, ComputerBuildResult.CriticalPower];
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestBuildWithoutProblems))]
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestBuildWithCriticalPower))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
         string caseName,
         string coolingName,
