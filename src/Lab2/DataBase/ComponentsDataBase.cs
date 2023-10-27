@@ -79,7 +79,7 @@ public static class ComponentsDataBase
     private const int CoreRyzenFive = 6;
     private const bool IntegratedGraphicsRyzenFive = true;
     private const int SupportedMemoryRyzenFive = 5200;
-    private const int TdpRyzenFive = 65;
+    private const int TdpRyzenFive = 190;
     private const int PowerRyzenFive = 100;
 
     private const string NameIntelNine = "Intel Core i9-10900x";
@@ -119,7 +119,7 @@ public static class ComponentsDataBase
     private const int BiosTypeEsconic = 4;
 
     private const string NameCouger = "Cougar VTE X2 750";
-    private const int PowerLimitsCouger = 750;
+    private const int PowerLimitsCouger = 600;
 
     private const string NameExeGate = "ExeGate UN850";
     private const int PowerLimitsExeGate = 850;
@@ -161,12 +161,12 @@ public static class ComponentsDataBase
     private const string NameLtx = "USB LTX-W04 3dBi";
     private const int VersionLtx = 4;
     private const bool BluetoothLtx = false;
-    private const int AdapterPowerLtx = 5;
+    private const int AdapterPowerLtx = 25;
 
     private const string NameMercus = "Mercusys MW150US";
     private const int VersionMercus = 3;
     private const bool BluetoothMercus = true;
-    private const int AdapterPowerMercus = 5;
+    private const int AdapterPowerMercus = 25;
 
     private static readonly IList<IComponent> _allComponents = new List<IComponent>();
 

@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 using Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit;
@@ -12,6 +13,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.Builder;
 
 public class BuildComputer : IBuilder
 {
+    private IList<ComputerBuildResult> _criticalResultList = new List<ComputerBuildResult>();
+    private IList<ComputerBuildResult> _nonCriticalResultList = new List<ComputerBuildResult>();
+
     private ComputerCases? _computerCases;
     private CoolingSystems? _coolingSystems;
     private Cpu? _cpu;
@@ -22,16 +26,8 @@ public class BuildComputer : IBuilder
     private VideoCard? _videoCard;
     private WifiAdapter? _wifiAdapter;
 
-    public Computer? Create()
+    public Computer Create()
     {
-        if (!CheckPower()) throw new CreateBuilderNullException("Power");
-        if (!CheckCoolingSystemSize()) throw new CreateBuilderNullException("Size");
-        if (!CheckCoolingSystemTdp()) throw new CreateBuilderNullException("Tdp");
-        if (!CheckRamFormFactor()) throw new CreateBuilderNullException("RamFormFactor");
-        if (!CheckSocketTypeCpu()) throw new CreateBuilderNullException("Socket");
-        if (!CheckFormFactorMotherBoard()) throw new CreateBuilderNullException("MotherFormFactor");
-        if (!CheckWifiPci()) throw new CreateBuilderNullException("Wifi Pci");
-
         return new Computer(
             _computerCases ?? throw new CreateBuilderNullException(nameof(_computerCases)),
             _coolingSystems ?? throw new CreateBuilderNullException(nameof(_coolingSystems)),
@@ -96,6 +92,48 @@ public class BuildComputer : IBuilder
     {
         _wifiAdapter = wifiAdapter;
         return this;
+    }
+
+    public IList<ComputerBuildResult> GetResultMessage()
+    {
+        var message = new List<ComputerBuildResult>();
+
+        CriticalErrorCheck();
+        SecondaryErrorCheck();
+
+        if (_criticalResultList.Count > 0)
+        {
+            message.AddRange(_criticalResultList);
+
+            return message;
+        }
+
+        if (_nonCriticalResultList.Count > 0)
+        {
+            message.Add(ComputerBuildResult.Success);
+            message.AddRange(_nonCriticalResultList);
+
+            return message;
+        }
+
+        message.Add(ComputerBuildResult.Success);
+
+        return message;
+    }
+
+    private void CriticalErrorCheck()
+    {
+        if (!CheckCoolingSystemSize()) _criticalResultList.Add(ComputerBuildResult.OutOfSize);
+        if (!CheckRamFormFactor()) _criticalResultList.Add(ComputerBuildResult.OutOfSize);
+        if (!CheckSocketTypeCpu()) _criticalResultList.Add(ComputerBuildResult.WrongSocket);
+        if (!CheckFormFactorMotherBoard()) _criticalResultList.Add(ComputerBuildResult.OutOfSize);
+        if (!CheckWifiPci()) _criticalResultList.Add(ComputerBuildResult.WrongPcie);
+    }
+
+    private void SecondaryErrorCheck()
+    {
+        if (!CheckPower()) _nonCriticalResultList.Add(ComputerBuildResult.CriticalPower);
+        if (!CheckCoolingSystemTdp()) _nonCriticalResultList.Add(ComputerBuildResult.CriticalTdp);
     }
 
     private bool CheckRamFormFactor()
