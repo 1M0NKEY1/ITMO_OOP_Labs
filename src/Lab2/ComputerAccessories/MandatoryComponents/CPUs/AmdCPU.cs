@@ -43,13 +43,14 @@ public class AmdCPU : Cpu
     public override int SupportedMemory => _supportedMemory;
     public override int TDP => _tdp;
     public override int PowerConsumption => _powerConsumption;
+
     public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
     {
-        return motherBoard.Socket == _socket;
+        return motherBoard.Socket.Equals(_socket);
     }
 
     public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
     {
-        return coolingSystems.CoolingTDP < _tdp;
+        return coolingSystems.CoolingTDP > _tdp;
     }
 }

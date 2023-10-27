@@ -2,4 +2,5 @@
 
 public abstract class InputTypes
 {
+    public abstract bool Equals(InputTypes? other);
 }

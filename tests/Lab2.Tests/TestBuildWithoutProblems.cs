@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Tests;
 
-public class TestBuidWithoutProblems
+public class TestBuildWithoutProblems
 {
     private const string _caseName = "Formula Crystal Z5";
     private const string _coolingName = "ID-Cooling SE-207-TRX BLACK";
@@ -52,7 +52,7 @@ public class TestBuidWithoutProblems
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestBuidWithoutProblems))]
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestBuildWithoutProblems))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
         string caseName,
         string coolingName,

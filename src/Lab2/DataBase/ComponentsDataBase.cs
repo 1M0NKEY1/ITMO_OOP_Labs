@@ -108,13 +108,13 @@ public static class ComponentsDataBase
 
     private const string NameGigabyte = "GIGABYTE B550M AORUS ELITE";
     private const int DDRGigabyte = 4;
-    private const int RamTableCountGigabyte = 4;
+    private const int RamTableCountGigabyte = 288;
     private const int FormFactorGigabyte = 244 * 244;
     private const int BiosTypeGigabyte = 4;
 
     private const string NameEsonic = "Esonic H61FHL";
     private const int DDREsconic = 5;
-    private const int RamTableCountEsonic = 4;
+    private const int RamTableCountEsonic = 288;
     private const int FormFactorEsonic = 244 * 244;
     private const int BiosTypeEsconic = 4;
 
@@ -190,31 +190,31 @@ public static class ComponentsDataBase
             NameDeep,
             CoolingDimensionsDeep,
             CoolingTdpDeep,
-            new AMFive()).CreateCoolingSystem());
+            new AM5()).CreateCoolingSystem());
 
         _allComponents.Add(new CoolingSystemFactoryAmd(
             NameSe,
             CoolingDimensionsSe,
             CoolingTdpSe,
-            new WRXEight()).CreateCoolingSystem());
+            new WRX8()).CreateCoolingSystem());
 
         _allComponents.Add(new CoolingSystemFactoryIntel(
             NameJons,
             CoolingDimensionsJons,
             CoolingTdpJons,
-            new LGAOneOneFiveOne()).CreateCoolingSystem());
+            new LGA1151()).CreateCoolingSystem());
 
         _allComponents.Add(new CoolingSystemFactoryIntel(
             NameNoctua,
             CoolingDimensionsNoctua,
             CoolingTdpNoctua,
-            new LGATwoZeroSixSix()).CreateCoolingSystem());
+            new LGA2066()).CreateCoolingSystem());
 
         _allComponents.Add(new AmdCPUFactory(
             NameRyzenth,
             CoreFrequencyRyzenth,
             CoreRyzenth,
-            new WRXEight(),
+            new WRX8(),
             IntegratedGraphicsRyzenth,
             SupportedMemoryRyzenth,
             TdpRyzenth,
@@ -224,7 +224,7 @@ public static class ComponentsDataBase
             NameRyzenNine,
             CoreFrequencyRyzenNine,
             CoreRyzenNine,
-            new AMFive(),
+            new AM5(),
             IntegratedGraphicsRyzenNine,
             SupportedMemoryRyzenNine,
             TdpRyzenNine,
@@ -234,7 +234,7 @@ public static class ComponentsDataBase
             NameRyzenSeven,
             CoreFrequencyRyzenSeven,
             CoreRyzenSeven,
-            new AMFive(),
+            new AM5(),
             IntegratedGraphicsRyzenSeven,
             SupportedMemoryRyzenSeven,
             TdpRyzenSeven,
@@ -244,7 +244,7 @@ public static class ComponentsDataBase
             NameRyzenFive,
             CoreFrequencyRyzenFive,
             CoreRyzenFive,
-            new AMFive(),
+            new AM5(),
             IntegratedGraphicsRyzenFive,
             SupportedMemoryRyzenFive,
             TdpRyzenFive,
@@ -254,7 +254,7 @@ public static class ComponentsDataBase
             NameIntelNine,
             CoreFrequencyIntelNine,
             CoreIntelNine,
-            new LGATwoZeroSixSix(),
+            new LGA2066(),
             IntegratedGraphicsIntelNine,
             SupportedMemoryIntelNine,
             TdpIntelNine,
@@ -264,7 +264,7 @@ public static class ComponentsDataBase
             NameIntelSeven,
             CoreFrequencyIntelSeven,
             CoreIntelSeven,
-            new LGAOneOneFiveOne(),
+            new LGA1151(),
             IntegratedGraphicsIntelSeven,
             SupportedMemoryIntelSeven,
             TdpIntelSeven,
@@ -274,7 +274,7 @@ public static class ComponentsDataBase
             NameIntelFive,
             CoreFrequencyIntelFive,
             CoreIntelFive,
-            new LGAOneOneFiveOne(),
+            new LGA1151(),
             IntegratedGraphicsIntelFive,
             SupportedMemoryIntelFive,
             TdpIntelFive,
@@ -282,9 +282,9 @@ public static class ComponentsDataBase
 
         _allComponents.Add(new CurrentMotherBoardFactory(
             NameGigabyte,
-            new AMFive(),
-            new PCIE3(),
-            new SataFour(),
+            new AM5(),
+            new PCIE4(),
+            new Sata4(),
             new AmdChip(),
             DDRGigabyte,
             RamTableCountGigabyte,
@@ -293,9 +293,9 @@ public static class ComponentsDataBase
 
         _allComponents.Add(new CurrentMotherBoardFactory(
             NameEsonic,
-            new LGAOneOneFiveOne(),
+            new LGA1151(),
             new PCIE4(),
-            new SataThree(),
+            new Sata3(),
             new IntelChip(),
             DDREsconic,
             RamTableCountEsonic,
@@ -360,7 +360,7 @@ public static class ComponentsDataBase
             NameLtx,
             VersionLtx,
             BluetoothLtx,
-            new PCIE3(),
+            new PCIE4(),
             AdapterPowerLtx));
 
         _allComponents.Add(new CurrentWifiAdapter(

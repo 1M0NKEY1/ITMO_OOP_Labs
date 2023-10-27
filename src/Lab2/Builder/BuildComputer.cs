@@ -24,21 +24,24 @@ public class BuildComputer : IBuilder
 
     public Computer? Create()
     {
-        if (Checker() && CheckPower())
-        {
-            return new Computer(
-                _computerCases ?? throw new CreateBuilderNullException(nameof(_computerCases)),
-                _coolingSystems ?? throw new CreateBuilderNullException(nameof(_coolingSystems)),
-                _cpu ?? throw new CreateBuilderNullException(nameof(_cpu)),
-                _motherBoard ?? throw new CreateBuilderNullException(nameof(_motherBoard)),
-                _powerUnit ?? throw new CreateBuilderNullException(nameof(_powerUnit)),
-                _ram ?? throw new CreateBuilderNullException(nameof(_ram)),
-                _ssd,
-                _videoCard,
-                _wifiAdapter);
-        }
+        if (!CheckPower()) throw new CreateBuilderNullException("Power");
+        if (!CheckCoolingSystemSize()) throw new CreateBuilderNullException("Size");
+        if (!CheckCoolingSystemTdp()) throw new CreateBuilderNullException("Tdp");
+        if (!CheckRamFormFactor()) throw new CreateBuilderNullException("RamFormFactor");
+        if (!CheckSocketTypeCpu()) throw new CreateBuilderNullException("Socket");
+        if (!CheckFormFactorMotherBoard()) throw new CreateBuilderNullException("MotherFormFactor");
+        if (!CheckWifiPci()) throw new CreateBuilderNullException("Wifi Pci");
 
-        return null;
+        return new Computer(
+            _computerCases ?? throw new CreateBuilderNullException(nameof(_computerCases)),
+            _coolingSystems ?? throw new CreateBuilderNullException(nameof(_coolingSystems)),
+            _cpu ?? throw new CreateBuilderNullException(nameof(_cpu)),
+            _motherBoard ?? throw new CreateBuilderNullException(nameof(_motherBoard)),
+            _powerUnit ?? throw new CreateBuilderNullException(nameof(_powerUnit)),
+            _ram ?? throw new CreateBuilderNullException(nameof(_ram)),
+            _ssd,
+            _videoCard,
+            _wifiAdapter);
     }
 
     public IBuilder WithComputerCase(ComputerCases computerCases)
@@ -95,19 +98,35 @@ public class BuildComputer : IBuilder
         return this;
     }
 
-    private bool Checker()
+    private bool CheckRamFormFactor()
+    {
+        return _motherBoard is not null
+               && _motherBoard.AvailableRamForMotherboard(_ram ?? throw new CreateBuilderNullException(nameof(_ram)));
+    }
+
+    private bool CheckFormFactorMotherBoard()
     {
         if (_computerCases is null) return false;
+        return _motherBoard is not null && _computerCases.AvailableMotherBoardForCase(_motherBoard);
+    }
+
+    private bool CheckSocketTypeCpu()
+    {
         if (_motherBoard is null) return false;
-        if (_cpu is null) return false;
-        if (_wifiAdapter is null) return false;
+        return _cpu is not null && _cpu.AvailableMotherboardForCpu(_motherBoard);
+    }
+
+    private bool CheckCoolingSystemSize()
+    {
+        if (_computerCases is null) return false;
         return _computerCases.AvailableCoolingSystemForCase(
-                   _coolingSystems ?? throw new CreateBuilderNullException(nameof(_coolingSystems)))
-               && _computerCases.AvailableMotherBoardForCase(_motherBoard)
-               && _cpu.AvailableMotherboardForCpu(_motherBoard)
-               && _cpu.EnoughTdpCoolingSystem(_coolingSystems)
-               && _motherBoard.AvailableRamForMotherboard(_ram ?? throw new CreateBuilderNullException(nameof(_ram)))
-               && _wifiAdapter.AvailablePCE(_motherBoard);
+            _coolingSystems ?? throw new CreateBuilderNullException(nameof(_coolingSystems)));
+    }
+
+    private bool CheckCoolingSystemTdp()
+    {
+        if (_coolingSystems is null) return false;
+        return _cpu is not null && _cpu.EnoughTdpCoolingSystem(_coolingSystems);
     }
 
     private bool CheckPower()
@@ -117,8 +136,17 @@ public class BuildComputer : IBuilder
         if (_ram is null) return false;
         if (_ssd is null) return false;
         if (_videoCard is null) return false;
-        if (_powerUnit is null) return false;
+        return _powerUnit is not null && _powerUnit.EnoughPower(_cpu, _ram, _ssd, _videoCard, _wifiAdapter);
+    }
 
-        return _powerUnit.EnoughPower(_cpu, _ram, _ssd, _videoCard, _wifiAdapter);
+    private bool CheckIntegratedGraphic()
+    {
+        return _cpu is not null && _cpu.IntegratedGraphics;
+    }
+
+    private bool CheckWifiPci()
+    {
+        if (_wifiAdapter is null) return false;
+        return _motherBoard is not null && _wifiAdapter.AvailablePcie(_motherBoard);
     }
 }

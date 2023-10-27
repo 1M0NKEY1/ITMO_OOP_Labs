@@ -52,6 +52,6 @@ public class CurrentMotherBoard : MotherBoard
 
     public override bool AvailableRamForMotherboard(Ram ram)
     {
-        return ram.RamPower == RamTableCount && ram.VersionDDR == _ddr;
+        return ram.RamFormFactor == RamTableCount && ram.VersionDDR == _ddr;
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
 
-public class AmdChip : Chip
+public abstract class Chip
 {
+    public abstract bool Equals(Chip? other);
 }

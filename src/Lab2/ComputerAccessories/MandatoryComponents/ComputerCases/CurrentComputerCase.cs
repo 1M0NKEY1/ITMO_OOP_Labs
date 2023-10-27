@@ -33,7 +33,7 @@ public class CurrentComputerCase : ComputerCases
 
     public override bool AvailableMotherBoardForCase(MotherBoard motherBoard)
     {
-        return motherBoard.FormFactorMother < _motherboardFormFactor;
+        return motherBoard.FormFactorMother.Equals(_motherboardFormFactor);
     }
 
     public override bool AvailableCoolingSystemForCase(CoolingSystems coolingSystems)

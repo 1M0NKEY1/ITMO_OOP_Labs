@@ -2,4 +2,5 @@
 
 public abstract class PCIVersions
 {
+    public abstract bool Equals(PCIVersions? other);
 }
