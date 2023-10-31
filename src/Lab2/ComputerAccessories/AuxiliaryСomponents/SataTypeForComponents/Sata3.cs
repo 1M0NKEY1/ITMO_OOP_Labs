@@ -2,5 +2,5 @@
 
 public class Sata3 : SataType
 {
-    public override bool Equals(SataType? other) => other is Sata3;
+    public override bool EqualsForSata(SataType? other) => other is Sata3;
 }

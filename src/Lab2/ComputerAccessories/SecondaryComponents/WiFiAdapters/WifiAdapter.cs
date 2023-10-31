@@ -18,7 +18,7 @@ public abstract class WifiAdapter : IComponent, IEquatable<IComponent>
     {
         if (other is WifiAdapter otherWifiAdapter)
         {
-            return WifiPciVersions.Equals(otherWifiAdapter.WifiPciVersions);
+            return WifiPciVersions.EqualsForPciVersions(otherWifiAdapter.WifiPciVersions);
         }
 
         return false;

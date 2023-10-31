@@ -2,5 +2,5 @@
 
 public class TypeSata : InputTypes
 {
-    public override bool Equals(InputTypes? other) => other is TypeSata;
+    public override bool EqualsForInputTypes(InputTypes? other) => other is TypeSata;
 }

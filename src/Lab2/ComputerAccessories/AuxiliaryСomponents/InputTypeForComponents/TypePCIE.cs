@@ -2,5 +2,5 @@
 
 public class TypePCIE : InputTypes
 {
-    public override bool Equals(InputTypes? other) => other is TypePCIE;
+    public override bool EqualsForInputTypes(InputTypes? other) => other is TypePCIE;
 }

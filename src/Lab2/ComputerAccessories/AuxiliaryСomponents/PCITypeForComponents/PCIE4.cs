@@ -2,5 +2,5 @@
 
 public class PCIE4 : PCIVersions
 {
-    public override bool Equals(PCIVersions? other) => other is PCIE4;
+    public override bool EqualsForPciVersions(PCIVersions? other) => other is PCIE4;
 }

@@ -33,7 +33,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
     public override int WifiAdapterPower => _wifiAdapterPower;
     public override bool AvailablePcie(MotherBoard motherBoard)
     {
-        return motherBoard.Pci.Equals(_wifiPciVersion);
+        return motherBoard.Pci.EqualsForPciVersions(_wifiPciVersion);
     }
 
     public CurrentWifiAdapter Clone()

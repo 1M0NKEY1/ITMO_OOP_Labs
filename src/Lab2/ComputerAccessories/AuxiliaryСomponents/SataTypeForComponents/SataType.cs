@@ -2,5 +2,5 @@
 
 public abstract class SataType
 {
-    public abstract bool Equals(SataType? other);
+    public abstract bool EqualsForSata(SataType? other);
 }
