@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType;
 
 public class LGA1151 : IntelSocketType
 {
-    public override bool Equals(SocketTypes? other) => other is LGA1151;
+    public override bool EqualsOfSockets(SocketTypes? other) => other is LGA1151;
 }

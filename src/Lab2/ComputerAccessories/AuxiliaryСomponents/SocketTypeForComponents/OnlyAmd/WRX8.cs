@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType.OnlyAmd;
 
 public class WRX8 : AmdSocketType
 {
-    public override bool Equals(SocketTypes? other) => other is WRX8;
+    public override bool EqualsOfSockets(SocketTypes? other) => other is WRX8;
 }

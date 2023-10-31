@@ -2,5 +2,5 @@
 
 public abstract class SocketTypes
 {
-    public abstract bool Equals(SocketTypes? other);
+    public abstract bool EqualsOfSockets(SocketTypes? other);
 }

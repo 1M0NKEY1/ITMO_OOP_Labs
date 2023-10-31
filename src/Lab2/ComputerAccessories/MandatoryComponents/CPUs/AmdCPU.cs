@@ -1,19 +1,21 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
+using Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType.OnlyAmd;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.SocketTypeDir;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
+using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
-public class AmdCPU : Cpu
+public class AmdCPU : Cpu, IPrototype<AmdCPU>
 {
-    private readonly string _name;
-    private readonly int _coreFrequency;
-    private readonly int _cores;
-    private readonly SocketTypes _socket;
-    private readonly bool _integratedGraphics;
-    private readonly int _supportedMemory;
-    private readonly int _tdp;
-    private readonly int _powerConsumption;
+    private int _coreFrequency;
+    private int _cores;
+    private SocketTypes _socket;
+    private bool _integratedGraphics;
+    private int _supportedMemory;
+    private int _tdp;
+    private int _powerConsumption;
+    private string _name;
 
     public AmdCPU(
         string name,
@@ -46,11 +48,88 @@ public class AmdCPU : Cpu
 
     public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
     {
-        return motherBoard.Socket.Equals(_socket);
+        return motherBoard.Socket.EqualsOfSockets(_socket);
     }
 
     public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
     {
         return coolingSystems.CoolingTDP > _tdp;
+    }
+
+    public AmdCPU Clone()
+    {
+        return new AmdCPU(
+            _name,
+            _coreFrequency,
+            _cores,
+            _socket,
+            _integratedGraphics,
+            _supportedMemory,
+            _tdp,
+            _powerConsumption);
+    }
+
+    public AmdCPU SetName(string name)
+    {
+        AmdCPU cloneCpu = Clone();
+        _name = name;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetCoreFrequency(int frequency)
+    {
+        AmdCPU cloneCpu = Clone();
+        _coreFrequency = frequency;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetCores(int cores)
+    {
+        AmdCPU cloneCpu = Clone();
+        _cores = cores;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetSocket(AmdSocketType socketType)
+    {
+        AmdCPU cloneCpu = Clone();
+        _socket = socketType;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetGpu(bool gpu)
+    {
+        AmdCPU cloneCpu = Clone();
+        _integratedGraphics = gpu;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetSupportedMemory(int supportedMemory)
+    {
+        AmdCPU cloneCpu = Clone();
+        _supportedMemory = supportedMemory;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetTdp(int tdp)
+    {
+        AmdCPU cloneCpu = Clone();
+        _tdp = tdp;
+
+        return cloneCpu;
+    }
+
+    public AmdCPU SetPower(int power)
+    {
+        AmdCPU cloneCpu = Clone();
+        _powerConsumption = power;
+
+        return cloneCpu;
     }
 }

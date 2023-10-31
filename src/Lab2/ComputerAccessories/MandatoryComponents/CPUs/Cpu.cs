@@ -22,7 +22,7 @@ public abstract class Cpu : IComponent, IEquatable<IComponent>
     {
         if (other is Cpu otherCpu)
         {
-            return Socket.Equals(otherCpu.Socket);
+            return Socket.EqualsOfSockets(otherCpu.Socket);
         }
 
         return false;

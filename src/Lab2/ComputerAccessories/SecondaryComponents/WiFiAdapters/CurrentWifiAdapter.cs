@@ -1,15 +1,16 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.PCIVersionDir;
+using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.WiFiAdapters;
 
-public class CurrentWifiAdapter : WifiAdapter
+public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
 {
-    private readonly string _name;
-    private readonly int _version;
-    private readonly bool _bluetooth;
-    private readonly PCIVersions _wifiPciVersion;
-    private readonly int _wifiAdapterPower;
+    private int _version;
+    private bool _bluetooth;
+    private PCIVersions _wifiPciVersion;
+    private int _wifiAdapterPower;
+    private string _name;
 
     public CurrentWifiAdapter(
         string name,
@@ -33,5 +34,55 @@ public class CurrentWifiAdapter : WifiAdapter
     public override bool AvailablePcie(MotherBoard motherBoard)
     {
         return motherBoard.Pci.Equals(_wifiPciVersion);
+    }
+
+    public CurrentWifiAdapter Clone()
+    {
+        return new CurrentWifiAdapter(
+        _name,
+        _version,
+        _bluetooth,
+        _wifiPciVersion,
+        _wifiAdapterPower);
+    }
+
+    public CurrentWifiAdapter SetName(string name)
+    {
+        CurrentWifiAdapter cloneWifi = Clone();
+        _name = name;
+
+        return cloneWifi;
+    }
+
+    public CurrentWifiAdapter SetVersion(int version)
+    {
+        CurrentWifiAdapter cloneWifi = Clone();
+        _version = version;
+
+        return cloneWifi;
+    }
+
+    public CurrentWifiAdapter SetBluetooth(bool bluetooth)
+    {
+        CurrentWifiAdapter cloneWifi = Clone();
+        _bluetooth = bluetooth;
+
+        return cloneWifi;
+    }
+
+    public CurrentWifiAdapter SetPci(PCIVersions pciVersions)
+    {
+        CurrentWifiAdapter cloneWifi = Clone();
+        _wifiPciVersion = pciVersions;
+
+        return cloneWifi;
+    }
+
+    public CurrentWifiAdapter SetPower(int power)
+    {
+        CurrentWifiAdapter cloneWifi = Clone();
+        _wifiAdapterPower = power;
+
+        return cloneWifi;
     }
 }

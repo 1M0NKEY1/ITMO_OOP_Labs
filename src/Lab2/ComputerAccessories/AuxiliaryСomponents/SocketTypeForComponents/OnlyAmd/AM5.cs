@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.SocketType.OnlyAmd;
 
 public class AM5 : AmdSocketType
 {
-    public override bool Equals(SocketTypes? other) => other is AM5;
+    public override bool EqualsOfSockets(SocketTypes? other) => other is AM5;
 }

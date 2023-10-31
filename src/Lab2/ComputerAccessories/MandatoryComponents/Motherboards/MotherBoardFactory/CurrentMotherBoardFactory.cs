@@ -15,7 +15,7 @@ public class CurrentMotherBoardFactory : MotherBoardFactory
     private readonly int _ddr;
     private readonly int _ramTableCount;
     private readonly int _formFactorMother;
-    private readonly int _motheBoardBios;
+    private readonly int _motherBoardBios;
 
     public CurrentMotherBoardFactory(
         string name,
@@ -36,7 +36,7 @@ public class CurrentMotherBoardFactory : MotherBoardFactory
         _ddr = ddr;
         _ramTableCount = ramTableCount;
         _formFactorMother = formFactorMother;
-        _motheBoardBios = motherBoardBios;
+        _motherBoardBios = motherBoardBios;
     }
 
     public override MotherBoard CreateMotherBoard()
@@ -50,6 +50,6 @@ public class CurrentMotherBoardFactory : MotherBoardFactory
             _ddr,
             _ramTableCount,
             _formFactorMother,
-            _motheBoardBios);
+            _motherBoardBios);
     }
 }

@@ -2,6 +2,7 @@
 
 public abstract class Bios
 {
+    public abstract string Name { get; }
     public abstract int BiosType { get; }
     public abstract int BiosVersion { get; }
 }

@@ -310,7 +310,7 @@ public static class ComponentsDataBase
             NameExeGate,
             PowerLimitsExeGate).CreatePowerUnits());
 
-        _allComponents.Add(new DDR4Factory(
+        _allComponents.Add(new CurrentRamFactory(
             NameFour,
             MemoryLimitsFour,
             new Xmp(20, 20, 20),
@@ -318,7 +318,7 @@ public static class ComponentsDataBase
             VersionDDRFour,
             PowerFour).CreateRam());
 
-        _allComponents.Add(new DDR5Factory(
+        _allComponents.Add(new CurrentRamFactory(
             NameFive,
             MemoryLimitsFive,
             new Xmp(20, 12, 18),

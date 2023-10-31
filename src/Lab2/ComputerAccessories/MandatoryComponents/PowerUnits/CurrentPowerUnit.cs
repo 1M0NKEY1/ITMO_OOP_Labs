@@ -1,14 +1,15 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards;
+using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 using Itmo.ObjectOrientedProgramming.Lab2.WiFiAdapters;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit;
 
-public class CurrentPowerUnit : PowerUnit
+public class CurrentPowerUnit : PowerUnit, IPrototype<CurrentPowerUnit>
 {
-    private readonly string _name;
-    private readonly int _highPowerLimits;
+    private int _highPowerLimits;
+    private string _name;
 
     public CurrentPowerUnit(string name, int highPowerLimits)
     {
@@ -28,5 +29,26 @@ public class CurrentPowerUnit : PowerUnit
     {
         return cpu.PowerConsumption + ram.RamPower + ssd.SSDPower + videoCard.VideoCardPower +
             wifiAdapter.WifiAdapterPower < _highPowerLimits;
+    }
+
+    public CurrentPowerUnit Clone()
+    {
+        return new CurrentPowerUnit(_name, _highPowerLimits);
+    }
+
+    public CurrentPowerUnit SetName(string name)
+    {
+        CurrentPowerUnit clonePowerUnit = Clone();
+        _name = name;
+
+        return clonePowerUnit;
+    }
+
+    public CurrentPowerUnit SetPowerLimits(int power)
+    {
+        CurrentPowerUnit clonePowerUnit = Clone();
+        _highPowerLimits = power;
+
+        return clonePowerUnit;
     }
 }

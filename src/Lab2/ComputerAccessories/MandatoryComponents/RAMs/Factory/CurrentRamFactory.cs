@@ -1,8 +1,8 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.XMPProfile;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM.Factory;
 
-public class DDR4 : Ram
+public class CurrentRamFactory : RamFactory
 {
     private readonly string _name;
     private readonly int _memoryLimits;
@@ -11,7 +11,7 @@ public class DDR4 : Ram
     private readonly int _versionDDR;
     private readonly int _ramPower;
 
-    public DDR4(
+    public CurrentRamFactory(
         string name,
         int memoryLimits,
         XmpProfile availableXmp,
@@ -27,10 +27,14 @@ public class DDR4 : Ram
         _ramPower = ramPower;
     }
 
-    public override string Name => _name;
-    public override int MemoryLimits => _memoryLimits;
-    public override XmpProfile AvailableXMP => _availableXMP;
-    public override int RamFormFactor => _ramFormFactor;
-    public override int VersionDDR => _versionDDR;
-    public override int RamPower => _ramPower;
+    public override Ram CreateRam()
+    {
+        return new CurrentRam(
+            _name,
+            _memoryLimits,
+            _availableXMP,
+            _ramFormFactor,
+            _versionDDR,
+            _ramPower);
+    }
 }

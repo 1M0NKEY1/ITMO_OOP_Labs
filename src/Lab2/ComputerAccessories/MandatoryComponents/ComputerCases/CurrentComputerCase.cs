@@ -1,15 +1,16 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
 using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponents.Motherboards;
+using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 
-public class CurrentComputerCase : ComputerCases
+public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase>
 {
-    private readonly string _name;
-    private readonly int _length;
-    private readonly int _width;
-    private readonly int _motherboardFormFactor;
-    private readonly int _caseDimensions;
+    private int _length;
+    private int _width;
+    private int _motherboardFormFactor;
+    private int _caseDimensions;
+    private string _name;
 
     public CurrentComputerCase(
         string name,
@@ -39,5 +40,55 @@ public class CurrentComputerCase : ComputerCases
     public override bool AvailableCoolingSystemForCase(CoolingSystems coolingSystems)
     {
         return coolingSystems.CoolingDimensions < _width;
+    }
+
+    public CurrentComputerCase Clone()
+    {
+        return new CurrentComputerCase(
+            _name,
+            _length,
+            _width,
+            _motherboardFormFactor,
+            _caseDimensions);
+    }
+
+    public CurrentComputerCase SetName(string name)
+    {
+        CurrentComputerCase cloneCase = Clone();
+        _name = name;
+
+        return cloneCase;
+    }
+
+    public CurrentComputerCase SetLength(int length)
+    {
+        CurrentComputerCase cloneCase = Clone();
+        _length = length;
+
+        return cloneCase;
+    }
+
+    public CurrentComputerCase SetWidth(int width)
+    {
+        CurrentComputerCase cloneCase = Clone();
+        _width = width;
+
+        return cloneCase;
+    }
+
+    public CurrentComputerCase SetMotherboardFormFactor(int motherboardFormFactor)
+    {
+        CurrentComputerCase cloneCase = Clone();
+        _motherboardFormFactor = motherboardFormFactor;
+
+        return cloneCase;
+    }
+
+    public CurrentComputerCase SetCaseDimension(int dimension)
+    {
+        CurrentComputerCase cloneCase = Clone();
+        _caseDimensions = dimension;
+
+        return cloneCase;
     }
 }
