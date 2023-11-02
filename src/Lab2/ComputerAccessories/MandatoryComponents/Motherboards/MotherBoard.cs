@@ -8,11 +8,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryCompo
 
 public abstract class MotherBoard : IComponent
 {
-    public abstract string Name { get; }
-    public abstract SocketTypes Socket { get; }
-    public abstract PCIVersions Pci { get; }
-    public abstract SataType Sata { get; }
-    public abstract Chip ChipSet { get; }
+    public abstract string? Name { get; }
+    public abstract SocketTypes? Socket { get; }
+    public abstract PCIVersions? Pci { get; }
+    public abstract SataType? Sata { get; }
+    public abstract Chip? ChipSet { get; }
     public abstract int DDR { get; }
     public abstract int RamTableCount { get; }
     public abstract int FormFactorMother { get; }

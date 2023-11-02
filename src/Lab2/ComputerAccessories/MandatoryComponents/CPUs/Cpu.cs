@@ -8,10 +8,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
 public abstract class Cpu : IComponent, IEquatable<IComponent>
 {
-    public abstract string Name { get; }
+    public abstract string? Name { get; }
     public abstract int CoreFrequency { get; }
     public abstract int Cores { get; }
-    public abstract SocketTypes Socket { get; }
+    public abstract SocketTypes? Socket { get; }
     public abstract bool IntegratedGraphics { get; }
     public abstract int SupportedMemory { get; }
     public abstract int TDP { get; }
@@ -22,7 +22,7 @@ public abstract class Cpu : IComponent, IEquatable<IComponent>
     {
         if (other is Cpu otherCpu)
         {
-            return Socket.EqualsOfSockets(otherCpu.Socket);
+            return Socket != null && Socket.EqualsOfSockets(otherCpu.Socket);
         }
 
         return false;
@@ -30,6 +30,6 @@ public abstract class Cpu : IComponent, IEquatable<IComponent>
 
     public override int GetHashCode()
     {
-        return Socket.GetHashCode();
+        return Socket != null ? Socket.GetHashCode() : 0;
     }
 }

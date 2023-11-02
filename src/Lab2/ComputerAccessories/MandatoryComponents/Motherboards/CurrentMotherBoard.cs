@@ -9,22 +9,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryCompo
 
 public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
 {
-    private SocketTypes _socket;
-    private PCIVersions _pci;
-    private SataType _sata;
-    private Chip _chipSet;
+    private SocketTypes? _socket;
+    private PCIVersions? _pci;
+    private SataType? _sata;
+    private Chip? _chipSet;
     private int _ddr;
     private int _ramTableCount;
     private int _formFactorMother;
     private int _motherBoardBios;
-    private string _name;
+    private string? _name;
 
     public CurrentMotherBoard(
-        string name,
-        SocketTypes socket,
-        PCIVersions pci,
-        SataType sata,
-        Chip chipSet,
+        string? name,
+        SocketTypes? socket,
+        PCIVersions? pci,
+        SataType? sata,
+        Chip? chipSet,
         int ddr,
         int ramTableCount,
         int formFactorMother,
@@ -41,11 +41,11 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         _motherBoardBios = motherBoardBios;
     }
 
-    public override string Name => _name;
-    public override SocketTypes Socket => _socket;
-    public override PCIVersions Pci => _pci;
-    public override SataType Sata => _sata;
-    public override Chip ChipSet => _chipSet;
+    public override string? Name => _name;
+    public override SocketTypes? Socket => _socket;
+    public override PCIVersions? Pci => _pci;
+    public override SataType? Sata => _sata;
+    public override Chip? ChipSet => _chipSet;
     public override int DDR => _ddr;
     public override int RamTableCount => _ramTableCount;
     public override int FormFactorMother => _formFactorMother;
@@ -70,7 +70,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
             _motherBoardBios);
     }
 
-    public CurrentMotherBoard SetName(string name)
+    public CurrentMotherBoard CloneWithNewName(string? name)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _name = name;
@@ -78,7 +78,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetSocket(SocketTypes socketTypes)
+    public CurrentMotherBoard CloneWithNewSocket(SocketTypes? socketTypes)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _socket = socketTypes;
@@ -86,7 +86,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetPCI(PCIVersions pciVersions)
+    public CurrentMotherBoard CloneWithNewPCI(PCIVersions? pciVersions)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _pci = pciVersions;
@@ -94,7 +94,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetSata(SataType sataType)
+    public CurrentMotherBoard CloneWithNewSata(SataType? sataType)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _sata = sataType;
@@ -102,7 +102,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetChip(Chip chip)
+    public CurrentMotherBoard CloneWithNewChip(Chip? chip)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _chipSet = chip;
@@ -110,7 +110,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetDdr(int ddr)
+    public CurrentMotherBoard CloneWithNewDdr(int ddr)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _ddr = ddr;
@@ -118,7 +118,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetRamTableCount(int ramTableCount)
+    public CurrentMotherBoard CloneWithNewRamTableCount(int ramTableCount)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _ramTableCount = ramTableCount;
@@ -126,7 +126,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetMotherFormFactor(int formFactor)
+    public CurrentMotherBoard CloneWithNewMotherFormFactor(int formFactor)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _formFactorMother = formFactor;
@@ -134,7 +134,7 @@ public class CurrentMotherBoard : MotherBoard, IPrototype<CurrentMotherBoard>
         return cloneMotherboard;
     }
 
-    public CurrentMotherBoard SetMotherboardBios(int bios)
+    public CurrentMotherBoard CloneWithNewMotherboardBios(int bios)
     {
         CurrentMotherBoard cloneMotherboard = Clone();
         _motherBoardBios = bios;

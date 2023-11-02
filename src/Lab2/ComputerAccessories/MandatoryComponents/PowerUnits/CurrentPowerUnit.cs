@@ -9,15 +9,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit;
 public class CurrentPowerUnit : PowerUnit, IPrototype<CurrentPowerUnit>
 {
     private int _highPowerLimits;
-    private string _name;
+    private string? _name;
 
-    public CurrentPowerUnit(string name, int highPowerLimits)
+    public CurrentPowerUnit(string? name, int highPowerLimits)
     {
         _name = name;
         _highPowerLimits = highPowerLimits;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int HighPowerLimits => _highPowerLimits;
 
     public override bool EnoughPower(
@@ -36,7 +36,7 @@ public class CurrentPowerUnit : PowerUnit, IPrototype<CurrentPowerUnit>
         return new CurrentPowerUnit(_name, _highPowerLimits);
     }
 
-    public CurrentPowerUnit SetName(string name)
+    public CurrentPowerUnit CloneWithNewName(string? name)
     {
         CurrentPowerUnit clonePowerUnit = Clone();
         _name = name;
@@ -44,7 +44,7 @@ public class CurrentPowerUnit : PowerUnit, IPrototype<CurrentPowerUnit>
         return clonePowerUnit;
     }
 
-    public CurrentPowerUnit SetPowerLimits(int power)
+    public CurrentPowerUnit CloneWithNewPowerLimits(int power)
     {
         CurrentPowerUnit clonePowerUnit = Clone();
         _highPowerLimits = power;

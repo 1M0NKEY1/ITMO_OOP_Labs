@@ -23,7 +23,7 @@ public class CurrentBios : Bios, IPrototype<CurrentBios>
         return new CurrentBios(_name, _biosType, _biosVersion);
     }
 
-    public CurrentBios SetName(string name)
+    public CurrentBios CloneWithNewName(string name)
     {
         CurrentBios cloneBios = Clone();
         _name = name;
@@ -31,7 +31,7 @@ public class CurrentBios : Bios, IPrototype<CurrentBios>
         return cloneBios;
     }
 
-    public CurrentBios SetBiosType(int biosType)
+    public CurrentBios CloneWithNewBiosType(int biosType)
     {
         CurrentBios cloneBios = Clone();
         _biosType = biosType;
@@ -39,7 +39,7 @@ public class CurrentBios : Bios, IPrototype<CurrentBios>
         return cloneBios;
     }
 
-    public CurrentBios SetBiosVersion(int biosVersion)
+    public CurrentBios CloneWithNewBiosVersion(int biosVersion)
     {
         CurrentBios cloneBios = Clone();
         _biosVersion = biosVersion;

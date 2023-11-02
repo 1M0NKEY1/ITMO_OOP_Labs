@@ -2,5 +2,5 @@
 
 public abstract class CoolingSystemsFactory
 {
-    public abstract CoolingSystems CreateCoolingSystem();
+    public abstract CoolingSystems Create();
 }

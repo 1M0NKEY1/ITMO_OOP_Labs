@@ -4,18 +4,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.VideoCards.Fac
 
 public class CurrentVideoCardFactory : VideoCardFactory
 {
-    private readonly string _name;
-    private readonly int _videoCardLength;
-    private readonly int _videoCardWidth;
-    private readonly PCIVersions _pciVersion;
-    private readonly int _chipFrequency;
-    private readonly int _videoCardPower;
+    private string? _name;
+    private int _videoCardLength;
+    private int _videoCardWidth;
+    private PCIVersions? _pciVersion;
+    private int _chipFrequency;
+    private int _videoCardPower;
 
-    public CurrentVideoCardFactory(
-        string name,
+    public void NewInstance(
+        string? name,
         int videoCardLength,
         int videoCardWidth,
-        PCIVersions pciVersion,
+        PCIVersions? pciVersion,
         int chipFrequency,
         int videoCardPower)
     {
@@ -27,7 +27,7 @@ public class CurrentVideoCardFactory : VideoCardFactory
         _videoCardPower = videoCardPower;
     }
 
-    public override VideoCard CreateVideoCard()
+    public override VideoCard Create()
     {
         return new CurrentVideoCard(
             _name,

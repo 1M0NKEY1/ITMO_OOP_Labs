@@ -4,15 +4,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM.Factory;
 
 public class CurrentRamFactory : RamFactory
 {
-    private readonly string _name;
-    private readonly int _memoryLimits;
-    private readonly XmpProfile _availableXMP;
-    private readonly int _ramFormFactor;
-    private readonly int _versionDDR;
-    private readonly int _ramPower;
+    private string? _name;
+    private int _memoryLimits;
+    private XmpProfile? _availableXMP;
+    private int _ramFormFactor;
+    private int _versionDDR;
+    private int _ramPower;
 
-    public CurrentRamFactory(
-        string name,
+    public void NewInstance(
+        string? name,
         int memoryLimits,
         XmpProfile availableXmp,
         int ramFormFactor,
@@ -27,7 +27,7 @@ public class CurrentRamFactory : RamFactory
         _ramPower = ramPower;
     }
 
-    public override Ram CreateRam()
+    public override Ram Create()
     {
         return new CurrentRam(
             _name,

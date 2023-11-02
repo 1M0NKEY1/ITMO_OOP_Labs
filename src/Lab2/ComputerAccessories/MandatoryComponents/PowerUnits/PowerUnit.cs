@@ -8,7 +8,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.PowerUnit;
 
 public abstract class PowerUnit : IComponent
 {
-    public abstract string Name { get; }
+    public abstract string? Name { get; }
     public abstract int HighPowerLimits { get; }
 
     public abstract bool EnoughPower(

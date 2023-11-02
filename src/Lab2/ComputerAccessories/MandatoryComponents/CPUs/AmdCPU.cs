@@ -10,18 +10,18 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
 {
     private int _coreFrequency;
     private int _cores;
-    private SocketTypes _socket;
+    private SocketTypes? _socket;
     private bool _integratedGraphics;
     private int _supportedMemory;
     private int _tdp;
     private int _powerConsumption;
-    private string _name;
+    private string? _name;
 
     public AmdCPU(
-        string name,
+        string? name,
         int coreFrequency,
         int cores,
-        SocketTypes socket,
+        SocketTypes? socket,
         bool integratedGraphics,
         int supportedMemory,
         int tdp,
@@ -37,10 +37,10 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         _powerConsumption = powerConsumption;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int CoreFrequency => _coreFrequency;
     public override int Cores => _cores;
-    public override SocketTypes Socket => _socket;
+    public override SocketTypes? Socket => _socket;
     public override bool IntegratedGraphics => _integratedGraphics;
     public override int SupportedMemory => _supportedMemory;
     public override int TDP => _tdp;
@@ -48,7 +48,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
 
     public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
     {
-        return motherBoard.Socket.EqualsOfSockets(_socket);
+        return motherBoard.Socket != null && motherBoard.Socket.EqualsOfSockets(_socket);
     }
 
     public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
@@ -69,7 +69,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
             _powerConsumption);
     }
 
-    public AmdCPU SetName(string name)
+    public AmdCPU CloneWithNewName(string? name)
     {
         AmdCPU cloneCpu = Clone();
         _name = name;
@@ -77,7 +77,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetCoreFrequency(int frequency)
+    public AmdCPU CloneWithNewCoreFrequency(int frequency)
     {
         AmdCPU cloneCpu = Clone();
         _coreFrequency = frequency;
@@ -85,7 +85,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetCores(int cores)
+    public AmdCPU CloneWithNewCores(int cores)
     {
         AmdCPU cloneCpu = Clone();
         _cores = cores;
@@ -93,7 +93,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetSocket(AmdSocketType socketType)
+    public AmdCPU CloneWithNewSocket(AmdSocketType? socketType)
     {
         AmdCPU cloneCpu = Clone();
         _socket = socketType;
@@ -101,7 +101,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetGpu(bool gpu)
+    public AmdCPU CloneWithNewGpu(bool gpu)
     {
         AmdCPU cloneCpu = Clone();
         _integratedGraphics = gpu;
@@ -109,7 +109,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetSupportedMemory(int supportedMemory)
+    public AmdCPU CloneWithNewSupportedMemory(int supportedMemory)
     {
         AmdCPU cloneCpu = Clone();
         _supportedMemory = supportedMemory;
@@ -117,7 +117,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetTdp(int tdp)
+    public AmdCPU CloneWithNewTdp(int tdp)
     {
         AmdCPU cloneCpu = Clone();
         _tdp = tdp;
@@ -125,7 +125,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
         return cloneCpu;
     }
 
-    public AmdCPU SetPower(int power)
+    public AmdCPU CloneWithNewPower(int power)
     {
         AmdCPU cloneCpu = Clone();
         _powerConsumption = power;

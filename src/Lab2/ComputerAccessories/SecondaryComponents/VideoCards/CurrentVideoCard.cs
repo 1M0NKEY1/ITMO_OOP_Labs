@@ -7,16 +7,16 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
 {
     private int _videoCardLength;
     private int _videoCardWidth;
-    private PCIVersions _pciVersion;
+    private PCIVersions? _pciVersion;
     private int _chipFrequency;
     private int _videoCardPower;
-    private string _name;
+    private string? _name;
 
     public CurrentVideoCard(
-        string name,
+        string? name,
         int videoCardLength,
         int videoCardWidth,
-        PCIVersions pciVersion,
+        PCIVersions? pciVersion,
         int chipFrequency,
         int videoCardPower)
     {
@@ -28,10 +28,10 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         _videoCardPower = videoCardPower;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int VideoCardLength => _videoCardLength;
     public override int VideoCardWidth => _videoCardWidth;
-    public override PCIVersions PCIVersion => _pciVersion;
+    public override PCIVersions? PCIVersion => _pciVersion;
     public override int ChipFrequency => _chipFrequency;
     public override int VideoCardPower => _videoCardPower;
     public CurrentVideoCard Clone()
@@ -45,7 +45,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
             _videoCardPower);
     }
 
-    public CurrentVideoCard SetName(string name)
+    public CurrentVideoCard CloneWithNewName(string? name)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _name = name;
@@ -53,7 +53,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         return cloneVideoCard;
     }
 
-    public CurrentVideoCard SetLength(int length)
+    public CurrentVideoCard CloneWithNewLength(int length)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _videoCardLength = length;
@@ -61,7 +61,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         return cloneVideoCard;
     }
 
-    public CurrentVideoCard SetWidth(int width)
+    public CurrentVideoCard CloneWithNewWidth(int width)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _videoCardWidth = width;
@@ -69,7 +69,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         return cloneVideoCard;
     }
 
-    public CurrentVideoCard SetPCI(PCIVersions pciVersions)
+    public CurrentVideoCard CloneWithNewPCI(PCIVersions? pciVersions)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _pciVersion = pciVersions;
@@ -77,7 +77,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         return cloneVideoCard;
     }
 
-    public CurrentVideoCard SetChipFrequency(int frequency)
+    public CurrentVideoCard CloneWithNewChipFrequency(int frequency)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _chipFrequency = frequency;
@@ -85,7 +85,7 @@ public class CurrentVideoCard : VideoCard, IPrototype<CurrentVideoCard>
         return cloneVideoCard;
     }
 
-    public CurrentVideoCard SetPower(int power)
+    public CurrentVideoCard CloneWithNewPower(int power)
     {
         CurrentVideoCard cloneVideoCard = Clone();
         _videoCardPower = power;

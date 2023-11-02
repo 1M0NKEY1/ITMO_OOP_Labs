@@ -10,10 +10,10 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
     private int _width;
     private int _motherboardFormFactor;
     private int _caseDimensions;
-    private string _name;
+    private string? _name;
 
     public CurrentComputerCase(
-        string name,
+        string? name,
         int length,
         int width,
         int motherboardFormFactor,
@@ -26,7 +26,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
         _caseDimensions = caseDimensions;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int VideoCardLength => _length;
     public override int VideoCardWidth => _width;
     public override int MotherboardFormFactor => _motherboardFormFactor;
@@ -52,7 +52,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
             _caseDimensions);
     }
 
-    public CurrentComputerCase SetName(string name)
+    public CurrentComputerCase CloneWithNewName(string? name)
     {
         CurrentComputerCase cloneCase = Clone();
         _name = name;
@@ -60,7 +60,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
         return cloneCase;
     }
 
-    public CurrentComputerCase SetLength(int length)
+    public CurrentComputerCase CloneWithNewLength(int length)
     {
         CurrentComputerCase cloneCase = Clone();
         _length = length;
@@ -68,7 +68,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
         return cloneCase;
     }
 
-    public CurrentComputerCase SetWidth(int width)
+    public CurrentComputerCase CloneWithNewWidth(int width)
     {
         CurrentComputerCase cloneCase = Clone();
         _width = width;
@@ -76,7 +76,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
         return cloneCase;
     }
 
-    public CurrentComputerCase SetMotherboardFormFactor(int motherboardFormFactor)
+    public CurrentComputerCase CloneWithNewMotherboardFormFactor(int motherboardFormFactor)
     {
         CurrentComputerCase cloneCase = Clone();
         _motherboardFormFactor = motherboardFormFactor;
@@ -84,7 +84,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
         return cloneCase;
     }
 
-    public CurrentComputerCase SetCaseDimension(int dimension)
+    public CurrentComputerCase CloneWithNewCaseDimension(int dimension)
     {
         CurrentComputerCase cloneCase = Clone();
         _caseDimensions = dimension;

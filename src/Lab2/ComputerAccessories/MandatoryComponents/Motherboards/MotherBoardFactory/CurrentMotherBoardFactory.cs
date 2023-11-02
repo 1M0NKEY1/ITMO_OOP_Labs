@@ -7,22 +7,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryCompo
 
 public class CurrentMotherBoardFactory : MotherBoardFactory
 {
-    private readonly string _name;
-    private readonly SocketTypes _socket;
-    private readonly PCIVersions _pci;
-    private readonly SataType _sata;
-    private readonly Chip _chipSet;
-    private readonly int _ddr;
-    private readonly int _ramTableCount;
-    private readonly int _formFactorMother;
-    private readonly int _motherBoardBios;
+    private string? _name;
+    private SocketTypes? _socket;
+    private PCIVersions? _pci;
+    private SataType? _sata;
+    private Chip? _chipSet;
+    private int _ddr;
+    private int _ramTableCount;
+    private int _formFactorMother;
+    private int _motherBoardBios;
 
-    public CurrentMotherBoardFactory(
-        string name,
-        SocketTypes socket,
-        PCIVersions pci,
-        SataType sata,
-        Chip chipSet,
+    public void NewInstance(
+        string? name,
+        SocketTypes? socket,
+        PCIVersions? pci,
+        SataType? sata,
+        Chip? chipSet,
         int ddr,
         int ramTableCount,
         int formFactorMother,
@@ -39,7 +39,7 @@ public class CurrentMotherBoardFactory : MotherBoardFactory
         _motherBoardBios = motherBoardBios;
     }
 
-    public override MotherBoard CreateMotherBoard()
+    public override MotherBoard Create()
     {
         return new CurrentMotherBoard(
             _name,

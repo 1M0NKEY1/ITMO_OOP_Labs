@@ -10,10 +10,10 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
     private bool _bluetooth;
     private PCIVersions _wifiPciVersion;
     private int _wifiAdapterPower;
-    private string _name;
+    private string? _name;
 
     public CurrentWifiAdapter(
-        string name,
+        string? name,
         int version,
         bool bluetooth,
         PCIVersions pciVersions,
@@ -26,14 +26,14 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         _wifiAdapterPower = wifiAdapterPower;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int Version => _version;
     public override bool Bluetooth => _bluetooth;
     public override PCIVersions WifiPciVersions => _wifiPciVersion;
     public override int WifiAdapterPower => _wifiAdapterPower;
     public override bool AvailablePcie(MotherBoard motherBoard)
     {
-        return motherBoard.Pci.EqualsForPciVersions(_wifiPciVersion);
+        return motherBoard.Pci != null && motherBoard.Pci.EqualsForPciVersions(_wifiPciVersion);
     }
 
     public CurrentWifiAdapter Clone()
@@ -46,7 +46,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         _wifiAdapterPower);
     }
 
-    public CurrentWifiAdapter SetName(string name)
+    public CurrentWifiAdapter CloneWithNewName(string? name)
     {
         CurrentWifiAdapter cloneWifi = Clone();
         _name = name;
@@ -54,7 +54,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         return cloneWifi;
     }
 
-    public CurrentWifiAdapter SetVersion(int version)
+    public CurrentWifiAdapter CloneWithNewVersion(int version)
     {
         CurrentWifiAdapter cloneWifi = Clone();
         _version = version;
@@ -62,7 +62,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         return cloneWifi;
     }
 
-    public CurrentWifiAdapter SetBluetooth(bool bluetooth)
+    public CurrentWifiAdapter CloneWithNewBluetooth(bool bluetooth)
     {
         CurrentWifiAdapter cloneWifi = Clone();
         _bluetooth = bluetooth;
@@ -70,7 +70,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         return cloneWifi;
     }
 
-    public CurrentWifiAdapter SetPci(PCIVersions pciVersions)
+    public CurrentWifiAdapter CloneWithNewPci(PCIVersions pciVersions)
     {
         CurrentWifiAdapter cloneWifi = Clone();
         _wifiPciVersion = pciVersions;
@@ -78,7 +78,7 @@ public class CurrentWifiAdapter : WifiAdapter, IPrototype<CurrentWifiAdapter>
         return cloneWifi;
     }
 
-    public CurrentWifiAdapter SetPower(int power)
+    public CurrentWifiAdapter CloneWithNewPower(int power)
     {
         CurrentWifiAdapter cloneWifi = Clone();
         _wifiAdapterPower = power;

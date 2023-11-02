@@ -2,5 +2,5 @@
 
 public abstract class CPUFactory
 {
-    public abstract Cpu CreateCPU();
+    public abstract Cpu Create();
 }

@@ -6,16 +6,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.RAM;
 public class CurrentRam : Ram, IPrototype<CurrentRam>
 {
     private int _memoryLimits;
-    private XmpProfile _availableXMP;
+    private XmpProfile? _availableXMP;
     private int _ramFormFactor;
     private int _versionDDR;
     private int _ramPower;
-    private string _name;
+    private string? _name;
 
     public CurrentRam(
-        string name,
+        string? name,
         int memoryLimits,
-        XmpProfile availableXmp,
+        XmpProfile? availableXmp,
         int ramFormFactor,
         int versionDdr,
         int ramPower)
@@ -28,9 +28,9 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         _ramPower = ramPower;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int MemoryLimits => _memoryLimits;
-    public override XmpProfile AvailableXMP => _availableXMP;
+    public override XmpProfile? AvailableXMP => _availableXMP;
     public override int RamFormFactor => _ramFormFactor;
     public override int VersionDDR => _versionDDR;
     public override int RamPower => _ramPower;
@@ -45,7 +45,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
             _ramPower);
     }
 
-    public CurrentRam SetName(string name)
+    public CurrentRam CloneWithNewName(string? name)
     {
         CurrentRam cloneRam = Clone();
         _name = name;
@@ -53,7 +53,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         return cloneRam;
     }
 
-    public CurrentRam SetMemoryLimits(int memory)
+    public CurrentRam CloneWithNewMemoryLimits(int memory)
     {
         CurrentRam cloneRam = Clone();
         _memoryLimits = memory;
@@ -61,7 +61,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         return cloneRam;
     }
 
-    public CurrentRam SetXmp(XmpProfile xmp)
+    public CurrentRam CloneWithNewXmp(XmpProfile xmp)
     {
         CurrentRam cloneRam = Clone();
         _availableXMP = xmp;
@@ -69,7 +69,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         return cloneRam;
     }
 
-    public CurrentRam SetRamFormFactor(int formFactor)
+    public CurrentRam CloneWithNewRamFormFactor(int formFactor)
     {
         CurrentRam cloneRam = Clone();
         _ramFormFactor = formFactor;
@@ -77,7 +77,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         return cloneRam;
     }
 
-    public CurrentRam SetDDRVersion(int ddr)
+    public CurrentRam CloneWithNewDDRVersion(int ddr)
     {
         CurrentRam cloneRam = Clone();
         _versionDDR = ddr;
@@ -85,7 +85,7 @@ public class CurrentRam : Ram, IPrototype<CurrentRam>
         return cloneRam;
     }
 
-    public CurrentRam SetPower(int power)
+    public CurrentRam CloneWithNewPower(int power)
     {
         CurrentRam cloneRam = Clone();
         _ramPower = power;

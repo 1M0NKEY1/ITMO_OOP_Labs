@@ -5,13 +5,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs;
 
 public class CurrentSSD : SSD, IPrototype<CurrentSSD>
 {
-    private InputTypes _inputType;
+    private InputTypes? _inputType;
     private int _ssdMemory;
     private int _maxSpeed;
     private int _ssdPower;
-    private string _name;
+    private string? _name;
 
-    public CurrentSSD(string name, InputTypes inputType, int ssdMemory, int maxSpeed, int ssdPower)
+    public CurrentSSD(string? name, InputTypes? inputType, int ssdMemory, int maxSpeed, int ssdPower)
     {
         _name = name;
         _inputType = inputType;
@@ -20,8 +20,8 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         _ssdPower = ssdPower;
     }
 
-    public override string Name => _name;
-    public override InputTypes InputType => _inputType;
+    public override string? Name => _name;
+    public override InputTypes? InputType => _inputType;
     public override int SSDMemory => _ssdMemory;
     public override int MaxSpeed => _maxSpeed;
     public override int SSDPower => _ssdPower;
@@ -30,7 +30,7 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         return new CurrentSSD(_name, _inputType, _ssdMemory, _maxSpeed, _ssdPower);
     }
 
-    public CurrentSSD SetName(string name)
+    public CurrentSSD CloneWithNewName(string? name)
     {
         CurrentSSD cloneSsd = Clone();
         _name = name;
@@ -38,7 +38,7 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         return cloneSsd;
     }
 
-    public CurrentSSD SetInputType(InputTypes inputTypes)
+    public CurrentSSD CloneWithNewInputType(InputTypes? inputTypes)
     {
         CurrentSSD cloneSsd = Clone();
         _inputType = inputTypes;
@@ -46,7 +46,7 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         return cloneSsd;
     }
 
-    public CurrentSSD SetMemory(int memory)
+    public CurrentSSD CloneWithNewMemory(int memory)
     {
         CurrentSSD cloneSsd = Clone();
         _ssdMemory = memory;
@@ -54,7 +54,7 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         return cloneSsd;
     }
 
-    public CurrentSSD SetMaxSpeed(int speed)
+    public CurrentSSD CloneWithNewMaxSpeed(int speed)
     {
         CurrentSSD cloneSsd = Clone();
         _maxSpeed = speed;
@@ -62,7 +62,7 @@ public class CurrentSSD : SSD, IPrototype<CurrentSSD>
         return cloneSsd;
     }
 
-    public CurrentSSD SetPower(int power)
+    public CurrentSSD CloneWithNewPower(int power)
     {
         CurrentSSD cloneSsd = Clone();
         _ssdPower = power;

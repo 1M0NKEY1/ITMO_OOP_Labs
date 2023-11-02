@@ -4,20 +4,19 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.Factory;
 
 public class AmdCPUFactory : CPUFactory
 {
-    private readonly string _name;
-    private readonly int _coreFrequency;
-    private readonly int _cores;
-    private readonly SocketTypes _socket;
-    private readonly bool _integratedGraphics;
-    private readonly int _supportedMemory;
-    private readonly int _tdp;
-    private readonly int _powerConsumption;
-
-    public AmdCPUFactory(
-        string name,
+    private string? _name;
+    private int _coreFrequency;
+    private int _cores;
+    private SocketTypes? _socket;
+    private bool _integratedGraphics;
+    private int _supportedMemory;
+    private int _tdp;
+    private int _powerConsumption;
+    public void NewInstance(
+        string? name,
         int coreFrequency,
         int cores,
-        SocketTypes socket,
+        SocketTypes? socket,
         bool integratedGraphics,
         int supportedMemory,
         int tdp,
@@ -33,7 +32,7 @@ public class AmdCPUFactory : CPUFactory
         _powerConsumption = powerConsumption;
     }
 
-    public override Cpu CreateCPU()
+    public override Cpu Create()
     {
         return new AmdCPU(
             _name,

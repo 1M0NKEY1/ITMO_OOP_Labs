@@ -7,10 +7,10 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
 {
     private int _coolingDimension;
     private int _coolingTDP;
-    private IntelSocketType _intelSocketType;
-    private string _name;
+    private IntelSocketType? _intelSocketType;
+    private string? _name;
 
-    public CoolingSystemIntel(string name, int coolingDimension, int coolingTDP, IntelSocketType intelSocketType)
+    public CoolingSystemIntel(string? name, int coolingDimension, int coolingTDP, IntelSocketType? intelSocketType)
     {
         _name = name;
         _coolingDimension = coolingDimension;
@@ -18,7 +18,7 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
         _intelSocketType = intelSocketType;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int CoolingDimensions => _coolingDimension;
     public override int CoolingTDP => _coolingTDP;
     public CoolingSystemIntel Clone()
@@ -26,7 +26,7 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
         return new CoolingSystemIntel(_name, _coolingDimension, _coolingTDP, _intelSocketType);
     }
 
-    public CoolingSystemIntel SetName(string name)
+    public CoolingSystemIntel CloneWithNewName(string? name)
     {
         CoolingSystemIntel cloneCoolingSystem = Clone();
         _name = name;
@@ -34,7 +34,7 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemIntel SetCoolingDimensions(int dimensions)
+    public CoolingSystemIntel CloneWithNewCoolingDimensions(int dimensions)
     {
         CoolingSystemIntel cloneCoolingSystem = Clone();
         _coolingDimension = dimensions;
@@ -42,7 +42,7 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemIntel SetCoolingTdp(int tdp)
+    public CoolingSystemIntel CloneWithNewCoolingTdp(int tdp)
     {
         CoolingSystemIntel cloneCoolingSystem = Clone();
         _coolingTDP = tdp;
@@ -50,7 +50,7 @@ public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemIntel SetCoolingSocket(IntelSocketType socketType)
+    public CoolingSystemIntel CloneWithNewCoolingSocket(IntelSocketType? socketType)
     {
         CoolingSystemIntel cloneCoolingSystem = Clone();
         _intelSocketType = socketType;

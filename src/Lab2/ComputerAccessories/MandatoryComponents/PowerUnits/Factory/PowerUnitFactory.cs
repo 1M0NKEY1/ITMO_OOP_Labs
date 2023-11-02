@@ -2,5 +2,5 @@
 
 public abstract class PowerUnitFactory
 {
-    public abstract PowerUnit CreatePowerUnits();
+    public abstract PowerUnit Create();
 }

@@ -2,5 +2,5 @@
 
 public abstract class VideoCardFactory
 {
-    public abstract VideoCard CreateVideoCard();
+    public abstract VideoCard Create();
 }

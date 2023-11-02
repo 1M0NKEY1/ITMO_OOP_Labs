@@ -2,5 +2,5 @@
 
 public abstract class MotherBoardFactory
 {
-    public abstract MotherBoard CreateMotherBoard();
+    public abstract MotherBoard Create();
 }

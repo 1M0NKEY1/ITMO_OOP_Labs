@@ -2,5 +2,5 @@
 
 public abstract class SSDFactory
 {
-    public abstract SSD CreateSSD();
+    public abstract SSD Create();
 }

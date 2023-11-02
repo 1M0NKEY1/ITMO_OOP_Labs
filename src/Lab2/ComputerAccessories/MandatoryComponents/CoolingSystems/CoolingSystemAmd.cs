@@ -7,10 +7,10 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
 {
     private int _coolingDimension;
     private int _coolingTDP;
-    private AmdSocketType _amdSocketType;
-    private string _name;
+    private AmdSocketType? _amdSocketType;
+    private string? _name;
 
-    public CoolingSystemAmd(string name, int coolingDimension, int coolingTDP, AmdSocketType amdSocketType)
+    public CoolingSystemAmd(string? name, int coolingDimension, int coolingTDP, AmdSocketType? amdSocketType)
     {
         _name = name;
         _coolingDimension = coolingDimension;
@@ -18,7 +18,7 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
         _amdSocketType = amdSocketType;
     }
 
-    public override string Name => _name;
+    public override string? Name => _name;
     public override int CoolingDimensions => _coolingDimension;
     public override int CoolingTDP => _coolingTDP;
     public CoolingSystemAmd Clone()
@@ -26,7 +26,7 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
         return new CoolingSystemAmd(_name, _coolingDimension, _coolingTDP, _amdSocketType);
     }
 
-    public CoolingSystemAmd SetName(string name)
+    public CoolingSystemAmd CloneWithNewName(string? name)
     {
         CoolingSystemAmd cloneCoolingSystem = Clone();
         _name = name;
@@ -34,7 +34,7 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemAmd SetCoolingDimensions(int dimensions)
+    public CoolingSystemAmd CloneWithNewCoolingDimensions(int dimensions)
     {
         CoolingSystemAmd cloneCoolingSystem = Clone();
         _coolingDimension = dimensions;
@@ -42,7 +42,7 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemAmd SetCoolingTdp(int tdp)
+    public CoolingSystemAmd CloneWithNewCoolingTdp(int tdp)
     {
         CoolingSystemAmd cloneCoolingSystem = Clone();
         _coolingTDP = tdp;
@@ -50,7 +50,7 @@ public class CoolingSystemAmd : CoolingSystems, IPrototype<CoolingSystemAmd>
         return cloneCoolingSystem;
     }
 
-    public CoolingSystemAmd SetCoolingSocket(AmdSocketType socketType)
+    public CoolingSystemAmd CloneWithNewCoolingSocket(AmdSocketType? socketType)
     {
         CoolingSystemAmd cloneCoolingSystem = Clone();
         _amdSocketType = socketType;

@@ -2,5 +2,5 @@
 
 public abstract class RamFactory
 {
-    public abstract Ram CreateRam();
+    public abstract Ram Create();
 }
