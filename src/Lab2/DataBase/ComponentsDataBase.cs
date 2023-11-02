@@ -169,61 +169,61 @@ public static class ComponentsDataBase
     private const int AdapterPowerMercus = 25;
 
     private static readonly IList<IComponent> _allComponents = new List<IComponent>();
-    private static readonly CoolingSystemFactoryAmd _coolingSystemFactoryAmd = new();
-    private static readonly CoolingSystemFactoryIntel _coolingSystemFactoryIntel = new();
-    private static readonly AmdCPUFactory _amdCpuFactory = new();
-    private static readonly IntelCPUFactory _intelCpuFactory = new();
-    private static readonly CurrentMotherBoardFactory _currentMotherBoardFactory = new();
-    private static readonly CurrentPowerUnitFactory _currentPowerUnitFactory = new();
-    private static readonly CurrentRamFactory _currentRamFactory = new();
-    private static readonly CurrentSSDFactory _currentSsdFactory = new();
-    private static readonly CurrentVideoCardFactory _currentVideoCardFactory = new();
+    private static readonly CoolingSystemFactoryAmd CoolingSystemFactoryAmd = new();
+    private static readonly CoolingSystemFactoryIntel CoolingSystemFactoryIntel = new();
+    private static readonly AmdCpuFactory AmdCpuFactory = new();
+    private static readonly IntelCpuFactory IntelCpuFactory = new();
+    private static readonly MotherBoardFactory MotherBoardFactory = new();
+    private static readonly PowerUnitFactory PowerUnitFactory = new();
+    private static readonly RamFactory RamFactory = new();
+    private static readonly SsdFactory SsdFactory = new();
+    private static readonly VideoCardFactory VideoCardFactory = new();
 
     public static void FillDataBase()
     {
-        _allComponents.Add(new CurrentComputerCase(
+        _allComponents.Add(new ComputerCase(
             NameFormula,
             LengthFormula,
             WidthFormula,
             FormFactorFormula,
             DimensionsFormula));
 
-        _allComponents.Add(new CurrentComputerCase(
+        _allComponents.Add(new ComputerCase(
             NameFormulaCr,
             LengthFormulaCr,
             WidthFormulaCr,
             FormFactorFormulaCr,
             DimensionsFormulaCr));
 
-        _coolingSystemFactoryAmd.NewInstance(
+        CoolingSystemFactoryAmd.NewInstance(
             NameDeep,
             CoolingDimensionsDeep,
             CoolingTdpDeep,
             new AM5());
-        _allComponents.Add(_coolingSystemFactoryAmd.Create());
+        _allComponents.Add(CoolingSystemFactoryAmd.Create());
 
-        _coolingSystemFactoryAmd.NewInstance(
+        CoolingSystemFactoryAmd.NewInstance(
             NameSe,
             CoolingDimensionsSe,
             CoolingTdpSe,
             new WRX8());
-        _allComponents.Add(_coolingSystemFactoryAmd.Create());
+        _allComponents.Add(CoolingSystemFactoryAmd.Create());
 
-        _coolingSystemFactoryIntel.NewInstance(
+        CoolingSystemFactoryIntel.NewInstance(
             NameJons,
             CoolingDimensionsJons,
             CoolingTdpJons,
             new LGA1151());
-        _allComponents.Add(_coolingSystemFactoryAmd.Create());
+        _allComponents.Add(CoolingSystemFactoryAmd.Create());
 
-        _coolingSystemFactoryIntel.NewInstance(
+        CoolingSystemFactoryIntel.NewInstance(
             NameNoctua,
             CoolingDimensionsNoctua,
             CoolingTdpNoctua,
             new LGA2066());
-        _allComponents.Add(_coolingSystemFactoryIntel.Create());
+        _allComponents.Add(CoolingSystemFactoryIntel.Create());
 
-        _amdCpuFactory.NewInstance(
+        AmdCpuFactory.NewInstance(
             NameRyzenth,
             CoreFrequencyRyzenth,
             CoreRyzenth,
@@ -232,9 +232,9 @@ public static class ComponentsDataBase
             SupportedMemoryRyzenth,
             TdpRyzenth,
             PowerRyzenth);
-        _allComponents.Add(_amdCpuFactory.Create());
+        _allComponents.Add(AmdCpuFactory.Create());
 
-        _amdCpuFactory.NewInstance(
+        AmdCpuFactory.NewInstance(
             NameRyzenNine,
             CoreFrequencyRyzenNine,
             CoreRyzenNine,
@@ -243,9 +243,9 @@ public static class ComponentsDataBase
             SupportedMemoryRyzenNine,
             TdpRyzenNine,
             PowerRyzenNine);
-        _allComponents.Add(_amdCpuFactory.Create());
+        _allComponents.Add(AmdCpuFactory.Create());
 
-        _amdCpuFactory.NewInstance(
+        AmdCpuFactory.NewInstance(
             NameRyzenSeven,
             CoreFrequencyRyzenSeven,
             CoreRyzenSeven,
@@ -254,9 +254,9 @@ public static class ComponentsDataBase
             SupportedMemoryRyzenSeven,
             TdpRyzenSeven,
             PowerRyzenSeven);
-        _allComponents.Add(_amdCpuFactory.Create());
+        _allComponents.Add(AmdCpuFactory.Create());
 
-        _amdCpuFactory.NewInstance(
+        AmdCpuFactory.NewInstance(
             NameRyzenFive,
             CoreFrequencyRyzenFive,
             CoreRyzenFive,
@@ -265,9 +265,9 @@ public static class ComponentsDataBase
             SupportedMemoryRyzenFive,
             TdpRyzenFive,
             PowerRyzenFive);
-        _allComponents.Add(_amdCpuFactory.Create());
+        _allComponents.Add(AmdCpuFactory.Create());
 
-        _intelCpuFactory.NewInstance(
+        IntelCpuFactory.NewInstance(
             NameIntelNine,
             CoreFrequencyIntelNine,
             CoreIntelNine,
@@ -276,9 +276,9 @@ public static class ComponentsDataBase
             SupportedMemoryIntelNine,
             TdpIntelNine,
             PowerIntelNine);
-        _allComponents.Add(_intelCpuFactory.Create());
+        _allComponents.Add(IntelCpuFactory.Create());
 
-        _intelCpuFactory.NewInstance(
+        IntelCpuFactory.NewInstance(
             NameIntelSeven,
             CoreFrequencyIntelSeven,
             CoreIntelSeven,
@@ -287,9 +287,9 @@ public static class ComponentsDataBase
             SupportedMemoryIntelSeven,
             TdpIntelSeven,
             PowerIntelSeven);
-        _allComponents.Add(_intelCpuFactory.Create());
+        _allComponents.Add(IntelCpuFactory.Create());
 
-        _intelCpuFactory.NewInstance(
+        IntelCpuFactory.NewInstance(
             NameIntelFive,
             CoreFrequencyIntelFive,
             CoreIntelFive,
@@ -298,9 +298,9 @@ public static class ComponentsDataBase
             SupportedMemoryIntelFive,
             TdpIntelFive,
             PowerIntelFive);
-        _allComponents.Add(_intelCpuFactory.Create());
+        _allComponents.Add(IntelCpuFactory.Create());
 
-        _currentMotherBoardFactory.NewInstance(
+        MotherBoardFactory.NewInstance(
             NameGigabyte,
             new AM5(),
             new PCIE4(),
@@ -310,9 +310,9 @@ public static class ComponentsDataBase
             RamTableCountGigabyte,
             FormFactorGigabyte,
             BiosTypeGigabyte);
-        _allComponents.Add(_currentMotherBoardFactory.Create());
+        _allComponents.Add(MotherBoardFactory.Create());
 
-        _currentMotherBoardFactory.NewInstance(
+        MotherBoardFactory.NewInstance(
             NameEsonic,
             new LGA1151(),
             new PCIE4(),
@@ -322,74 +322,74 @@ public static class ComponentsDataBase
             RamTableCountEsonic,
             FormFactorEsonic,
             BiosTypeEsconic);
-        _allComponents.Add(_currentMotherBoardFactory.Create());
+        _allComponents.Add(MotherBoardFactory.Create());
 
-        _currentPowerUnitFactory.NewInstance(NameCouger, PowerLimitsCouger);
-        _allComponents.Add(_currentPowerUnitFactory.Create());
+        PowerUnitFactory.NewInstance(NameCouger, PowerLimitsCouger);
+        _allComponents.Add(PowerUnitFactory.Create());
 
-        _currentPowerUnitFactory.NewInstance(NameExeGate, PowerLimitsExeGate);
-        _allComponents.Add(_currentPowerUnitFactory.Create());
+        PowerUnitFactory.NewInstance(NameExeGate, PowerLimitsExeGate);
+        _allComponents.Add(PowerUnitFactory.Create());
 
-        _currentRamFactory.NewInstance(
+        RamFactory.NewInstance(
             NameFour,
             MemoryLimitsFour,
             new Xmp(20, 20, 20),
             RamFormFactorFour,
             VersionDDRFour,
             PowerFour);
-        _allComponents.Add(_currentRamFactory.Create());
+        _allComponents.Add(RamFactory.Create());
 
-        _currentRamFactory.NewInstance(
+        RamFactory.NewInstance(
             NameFive,
             MemoryLimitsFive,
             new Xmp(20, 12, 18),
             RamFormFactorFive,
             VersionDDRFive,
             PowerFive);
-        _allComponents.Add(_currentRamFactory.Create());
+        _allComponents.Add(RamFactory.Create());
 
-        _currentSsdFactory.NewInstance(
+        SsdFactory.NewInstance(
             NameKingston,
             new TypeSata(),
             MemoryKingston,
             SpeedKingston,
             PowerKingston);
-        _allComponents.Add(_currentSsdFactory.Create());
+        _allComponents.Add(SsdFactory.Create());
 
-        _currentSsdFactory.NewInstance(
+        SsdFactory.NewInstance(
             NameNetac,
             new TypePCIE(),
             MemoryNetac,
             SpeedNetac,
             PowerNetac);
-        _allComponents.Add(_currentSsdFactory.Create());
+        _allComponents.Add(SsdFactory.Create());
 
-        _currentVideoCardFactory.NewInstance(
+        VideoCardFactory.NewInstance(
             NameGigabyteForce,
             LebgthGigabyte,
             WidthGigabyte,
             new PCIE4(),
             FrequencyGigabyte,
             PowerGigabyte);
-        _allComponents.Add(_currentVideoCardFactory.Create());
+        _allComponents.Add(VideoCardFactory.Create());
 
-        _currentVideoCardFactory.NewInstance(
+        VideoCardFactory.NewInstance(
             NameNvideo,
             LebgthNvideo,
             WidthNvideo,
             new PCIE3(),
             FrequencyNvideo,
             PowerNvideo);
-        _allComponents.Add(_currentVideoCardFactory.Create());
+        _allComponents.Add(VideoCardFactory.Create());
 
-        _allComponents.Add(new CurrentWifiAdapter(
+        _allComponents.Add(new WifiAdapter(
             NameLtx,
             VersionLtx,
             BluetoothLtx,
             new PCIE4(),
             AdapterPowerLtx));
 
-        _allComponents.Add(new CurrentWifiAdapter(
+        _allComponents.Add(new WifiAdapter(
             NameMercus,
             VersionMercus,
             BluetoothMercus,

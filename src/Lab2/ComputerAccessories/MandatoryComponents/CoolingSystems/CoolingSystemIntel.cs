@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
 
-public class CoolingSystemIntel : CoolingSystems, IPrototype<CoolingSystemIntel>
+public class CoolingSystemIntel : CoolingSystemsBase, IPrototype<CoolingSystemIntel>
 {
     private int _coolingDimension;
     private int _coolingTDP;

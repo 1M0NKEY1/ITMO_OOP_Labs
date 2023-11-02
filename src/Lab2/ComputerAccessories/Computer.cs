@@ -12,33 +12,33 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories;
 
 public class Computer
 {
-    private readonly ComputerCases _computerCases;
-    private readonly CoolingSystems _coolingSystems;
-    private readonly Cpu _cpu;
-    private readonly MotherBoard _motherBoard;
-    private readonly PowerUnit _powerUnit;
-    private readonly Ram _ram;
-    private readonly SSD? _ssd;
-    private readonly VideoCard? _videoCard;
-    private readonly WifiAdapter? _wifiAdapter;
+    private readonly ComputerCasesBase _computerCasesBase;
+    private readonly CoolingSystemsBase _coolingSystemsBase;
+    private readonly CpuBase _cpuBase;
+    private readonly MotherBoardBase _motherBoardBase;
+    private readonly PowerUnitBase _powerUnitBase;
+    private readonly RamBase _ramBase;
+    private readonly SSDBase? _ssd;
+    private readonly VideoCardBase? _videoCard;
+    private readonly WifiAdapterBase? _wifiAdapter;
 
     public Computer(
-        ComputerCases computerCases,
-        CoolingSystems coolingSystems,
-        Cpu cpu,
-        MotherBoard motherBoard,
-        PowerUnit powerUnit,
-        Ram ram,
-        SSD? ssd,
-        VideoCard? videoCard,
-        WifiAdapter? wifiAdapter)
+        ComputerCasesBase computerCasesBase,
+        CoolingSystemsBase coolingSystemsBase,
+        CpuBase cpuBase,
+        MotherBoardBase motherBoardBase,
+        PowerUnitBase powerUnitBase,
+        RamBase ramBase,
+        SSDBase? ssd,
+        VideoCardBase? videoCard,
+        WifiAdapterBase? wifiAdapter)
     {
-        _computerCases = computerCases;
-        _coolingSystems = coolingSystems;
-        _cpu = cpu;
-        _motherBoard = motherBoard;
-        _powerUnit = powerUnit;
-        _ram = ram;
+        _computerCasesBase = computerCasesBase;
+        _coolingSystemsBase = coolingSystemsBase;
+        _cpuBase = cpuBase;
+        _motherBoardBase = motherBoardBase;
+        _powerUnitBase = powerUnitBase;
+        _ramBase = ramBase;
         _ssd = ssd;
         _videoCard = videoCard;
         _wifiAdapter = wifiAdapter;

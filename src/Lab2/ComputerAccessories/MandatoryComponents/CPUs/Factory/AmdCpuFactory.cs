@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.Factory;
 
-public class AmdCPUFactory : CPUFactory
+public class AmdCpuFactory : CPUFactoryBase
 {
     private string? _name;
     private int _coreFrequency;
@@ -32,9 +32,9 @@ public class AmdCPUFactory : CPUFactory
         _powerConsumption = powerConsumption;
     }
 
-    public override Cpu Create()
+    public override CpuBase Create()
     {
-        return new AmdCPU(
+        return new AmdCpu(
             _name,
             _coreFrequency,
             _cores,

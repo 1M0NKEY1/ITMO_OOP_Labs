@@ -6,7 +6,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponent
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
-public abstract class Cpu : IComponent, IEquatable<IComponent>
+public abstract class CpuBase : IComponent, IEquatable<IComponent>
 {
     public abstract string? Name { get; }
     public abstract int CoreFrequency { get; }
@@ -16,11 +16,11 @@ public abstract class Cpu : IComponent, IEquatable<IComponent>
     public abstract int SupportedMemory { get; }
     public abstract int TDP { get; }
     public abstract int PowerConsumption { get; }
-    public abstract bool AvailableMotherboardForCpu(MotherBoard motherBoard);
-    public abstract bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems);
+    public abstract bool AvailableMotherboardForCpu(MotherBoardBase motherBoardBase);
+    public abstract bool EnoughTdpCoolingSystem(CoolingSystemsBase coolingSystemsBase);
     public bool Equals(IComponent? other)
     {
-        if (other is Cpu otherCpu)
+        if (other is CpuBase otherCpu)
         {
             return Socket != null && Socket.EqualsOfSockets(otherCpu.Socket);
         }

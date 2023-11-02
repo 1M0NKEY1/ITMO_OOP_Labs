@@ -1,6 +1,8 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
+﻿using System;
 
-public class IntelChip : Chip
+namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.AuxiliaryСomponents.ChipSetDir;
+
+public class IntelChip : Chip, IEquatable<Chip>
 {
-    public override bool Equals(Chip? other) => other is IntelChip;
+    public bool Equals(Chip? other) => other is IntelChip;
 }

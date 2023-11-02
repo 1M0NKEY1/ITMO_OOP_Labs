@@ -2,5 +2,4 @@
 
 public abstract class Chip
 {
-    public abstract bool Equals(Chip? other);
 }

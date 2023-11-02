@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU.Factory;
 
-public class IntelCPUFactory : CPUFactory
+public class IntelCpuFactory : CPUFactoryBase
 {
     private string? _name;
     private int _coreFrequency;
@@ -33,9 +33,9 @@ public class IntelCPUFactory : CPUFactory
         _powerConsumption = powerConsumption;
     }
 
-    public override Cpu Create()
+    public override CpuBase Create()
     {
-        return new IntelCPU(
+        return new IntelCpu(
             _name,
             _coreFrequency,
             _cores,

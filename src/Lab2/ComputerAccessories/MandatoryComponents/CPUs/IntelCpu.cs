@@ -6,7 +6,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
-public class IntelCPU : Cpu, IPrototype<IntelCPU>
+public class IntelCpu : CpuBase, IPrototype<IntelCpu>
 {
     private int _coreFrequency;
     private int _cores;
@@ -17,7 +17,7 @@ public class IntelCPU : Cpu, IPrototype<IntelCPU>
     private int _powerConsumption;
     private string? _name;
 
-    public IntelCPU(
+    public IntelCpu(
         string? name,
         int coreFrequency,
         int cores,
@@ -45,19 +45,19 @@ public class IntelCPU : Cpu, IPrototype<IntelCPU>
     public override int SupportedMemory => _supportedMemory;
     public override int TDP => _tdp;
     public override int PowerConsumption => _powerConsumption;
-    public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
+    public override bool AvailableMotherboardForCpu(MotherBoardBase motherBoardBase)
     {
-        return motherBoard.Socket != null && motherBoard.Socket.EqualsOfSockets(_socket);
+        return motherBoardBase.Socket != null && motherBoardBase.Socket.EqualsOfSockets(_socket);
     }
 
-    public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
+    public override bool EnoughTdpCoolingSystem(CoolingSystemsBase coolingSystemsBase)
     {
-        return coolingSystems.CoolingTDP > _tdp;
+        return coolingSystemsBase.CoolingTDP > _tdp;
     }
 
-    public IntelCPU Clone()
+    public IntelCpu Clone()
     {
-        return new IntelCPU(
+        return new IntelCpu(
             _name,
             _coreFrequency,
             _cores,
@@ -68,65 +68,65 @@ public class IntelCPU : Cpu, IPrototype<IntelCPU>
             _powerConsumption);
     }
 
-    public IntelCPU CloneWithNewName(string? name)
+    public IntelCpu CloneWithNewName(string? name)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _name = name;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewCoreFrequency(int frequency)
+    public IntelCpu CloneWithNewCoreFrequency(int frequency)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _coreFrequency = frequency;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewCores(int cores)
+    public IntelCpu CloneWithNewCores(int cores)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _cores = cores;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewSocket(IntelSocketType? socketType)
+    public IntelCpu CloneWithNewSocket(IntelSocketType? socketType)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _socket = socketType;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewGpu(bool gpu)
+    public IntelCpu CloneWithNewGpu(bool gpu)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _integratedGraphics = gpu;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewSupportedMemory(int supportedMemory)
+    public IntelCpu CloneWithNewSupportedMemory(int supportedMemory)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _supportedMemory = supportedMemory;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewTdp(int tdp)
+    public IntelCpu CloneWithNewTdp(int tdp)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _tdp = tdp;
 
         return cloneCpu;
     }
 
-    public IntelCPU CloneWithNewPower(int power)
+    public IntelCpu CloneWithNewPower(int power)
     {
-        IntelCPU cloneCpu = Clone();
+        IntelCpu cloneCpu = Clone();
         _powerConsumption = power;
 
         return cloneCpu;

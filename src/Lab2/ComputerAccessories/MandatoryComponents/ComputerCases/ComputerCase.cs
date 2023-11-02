@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 
-public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase>
+public class ComputerCase : ComputerCasesBase, IPrototype<ComputerCase>
 {
     private int _length;
     private int _width;
@@ -12,7 +12,7 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
     private int _caseDimensions;
     private string? _name;
 
-    public CurrentComputerCase(
+    public ComputerCase(
         string? name,
         int length,
         int width,
@@ -32,19 +32,19 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
     public override int MotherboardFormFactor => _motherboardFormFactor;
     public override int CaseDimensions => _caseDimensions;
 
-    public override bool AvailableMotherBoardForCase(MotherBoard motherBoard)
+    public override bool AvailableMotherBoardForCase(MotherBoardBase motherBoardBase)
     {
-        return motherBoard.FormFactorMother.Equals(_motherboardFormFactor);
+        return motherBoardBase.FormFactorMother.Equals(_motherboardFormFactor);
     }
 
-    public override bool AvailableCoolingSystemForCase(CoolingSystems coolingSystems)
+    public override bool AvailableCoolingSystemForCase(CoolingSystemsBase coolingSystemsBase)
     {
-        return coolingSystems.CoolingDimensions < _width;
+        return coolingSystemsBase.CoolingDimensions < _width;
     }
 
-    public CurrentComputerCase Clone()
+    public ComputerCase Clone()
     {
-        return new CurrentComputerCase(
+        return new ComputerCase(
             _name,
             _length,
             _width,
@@ -52,41 +52,41 @@ public class CurrentComputerCase : ComputerCases, IPrototype<CurrentComputerCase
             _caseDimensions);
     }
 
-    public CurrentComputerCase CloneWithNewName(string? name)
+    public ComputerCase CloneWithNewName(string? name)
     {
-        CurrentComputerCase cloneCase = Clone();
+        ComputerCase cloneCase = Clone();
         _name = name;
 
         return cloneCase;
     }
 
-    public CurrentComputerCase CloneWithNewLength(int length)
+    public ComputerCase CloneWithNewLength(int length)
     {
-        CurrentComputerCase cloneCase = Clone();
+        ComputerCase cloneCase = Clone();
         _length = length;
 
         return cloneCase;
     }
 
-    public CurrentComputerCase CloneWithNewWidth(int width)
+    public ComputerCase CloneWithNewWidth(int width)
     {
-        CurrentComputerCase cloneCase = Clone();
+        ComputerCase cloneCase = Clone();
         _width = width;
 
         return cloneCase;
     }
 
-    public CurrentComputerCase CloneWithNewMotherboardFormFactor(int motherboardFormFactor)
+    public ComputerCase CloneWithNewMotherboardFormFactor(int motherboardFormFactor)
     {
-        CurrentComputerCase cloneCase = Clone();
+        ComputerCase cloneCase = Clone();
         _motherboardFormFactor = motherboardFormFactor;
 
         return cloneCase;
     }
 
-    public CurrentComputerCase CloneWithNewCaseDimension(int dimension)
+    public ComputerCase CloneWithNewCaseDimension(int dimension)
     {
-        CurrentComputerCase cloneCase = Clone();
+        ComputerCase cloneCase = Clone();
         _caseDimensions = dimension;
 
         return cloneCase;

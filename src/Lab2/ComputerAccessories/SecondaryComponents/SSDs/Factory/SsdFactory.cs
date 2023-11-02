@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.SSDs.Factory;
 
-public class CurrentSSDFactory : SSDFactory
+public class SsdFactory : SSDFactoryBase
 {
     private string? _name;
     private InputTypes? _inputType;
@@ -24,8 +24,8 @@ public class CurrentSSDFactory : SSDFactory
         _ssdPower = ssdPower;
     }
 
-    public override SSD Create()
+    public override SSDBase Create()
     {
-        return new CurrentSSD(_name, _inputType, _ssdMemory, _maxSpeed, _ssdPower);
+        return new SSD(_name, _inputType, _ssdMemory, _maxSpeed, _ssdPower);
     }
 }

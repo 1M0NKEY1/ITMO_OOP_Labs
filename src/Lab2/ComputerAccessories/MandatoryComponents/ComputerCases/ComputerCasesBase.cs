@@ -4,13 +4,13 @@ using Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.MandatoryComponent
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.ComputerCase;
 
-public abstract class ComputerCases : IComponent
+public abstract class ComputerCasesBase : IComponent
 {
     public abstract string? Name { get; }
     public abstract int VideoCardLength { get;  }
     public abstract int VideoCardWidth { get; }
     public abstract int MotherboardFormFactor { get; }
     public abstract int CaseDimensions { get; }
-    public abstract bool AvailableMotherBoardForCase(MotherBoard motherBoard);
-    public abstract bool AvailableCoolingSystemForCase(CoolingSystems coolingSystems);
+    public abstract bool AvailableMotherBoardForCase(MotherBoardBase motherBoardBase);
+    public abstract bool AvailableCoolingSystemForCase(CoolingSystemsBase coolingSystemsBase);
 }

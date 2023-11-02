@@ -6,7 +6,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Prototype;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CPU;
 
-public class AmdCPU : Cpu, IPrototype<AmdCPU>
+public class AmdCpu : CpuBase, IPrototype<AmdCpu>
 {
     private int _coreFrequency;
     private int _cores;
@@ -17,7 +17,7 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
     private int _powerConsumption;
     private string? _name;
 
-    public AmdCPU(
+    public AmdCpu(
         string? name,
         int coreFrequency,
         int cores,
@@ -46,19 +46,19 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
     public override int TDP => _tdp;
     public override int PowerConsumption => _powerConsumption;
 
-    public override bool AvailableMotherboardForCpu(MotherBoard motherBoard)
+    public override bool AvailableMotherboardForCpu(MotherBoardBase motherBoardBase)
     {
-        return motherBoard.Socket != null && motherBoard.Socket.EqualsOfSockets(_socket);
+        return motherBoardBase.Socket != null && motherBoardBase.Socket.EqualsOfSockets(_socket);
     }
 
-    public override bool EnoughTdpCoolingSystem(CoolingSystems coolingSystems)
+    public override bool EnoughTdpCoolingSystem(CoolingSystemsBase coolingSystemsBase)
     {
-        return coolingSystems.CoolingTDP > _tdp;
+        return coolingSystemsBase.CoolingTDP > _tdp;
     }
 
-    public AmdCPU Clone()
+    public AmdCpu Clone()
     {
-        return new AmdCPU(
+        return new AmdCpu(
             _name,
             _coreFrequency,
             _cores,
@@ -69,65 +69,65 @@ public class AmdCPU : Cpu, IPrototype<AmdCPU>
             _powerConsumption);
     }
 
-    public AmdCPU CloneWithNewName(string? name)
+    public AmdCpu CloneWithNewName(string? name)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _name = name;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewCoreFrequency(int frequency)
+    public AmdCpu CloneWithNewCoreFrequency(int frequency)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _coreFrequency = frequency;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewCores(int cores)
+    public AmdCpu CloneWithNewCores(int cores)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _cores = cores;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewSocket(AmdSocketType? socketType)
+    public AmdCpu CloneWithNewSocket(AmdSocketType? socketType)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _socket = socketType;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewGpu(bool gpu)
+    public AmdCpu CloneWithNewGpu(bool gpu)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _integratedGraphics = gpu;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewSupportedMemory(int supportedMemory)
+    public AmdCpu CloneWithNewSupportedMemory(int supportedMemory)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _supportedMemory = supportedMemory;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewTdp(int tdp)
+    public AmdCpu CloneWithNewTdp(int tdp)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _tdp = tdp;
 
         return cloneCpu;
     }
 
-    public AmdCPU CloneWithNewPower(int power)
+    public AmdCpu CloneWithNewPower(int power)
     {
-        AmdCPU cloneCpu = Clone();
+        AmdCpu cloneCpu = Clone();
         _powerConsumption = power;
 
         return cloneCpu;
