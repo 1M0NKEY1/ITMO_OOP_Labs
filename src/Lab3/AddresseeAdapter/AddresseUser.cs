@@ -1,5 +1,4 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 using Itmo.ObjectOrientedProgramming.Lab3.LevelOfImportant;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
@@ -7,12 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 public class AddresseUser : AddresseeBase
 {
     private readonly User _user = new();
-
-    public override string Log()
-    {
-        return "Message received";
-    }
-
+    private readonly Logger _logger = new();
     public override bool FilterForLevel(LevelOfImportance levelOfImportance)
     {
         return levelOfImportance switch
@@ -26,7 +20,7 @@ public class AddresseUser : AddresseeBase
     {
         if (message.LevelOfImportance != null && FilterForLevel(message.LevelOfImportance))
         {
-            Console.WriteLine(Log());
+            _logger.OutputText("Received message");
             _user.SaveMessage(message);
         }
     }

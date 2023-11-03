@@ -7,16 +7,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 public class AddresseeDisplay : AddresseeBase
 {
     private readonly Display _display = new();
+    private readonly Logger _logger = new();
     private ConsoleColor _color;
 
     public void SetColor(ConsoleColor color)
     {
         _color = color;
-    }
-
-    public override string Log()
-    {
-        return "Message received";
     }
 
     public override bool FilterForLevel(LevelOfImportance levelOfImportance)
@@ -32,7 +28,7 @@ public class AddresseeDisplay : AddresseeBase
     {
         if (message.LevelOfImportance != null && FilterForLevel(message.LevelOfImportance))
         {
-            Console.WriteLine(Log());
+            _logger.OutputText("Received message");
             _display.WriteText(_color, message);
         }
     }
