@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.MessagesBuilder;
 
 public interface IMessageBuilder
 {
-    Message Crate();
+    Message Create();
     IMessageBuilder WithHeading(MessageHeading? heading);
     IMessageBuilder WithBody(MessageBody? body);
     IMessageBuilder WithLevelOfImportance(LevelOfImportance? levelOfImportance);
