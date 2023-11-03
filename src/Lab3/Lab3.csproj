@@ -4,4 +4,15 @@
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab3</RootNamespace>
     </PropertyGroup>
 
+
+
+
+
+
+
+
+    <ItemGroup>
+      <Folder Include="Messages\Entities\" />
+    </ItemGroup>
+
 </Project>
