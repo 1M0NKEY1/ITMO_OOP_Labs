@@ -24,4 +24,9 @@ public class AddresseUser : AddresseeBase
             _user.SaveMessage(message);
         }
     }
+
+    public bool FindMessageStatus(IMessage message)
+    {
+        return _user.ListOfUnreadMessages.Contains(message);
+    }
 }

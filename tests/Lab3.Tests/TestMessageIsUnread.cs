@@ -4,6 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.LevelOfImportant;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesBody;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesBuilder;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesHeadings;
+using Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 using Itmo.ObjectOrientedProgramming.Lab3.TopicDir.TopicsBuilder;
 using Xunit;
 
@@ -17,6 +18,7 @@ public class TestMessageIsUnread
 
     private readonly TopicBuilder _topicBuilder = new();
     private readonly MessageBuilder _messageBuilder = new();
+
     public static IEnumerable<object[]> GetObjects
     {
         get
@@ -30,11 +32,13 @@ public class TestMessageIsUnread
         }
     }
 
-    public static bool CompleteBuild(MessageBuilder messageBuilder)
+    public static bool CompleteBuild(MessageBuilder messageBuilder, TopicBuilder topicBuilder)
     {
-        IList<MessageBuildResult> results = messageBuilder.GetResults();
+        Message message = messageBuilder.Create();
+        Topic topic = topicBuilder.Create();
+        topic.SendMessage(message);
 
-        return results is [MessageBuildResult.Success, MessageBuildResult.Unreaden];
+        return topic.MessageStatus(message);
     }
 
     [Theory]
@@ -50,6 +54,6 @@ public class TestMessageIsUnread
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
 
-        Assert.True(CompleteBuild(_messageBuilder));
+        Assert.True(CompleteBuild(_messageBuilder, _topicBuilder));
     }
 }
