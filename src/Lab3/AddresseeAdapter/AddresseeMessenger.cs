@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class AddresseeMessenger : AddresseeBase
 {
-    private readonly Messenger _messenger = new();
+    private readonly Messenger _messenger = new(new ConsoleShowText());
     private readonly ILogger _logger;
 
     public AddresseeMessenger(ILogger logger)
@@ -30,7 +30,9 @@ public class AddresseeMessenger : AddresseeBase
             _logger.OutputText("Receive message");
             _messenger.WriteText(message);
         }
-
-        _logger.OutputText("Doesnt received");
+        else
+        {
+            _logger.OutputText("Doesnt received");
+        }
     }
 }

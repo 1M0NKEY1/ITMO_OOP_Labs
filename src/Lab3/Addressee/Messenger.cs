@@ -2,11 +2,15 @@
 
 public class Messenger : IMessenger
 {
-    public string WriteText(IMessage message)
-    {
-        string? heading = message.Heading;
-        string? body = message.Body;
+    private readonly IShowText _showText;
 
-        return "messenger" + "\n" + heading + "\n" + body;
+    public Messenger(IShowText showText)
+    {
+        _showText = showText;
+    }
+
+    public void WriteText(IMessage message)
+    {
+        _showText.DrawText(_showText.Render(message));
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IMessenger
 {
-    string WriteText(IMessage message);
+    void WriteText(IMessage message);
 }

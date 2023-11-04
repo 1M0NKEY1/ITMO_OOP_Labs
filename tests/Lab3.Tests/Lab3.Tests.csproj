@@ -24,8 +24,5 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="MockTests\" />
-    </ItemGroup>
 
 </Project>
