@@ -7,8 +7,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 public class AddresseeDisplay : AddresseeBase
 {
     private readonly Display _display = new();
-    private readonly Logger _logger = new();
+    private readonly ILogger _logger;
     private ConsoleColor _color;
+
+    public AddresseeDisplay(ILogger logger)
+        : base(logger)
+    {
+        _logger = logger;
+    }
 
     public void SetColor(ConsoleColor color)
     {
@@ -31,5 +37,7 @@ public class AddresseeDisplay : AddresseeBase
             _logger.OutputText("Received message");
             _display.WriteText(_color, message);
         }
+
+        _logger.OutputText("Doesnt received");
     }
 }

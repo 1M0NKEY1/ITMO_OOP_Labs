@@ -6,7 +6,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 public class AddresseeMessenger : AddresseeBase
 {
     private readonly Messenger _messenger = new();
-    private readonly Logger _logger = new();
+    private readonly ILogger _logger;
+
+    public AddresseeMessenger(ILogger logger)
+        : base(logger)
+    {
+        _logger = logger;
+    }
 
     public override bool FilterForLevel(LevelOfImportance levelOfImportance)
     {
@@ -24,5 +30,7 @@ public class AddresseeMessenger : AddresseeBase
             _logger.OutputText("Receive message");
             _messenger.WriteText(message);
         }
+
+        _logger.OutputText("Doesnt received");
     }
 }

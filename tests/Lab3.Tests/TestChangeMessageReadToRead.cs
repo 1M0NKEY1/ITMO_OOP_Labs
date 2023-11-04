@@ -18,6 +18,7 @@ public class TestChangeMessageReadToRead
 
     private readonly TopicBuilder _topicBuilder = new();
     private readonly MessageBuilder _messageBuilder = new();
+    private readonly ILogger _logger = new Logger();
 
     public static IEnumerable<object[]> GetObjects
     {
@@ -51,7 +52,7 @@ public class TestChangeMessageReadToRead
         MessageBody messageBody)
     {
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseUser());
+        _topicBuilder.WithAddressee(new AddresseUser(_logger));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());

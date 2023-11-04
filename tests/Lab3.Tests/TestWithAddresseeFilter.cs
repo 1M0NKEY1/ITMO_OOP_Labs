@@ -6,11 +6,12 @@ using Itmo.ObjectOrientedProgramming.Lab3.MessagesBuilder;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesHeadings;
 using Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 using Itmo.ObjectOrientedProgramming.Lab3.TopicDir.TopicsBuilder;
+using Moq;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class TestChangeMessageStatus
+public class TestWithAddresseeFilter
 {
     private const string _topicName = "Name Egor";
     private const string _messageHeading = "239 time";
@@ -18,7 +19,6 @@ public class TestChangeMessageStatus
 
     private readonly TopicBuilder _topicBuilder = new();
     private readonly MessageBuilder _messageBuilder = new();
-    private readonly ILogger _logger = new Logger();
 
     public static IEnumerable<object[]> GetObjects
     {
@@ -33,29 +33,26 @@ public class TestChangeMessageStatus
         }
     }
 
-    public static bool CompleteBuild(MessageBuilder messageBuilder, TopicBuilder topicBuilder)
-    {
-        Message message = messageBuilder.Create();
-        Topic topic = topicBuilder.Create();
-        topic.SendMessage(message);
-        topic.ChangeStatus(message);
-
-        return topic.MessageStatus(message);
-    }
-
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestChangeMessageStatus))]
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestWithAddresseeFilter))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
         string topicName,
         MessageHeading messageHeading,
         MessageBody messageBody)
     {
+        var mocklogger = new Mock<ILogger>();
+        var logger = new Logger();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseUser(_logger));
+        _topicBuilder.WithAddressee(new AddresseUser(mocklogger.Object));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
-        _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
+        _messageBuilder.WithLevelOfImportance(new LowLevelOfImportance());
 
-        Assert.False(CompleteBuild(_messageBuilder, _topicBuilder));
+        Message message = _messageBuilder.Create();
+        Topic topic = _topicBuilder.Create();
+        topic.SendMessage(message);
+
+        logger.OutputText("Doesnt received");
+        mocklogger.Verify(log => log.OutputText(It.IsAny<string>()), "Doesnt received");
     }
 }
