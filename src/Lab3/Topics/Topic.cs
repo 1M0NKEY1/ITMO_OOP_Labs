@@ -18,6 +18,12 @@ public class Topic : TopicBase
         _addressee?.ReceiveMessage(message);
     }
 
+    public void ChangeStatus(IMessage message)
+    {
+        var addressee = (AddresseUser?)_addressee;
+        addressee?.ChangedMessageStatus(message);
+    }
+
     public bool MessageStatus(IMessage message)
     {
         var addressee = (AddresseUser?)_addressee;

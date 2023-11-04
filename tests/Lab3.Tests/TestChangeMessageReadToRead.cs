@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class TestChangeMessageStatus
+public class TestChangeMessageReadToRead
 {
     private const string _topicName = "Name Egor";
     private const string _messageHeading = "239 time";
@@ -38,12 +38,13 @@ public class TestChangeMessageStatus
         Topic topic = topicBuilder.Create();
         topic.SendMessage(message);
         topic.ChangeStatus(message);
+        topic.ChangeStatus(message);
 
-        return topic.MessageStatus(message);
+        return !topic.MessageStatus(message);
     }
 
     [Theory]
-    [MemberData(nameof(GetObjects), MemberType = typeof(TestChangeMessageStatus))]
+    [MemberData(nameof(GetObjects), MemberType = typeof(TestChangeMessageReadToRead))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
         string topicName,
         MessageHeading messageHeading,

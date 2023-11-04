@@ -25,6 +25,11 @@ public class AddresseUser : AddresseeBase
         }
     }
 
+    public void ChangedMessageStatus(IMessage message)
+    {
+        _user.ChangeStatus(message);
+    }
+
     public bool FindMessageStatus(IMessage message)
     {
         return _user.ListOfUnreadMessages.Contains(message);
