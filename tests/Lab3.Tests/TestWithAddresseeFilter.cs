@@ -41,9 +41,8 @@ public class TestWithAddresseeFilter
         MessageBody messageBody)
     {
         var mocklogger = new Mock<ILogger>();
-        var logger = new Logger();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseUser(mocklogger.Object));
+        _topicBuilder.WithAddressee(new FilterDecorator(new AddresseeUser(), new LowLevelOfImportance()));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new LowLevelOfImportance());
@@ -52,7 +51,6 @@ public class TestWithAddresseeFilter
         Topic topic = _topicBuilder.Create();
         topic.SendMessage(message);
 
-        logger.OutputText("Doesnt received");
-        mocklogger.Verify(log => log.OutputText(It.IsAny<string>()), "Doesnt received");
+        mocklogger.Verify(log => log.OutputText(It.IsAny<string>()), Times.Never);
     }
 }

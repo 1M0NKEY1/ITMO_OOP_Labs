@@ -43,9 +43,8 @@ public class TestMessengerAddressee
     {
         var mockShowText = new Mock<IShowText>();
         var messenger = new Messenger(mockShowText.Object);
-        var logger = new Logger();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseeMessenger(logger));
+        _topicBuilder.WithAddressee(new AddresseeMessenger());
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());

@@ -43,7 +43,7 @@ public class TestMessageSendFilter
         var mocklogger = new Mock<ILogger>();
         var logger = new Logger();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseUser(mocklogger.Object));
+        _topicBuilder.WithAddressee(new LoggerDecorator(new AddresseeUser(), mocklogger.Object));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
