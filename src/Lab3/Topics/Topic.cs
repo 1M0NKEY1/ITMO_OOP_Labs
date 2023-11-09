@@ -20,13 +20,13 @@ public class Topic : TopicBase
 
     public void ChangeStatus(IMessage message)
     {
-        var addressee = (AddresseUser?)_addressee;
+        var addressee = (AddresseeUser?)_addressee;
         addressee?.ChangedMessageStatus(message);
     }
 
     public bool MessageStatus(IMessage message)
     {
-        var addressee = (AddresseUser?)_addressee;
+        var addressee = (AddresseeUser?)_addressee;
 
         return addressee != null && addressee.FindMessageStatus(message);
     }
