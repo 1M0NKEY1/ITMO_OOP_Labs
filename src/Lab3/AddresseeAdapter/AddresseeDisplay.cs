@@ -35,7 +35,7 @@ public class AddresseeDisplay : AddresseeBase
         if (message.LevelOfImportance != null && FilterForLevel(message.LevelOfImportance))
         {
             _logger.OutputText("Received message");
-            _display.WriteText(_color, message);
+            _display.WriteTextWithColor(_color, message);
         }
 
         _logger.OutputText("Doesnt received");

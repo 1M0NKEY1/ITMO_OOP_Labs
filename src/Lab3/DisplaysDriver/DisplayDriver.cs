@@ -20,6 +20,6 @@ public class DisplayDriver : IDisplayDriver
 
     public void NewTextColor(ConsoleColor color, IMessage message)
     {
-        _display.WriteText(color, message);
+        _display.WriteTextWithColor(color, message);
     }
 }
