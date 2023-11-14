@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Requests;
 
 public class Request
 {
