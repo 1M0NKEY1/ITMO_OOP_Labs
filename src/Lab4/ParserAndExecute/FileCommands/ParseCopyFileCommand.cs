@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Requests;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseCopyFileCommand : CommandParser, ICommandHandler
+public class ParseCopyFileCommand : ICommandHandler
 {
     private ICommandHandler? _nextHandler;
 
     public ParseCopyFileCommand()
     {
-        AddCommandHandler(this);
+        CommandHandlers?.Add(this);
     }
+
+    public IList<ICommandHandler>? CommandHandlers { get; }
 
     public void SetNextHandler(ICommandHandler handler)
     {
         _nextHandler = handler;
     }
 
-    public void Handle(IList<Request> parts)
+    public void Handle(IList<string> parts)
     {
         const string keyWordOne = "file";
         const string keyWordTwo = "copy";
 
-        if (parts[0].Input.Equals(keyWordOne, StringComparison.Ordinal) &&
-            parts[1].Input.Equals(keyWordTwo, StringComparison.Ordinal))
+        if (parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
+            parts[1].Equals(keyWordTwo, StringComparison.Ordinal))
         {
-            string sourcePath = parts[2].Input;
-            string destinationPath = parts[3].Input;
+            string sourcePath = parts[2];
+            string destinationPath = parts[3];
             Execute(sourcePath, destinationPath);
         }
         else

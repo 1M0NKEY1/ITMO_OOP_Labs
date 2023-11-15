@@ -23,4 +23,8 @@ public class CustomException : ArgumentException
         : base(message, paramName, innerException)
     {
     }
+
+    public CustomException()
+    {
+    }
 }

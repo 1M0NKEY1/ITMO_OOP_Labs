@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Requests;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseConnectCommand : CommandParser, ICommandHandler
+public class ParseConnectCommand : ICommandHandler
 {
     private ICommandHandler? _nextHandler;
-
     public ParseConnectCommand()
     {
-        AddCommandHandler(this);
+        CommandHandlers?.Add(this);
     }
+
+    public IList<ICommandHandler>? CommandHandlers { get; }
 
     public void SetNextHandler(ICommandHandler handler)
     {
         _nextHandler = handler;
     }
 
-    public void Handle(IList<Request> parts)
+    public void Handle(IList<string> parts)
     {
         const string keyWordOne = "connect";
         const string keyWordTwo = "-m";
@@ -27,16 +27,16 @@ public class ParseConnectCommand : CommandParser, ICommandHandler
 
         if (parts.Count >= 2 &&
             parts.Count <= 4 &&
-            parts[0].Input.Equals(keyWordOne, StringComparison.Ordinal) &&
-            !string.IsNullOrWhiteSpace(parts[1].Input))
+            parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
+            !string.IsNullOrWhiteSpace(parts[1]))
         {
-            string address = parts[1].Input;
+            string address = parts[1];
 
             for (int i = 2; i < parts.Count; i++)
             {
-                if (parts[i].Input.Equals(keyWordTwo, StringComparison.Ordinal) &&
+                if (parts[i].Equals(keyWordTwo, StringComparison.Ordinal) &&
                     i + 1 < parts.Count &&
-                    parts[i + 1].Input.Equals(keyWordThree, StringComparison.Ordinal))
+                    parts[i + 1].Equals(keyWordThree, StringComparison.Ordinal))
                 {
                     Execute(address, keyWordThree);
                     return;
