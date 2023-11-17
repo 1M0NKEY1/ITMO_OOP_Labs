@@ -4,56 +4,40 @@ using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseConnectCommand : ICommandHandler
+public class ParseConnectCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-    public ParseConnectCommand()
+    private const string KeyWordOne = "connect";
+    private const string KeyWordTwo = "-m";
+    private const string KeyWordThree = "local";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts.Count >= 2 &&
+               parts.Count <= 4 &&
+               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               !string.IsNullOrWhiteSpace(parts[1]);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
-    }
+        string address = parts[1];
 
-    public void Handle(IList<string> parts)
-    {
-        const string keyWordOne = "connect";
-        const string keyWordTwo = "-m";
-        const string keyWordThree = "local";
-
-        if (parts.Count >= 2 &&
-            parts.Count <= 4 &&
-            parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
-            !string.IsNullOrWhiteSpace(parts[1]))
+        for (int i = 2; i < parts.Count; i++)
         {
-            string address = parts[1];
-
-            for (int i = 2; i < parts.Count; i++)
+            if (parts[i].Equals(KeyWordTwo, StringComparison.Ordinal) &&
+                i + 1 < parts.Count &&
+                parts[i + 1].Equals(KeyWordThree, StringComparison.Ordinal))
             {
-                if (parts[i].Equals(keyWordTwo, StringComparison.Ordinal) &&
-                    i + 1 < parts.Count &&
-                    parts[i + 1].Equals(keyWordThree, StringComparison.Ordinal))
-                {
-                    Execute(address, keyWordThree);
-                    return;
-                }
+                Execute(address, KeyWordThree);
+                return;
             }
+        }
 
-            Execute(address, keyWordThree);
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
-        }
+        Execute(address, KeyWordThree);
     }
 
     private static void Execute(string address, string mode)
     {
-        if (mode.Equals("local", StringComparison.Ordinal))
+        if (mode.Equals(KeyWordThree, StringComparison.Ordinal))
         {
             var fileInfo = new FileInfo(address);
 

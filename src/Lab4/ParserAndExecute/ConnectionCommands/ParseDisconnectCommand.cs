@@ -1,40 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseDisconnectCommand : ICommandHandler
+public class ParseDisconnectCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-
-    public ParseDisconnectCommand()
+    private const string KeyWordOne = "disconnect";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts[0].Equals(KeyWordOne, StringComparison.OrdinalIgnoreCase);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
+        Execute();
     }
 
-    public void Handle(IList<string> parts)
+    private static void Execute()
     {
-        const string keyWordOne = "disconnect";
-        if (parts[0].Equals(keyWordOne, StringComparison.OrdinalIgnoreCase))
-        {
-            Execute();
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
-        }
-    }
-
-    private static FileInfo? Execute()
-    {
-        return null;
+        Environment.Exit(0);
     }
 }

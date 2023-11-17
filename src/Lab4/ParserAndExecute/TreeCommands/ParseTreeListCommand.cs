@@ -4,41 +4,24 @@ using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseTreeListCommand : ICommandHandler
+public class ParseTreeListCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-
-    public ParseTreeListCommand()
+    private const string KeyWordOne = "tree";
+    private const string KeyWordTwo = "list";
+    private const string KeyWordThree = "-d";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts.Count == 4 &&
+               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal) &&
+               parts[2].Equals(KeyWordThree, StringComparison.Ordinal);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
-    }
-
-    public void Handle(IList<string> parts)
-    {
-        const string keyWordOne = "tree";
-        const string keyWordTwo = "list";
-        const string keyWordThree = "-d";
-
-        if (parts.Count == 4 &&
-            parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
-            parts[1].Equals(keyWordTwo, StringComparison.Ordinal) &&
-            parts[2].Equals(keyWordThree, StringComparison.Ordinal))
+        if (int.TryParse(parts[3], out int depth))
         {
-            if (int.TryParse(parts[3], out int depth))
-            {
-                Execute(depth);
-            }
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
+            Execute(depth);
         }
     }
 

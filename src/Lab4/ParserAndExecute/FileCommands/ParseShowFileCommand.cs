@@ -4,42 +4,25 @@ using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseShowFileCommand : ICommandHandler
+public class ParseShowFileCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-
-    public ParseShowFileCommand()
+    private const string KeyWordOne = "file";
+    private const string KeyWordTwo = "show";
+    private const string KeyWordThree = "-m";
+    private const string KeyWordFour = "console";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts.Count == 5 &&
+               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal) &&
+               parts[3].Equals(KeyWordThree, StringComparison.Ordinal) &&
+               parts[4].Equals(KeyWordFour, StringComparison.Ordinal);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
-    }
-
-    public void Handle(IList<string> parts)
-    {
-        const string keyWordOne = "file";
-        const string keyWordTwo = "show";
-        const string keyWordThree = "-m";
-        const string keyWordFour = "console";
-
-        if (parts.Count == 5 &&
-                 parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
-                 parts[1].Equals(keyWordTwo, StringComparison.Ordinal) &&
-                 parts[3].Equals(keyWordThree, StringComparison.Ordinal) &&
-                 parts[4].Equals(keyWordFour, StringComparison.Ordinal))
-        {
-            string path = parts[2];
-            Execute(path, keyWordFour);
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
-        }
+        string path = parts[2];
+        Execute(path, KeyWordFour);
     }
 
     private static void Execute(string path, string mode)
@@ -48,7 +31,7 @@ public class ParseShowFileCommand : ICommandHandler
 
         if (File.Exists(absolutePath))
         {
-            if (mode.Equals("console", StringComparison.Ordinal))
+            if (mode.Equals(KeyWordFour, StringComparison.Ordinal))
             {
                 string fileContent = File.ReadAllText(absolutePath);
                 Console.WriteLine(fileContent);

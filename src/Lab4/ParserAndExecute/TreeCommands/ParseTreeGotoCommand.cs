@@ -4,38 +4,21 @@ using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseTreeGotoCommand : ICommandHandler
+public class ParseTreeGotoCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-
-    public ParseTreeGotoCommand()
+    private const string KeyWordOne = "tree";
+    private const string KeyWordTwo = "goto";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts.Count == 3 &&
+               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
-    }
-
-    public void Handle(IList<string> parts)
-    {
-        const string keyWordOne = "tree";
-        const string keyWordTwo = "goto";
-
-        if (parts.Count == 3 &&
-            parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
-            parts[1].Equals(keyWordTwo, StringComparison.Ordinal))
-        {
-            string path = parts[2];
-            Execute(path);
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
-        }
+        string path = parts[2];
+        Execute(path);
     }
 
     private static void Execute(string path)

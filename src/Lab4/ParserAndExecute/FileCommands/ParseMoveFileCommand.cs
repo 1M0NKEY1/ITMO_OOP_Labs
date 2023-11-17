@@ -4,37 +4,21 @@ using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseMoveFileCommand : ICommandHandler
+public class ParseMoveFileCommand : CommandHandlerBase
 {
-    private ICommandHandler? _nextHandler;
-
-    public ParseMoveFileCommand()
+    private const string KeyWordOne = "file";
+    private const string KeyWordTwo = "move";
+    protected override bool CanHandle(IList<string> parts)
     {
-        CommandHandlers?.Add(this);
+        return parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
     }
 
-    public IList<ICommandHandler>? CommandHandlers { get; }
-
-    public void SetNextHandler(ICommandHandler handler)
+    protected override void Process(IList<string> parts)
     {
-        _nextHandler = handler;
-    }
-
-    public void Handle(IList<string> parts)
-    {
-        const string keyWordOne = "file";
-        const string keyWordTwo = "move";
-        if (parts[0].Equals(keyWordOne, StringComparison.Ordinal) &&
-            parts[1].Equals(keyWordTwo, StringComparison.Ordinal))
-        {
-            string sourcePath = parts[2];
-            string destinationPath = parts[3];
-            Execute(sourcePath, destinationPath);
-        }
-        else
-        {
-            _nextHandler?.Handle(parts);
-        }
+        string sourcePath = parts[2];
+        string destinationPath = parts[3];
+        Execute(sourcePath, destinationPath);
     }
 
     private static void Execute(string sourcePath, string destinationPath)

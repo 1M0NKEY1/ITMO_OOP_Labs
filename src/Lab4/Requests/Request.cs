@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Requests;
+﻿using System.Collections.Generic;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.Requests;
 
 public class Request
 {
@@ -7,5 +9,11 @@ public class Request
         Input = input;
     }
 
-    public string Input { get; }
+    private string Input { get; }
+
+    public IList<string> SplitString()
+    {
+        const char delimiter = ' ';
+        return Input.Split(delimiter);
+    }
 }
