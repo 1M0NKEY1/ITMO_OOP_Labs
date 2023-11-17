@@ -9,7 +9,7 @@ public static class Program
     {
         var request = new Request(Console.ReadLine() ?? string.Empty);
 
-        var parseTreeGotoCommand = new ParseTreeGotoCommand();
-        parseTreeGotoCommand.Handle(request.SplitString());
+        var parseShowFileCommand = new ParseShowFileCommand();
+        parseShowFileCommand.Handle(request.SplitString());
     }
 }

@@ -26,6 +26,19 @@ public class ParserBuilder : IParserBuilder
             _parseTreeListCommand);
     }
 
+    public void SetChainOfCommands()
+    {
+        _parseConnectCommand?.SetNextHandler(_parseDisconnectCommand);
+        _parseDisconnectCommand?.SetNextHandler(_parseCopyFileCommand);
+        _parseCopyFileCommand?.SetNextHandler(_parseDeleteFileCommand);
+        _parseDeleteFileCommand?.SetNextHandler(_parseMoveFileCommand);
+        _parseMoveFileCommand?.SetNextHandler(_parseRenameFileCommand);
+        _parseRenameFileCommand?.SetNextHandler(_parseShowFileCommand);
+        _parseShowFileCommand?.SetNextHandler(_parseTreeGotoCommand);
+        _parseTreeGotoCommand?.SetNextHandler(_parseTreeListCommand);
+        _parseTreeListCommand?.SetNextHandler(_parseConnectCommand);
+    }
+
     public IParserBuilder WithParseConnectCommand(ParseConnectCommand? parseConnectCommand)
     {
         _parseConnectCommand = parseConnectCommand;

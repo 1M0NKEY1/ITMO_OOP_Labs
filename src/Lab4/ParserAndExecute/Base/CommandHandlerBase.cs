@@ -6,9 +6,10 @@ public abstract class CommandHandlerBase : ICommandHandler
 {
     private ICommandHandler? _nextHandler;
 
-    public void SetNextHandler(ICommandHandler handler)
+    public void SetNextHandler(ICommandHandler? handler)
     {
-        _nextHandler = handler;
+        _nextHandler?.SetNextHandler(handler);
+        _nextHandler ??= handler;
     }
 
     public void Handle(IList<string> parts)
