@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -20,6 +20,7 @@ public class ParseConnectCommand : CommandHandlerBase
     protected override void Process(IList<string> parts)
     {
         string address = parts[1];
+        var connectCommand = new ConnectCommand(address, KeyWordThree);
 
         for (int i = 2; i < parts.Count; i++)
         {
@@ -27,24 +28,11 @@ public class ParseConnectCommand : CommandHandlerBase
                 i + 1 < parts.Count &&
                 parts[i + 1].Equals(KeyWordThree, StringComparison.Ordinal))
             {
-                Execute(address, KeyWordThree);
+                connectCommand.Execute();
                 return;
             }
         }
 
-        Execute(address, KeyWordThree);
-    }
-
-    private static void Execute(string address, string mode)
-    {
-        if (mode.Equals(KeyWordThree, StringComparison.Ordinal))
-        {
-            var fileInfo = new FileInfo(address);
-
-            if (fileInfo is { Exists: true, Directory.Exists: true })
-            {
-                Console.WriteLine($"Connect to local file system: '{fileInfo.FullName}'");
-            }
-        }
+        connectCommand.Execute();
     }
 }

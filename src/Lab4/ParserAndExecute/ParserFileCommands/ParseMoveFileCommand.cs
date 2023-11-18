@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -18,20 +18,8 @@ public class ParseMoveFileCommand : CommandHandlerBase
     {
         string sourcePath = parts[2];
         string destinationPath = parts[3];
-        Execute(sourcePath, destinationPath);
-    }
+        var moveCommand = new MoveFileCommand(sourcePath, destinationPath);
 
-    private static void Execute(string sourcePath, string destinationPath)
-    {
-        if (File.Exists(sourcePath))
-        {
-            string sourceAbsolutePath = Path.GetFullPath(sourcePath);
-            string destinationAbsolutePath = Path.GetFullPath(destinationPath);
-
-            string fileName = Path.GetFileName(sourceAbsolutePath);
-            string destinationFilePath = Path.Combine(destinationAbsolutePath, fileName);
-
-            File.Move(sourceAbsolutePath, destinationFilePath);
-        }
+        moveCommand.Execute();
     }
 }

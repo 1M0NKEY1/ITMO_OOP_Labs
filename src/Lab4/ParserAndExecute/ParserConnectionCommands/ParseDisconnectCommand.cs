@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -13,11 +14,7 @@ public class ParseDisconnectCommand : CommandHandlerBase
 
     protected override void Process(IList<string> parts)
     {
-        Execute();
-    }
-
-    private static void Execute()
-    {
-        Environment.Exit(0);
+        var disconnectCommand = new DisconnectCommand();
+        disconnectCommand.Execute();
     }
 }

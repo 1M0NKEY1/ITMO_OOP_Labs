@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -18,23 +18,8 @@ public class ParseTreeGotoCommand : CommandHandlerBase
     protected override void Process(IList<string> parts)
     {
         string path = parts[2];
-        Execute(path);
-    }
+        var gotoCommand = new TreeGotoCommand(path);
 
-    private static void Execute(string path)
-    {
-        if (Path.IsPathRooted(path))
-        {
-            Directory.SetCurrentDirectory(path);
-        }
-        else
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string combinedPath = Path.Combine(currentDirectory, path);
-
-            Directory.SetCurrentDirectory(combinedPath);
-        }
-
-        Console.WriteLine($"Current Directory: {Directory.GetCurrentDirectory()}");
+        gotoCommand.Execute();
     }
 }

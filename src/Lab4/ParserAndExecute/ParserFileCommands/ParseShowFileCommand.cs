@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -22,20 +22,8 @@ public class ParseShowFileCommand : CommandHandlerBase
     protected override void Process(IList<string> parts)
     {
         string path = parts[2];
-        Execute(path, KeyWordFour);
-    }
+        var showCommand = new ShowFileCommand(path, KeyWordFour);
 
-    private static void Execute(string path, string mode)
-    {
-        string absolutePath = Path.GetFullPath(path);
-
-        if (File.Exists(absolutePath))
-        {
-            if (mode.Equals(KeyWordFour, StringComparison.Ordinal))
-            {
-                string fileContent = File.ReadAllText(absolutePath);
-                Console.WriteLine(fileContent);
-            }
-        }
+        showCommand.Execute();
     }
 }

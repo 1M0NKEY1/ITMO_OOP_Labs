@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
-public class ParseDeleteFileCommand : CommandHandlerBase
+public class ParseRenameFileCommand : CommandHandlerBase
 {
     private const string KeyWordOne = "file";
-    private const string KeyWordTwo = "delete";
+    private const string KeyWordTwo = "rename";
     protected override bool CanHandle(IList<string> parts)
     {
         return parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
@@ -17,14 +17,9 @@ public class ParseDeleteFileCommand : CommandHandlerBase
     protected override void Process(IList<string> parts)
     {
         string path = parts[2];
-        Execute(path);
-    }
+        string newName = parts[3];
+        var renameCommand = new RenameFileCommand(path, newName);
 
-    private static void Execute(string path)
-    {
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-        }
+        renameCommand.Execute();
     }
 }

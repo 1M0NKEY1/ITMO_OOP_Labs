@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -18,20 +18,8 @@ public class ParseCopyFileCommand : CommandHandlerBase
     {
         string sourcePath = parts[2];
         string destinationPath = parts[3];
-        Execute(sourcePath, destinationPath);
-    }
 
-    private static void Execute(string sourcePath, string destinationPath)
-    {
-        if (File.Exists(sourcePath))
-        {
-            string sourceAbsolutePath = Path.GetFullPath(sourcePath);
-            string destinationAbsolutePath = Path.GetFullPath(destinationPath);
-
-            string fileName = Path.GetFileName(sourcePath);
-            string destinationFilePath = Path.Combine(destinationAbsolutePath, fileName);
-
-            File.Copy(sourceAbsolutePath, destinationFilePath, true);
-        }
+        var copyCommand = new CopyFileCommand(sourcePath, destinationPath);
+        copyCommand.Execute();
     }
 }
