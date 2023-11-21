@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Requests;
 using Itmo.ObjectOrientedProgramming.Lab4.Tests.Moqs;
 using Xunit;
@@ -32,7 +33,7 @@ public class TestShowCommand
     [Theory]
     [MemberData(nameof(GetObjects))]
     public void AllObjectsAreOddWithMemberDataFromDataGenerator(
-        string inputString,
+        string? inputString,
         ParseConnectCommand? parseConnectCommand,
         ParseDisconnectCommand? parseDisconnectCommand,
         ParseCopyFileCommand? parseCopyFileCommand,
@@ -42,7 +43,8 @@ public class TestShowCommand
         ParseTreeGotoCommand? parseTreeGotoCommand,
         ParseTreeListCommand? parseTreeListCommand)
     {
-        var handler = new TestShowMoq();
+        var moqStrategy = new MoqCommandStrategy();
+        var handler = new MoqParserShowFile();
 
         parseConnectCommand?.SetNextHandler(parseDisconnectCommand);
         parseDisconnectCommand?.SetNextHandler(parseCopyFileCommand);
@@ -54,11 +56,17 @@ public class TestShowCommand
         parseTreeGotoCommand?.SetNextHandler(parseTreeListCommand);
         parseTreeListCommand?.SetNextHandler(parseConnectCommand);
 
-        var request = new Request(inputString);
-        IList<string> splitString = request.SplitString();
+        if (inputString != null)
+        {
+            var request = new Request(inputString);
+            IList<string> splitString = request.SplitString();
 
-        parseConnectCommand?.Handle(splitString);
-        var testShowMoq = (TestShowMoq)handler;
+            ICommand? command = handler.Handle(splitString);
+            command?.ChangeStrategy(moqStrategy);
+            command?.Execute();
+        }
+
+        var testShowMoq = (MoqCommandStrategy)moqStrategy;
         Assert.Equal(OutputExpectedText, testShowMoq.GetInnerFile);
     }
 }
