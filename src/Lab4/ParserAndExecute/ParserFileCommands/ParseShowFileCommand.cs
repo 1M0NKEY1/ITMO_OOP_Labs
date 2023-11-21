@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
@@ -19,11 +20,9 @@ public class ParseShowFileCommand : CommandHandlerBase
                parts[4].Equals(KeyWordFour, StringComparison.Ordinal);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
         string path = parts[2];
-        var showCommand = new ShowFileCommand(path, KeyWordFour);
-
-        showCommand.Execute();
+        return new ShowFileCommand(path, KeyWordFour);
     }
 }

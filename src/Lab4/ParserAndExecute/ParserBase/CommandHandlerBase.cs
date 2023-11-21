@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -12,18 +13,18 @@ public abstract class CommandHandlerBase : ICommandHandler
         _nextHandler ??= handler;
     }
 
-    public void Handle(IList<string> parts)
+    public ICommand? Handle(IList<string> parts)
     {
         if (CanHandle(parts))
         {
-            Process(parts);
+            return Process(parts);
         }
         else
         {
-            _nextHandler?.Handle(parts);
+            return _nextHandler?.Handle(parts);
         }
     }
 
     protected abstract bool CanHandle(IList<string> parts);
-    protected abstract void Process(IList<string> parts);
+    protected abstract ICommand? Process(IList<string> parts);
 }

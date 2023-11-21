@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Strategy;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 public class ShowFileCommand : ICommand
 {
-    private const string KeyWordFour = "console";
     private readonly string _path;
     private readonly string _mode;
+
+    private IStrategy? _strategy;
 
     public ShowFileCommand(string path, string mode)
     {
@@ -15,17 +15,13 @@ public class ShowFileCommand : ICommand
         _mode = mode;
     }
 
+    public void ChangeStrategy(IStrategy strategy)
+    {
+        _strategy = strategy;
+    }
+
     public void Execute()
     {
-        string absolutePath = Path.GetFullPath(_path);
-
-        if (File.Exists(absolutePath))
-        {
-            if (_mode.Equals(KeyWordFour, StringComparison.Ordinal))
-            {
-                string fileContent = File.ReadAllText(absolutePath);
-                Console.WriteLine(fileContent);
-            }
-        }
+        _strategy?.ShowFile(_path, _mode);
     }
 }

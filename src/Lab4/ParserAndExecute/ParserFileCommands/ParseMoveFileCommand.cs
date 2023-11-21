@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
@@ -14,12 +15,10 @@ public class ParseMoveFileCommand : CommandHandlerBase
                parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
         string sourcePath = parts[2];
         string destinationPath = parts[3];
-        var moveCommand = new MoveFileCommand(sourcePath, destinationPath);
-
-        moveCommand.Execute();
+        return new MoveFileCommand(sourcePath, destinationPath);
     }
 }

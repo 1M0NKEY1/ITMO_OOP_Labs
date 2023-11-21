@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
@@ -14,10 +15,9 @@ public class ParseDeleteFileCommand : CommandHandlerBase
                parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
         string path = parts[2];
-        var deleteCommand = new DeleteFileCommand(path);
-        deleteCommand.Execute();
+        return new DeleteFileCommand(path);
     }
 }

@@ -14,25 +14,14 @@ public class ParseConnectCommand : CommandHandlerBase
         return parts.Count >= 2 &&
                parts.Count <= 4 &&
                parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
+               parts[2].Equals(KeyWordTwo, StringComparison.Ordinal) &&
                !string.IsNullOrWhiteSpace(parts[1]);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
         string address = parts[1];
-        var connectCommand = new ConnectCommand(address, KeyWordThree);
 
-        for (int i = 2; i < parts.Count; i++)
-        {
-            if (parts[i].Equals(KeyWordTwo, StringComparison.Ordinal) &&
-                i + 1 < parts.Count &&
-                parts[i + 1].Equals(KeyWordThree, StringComparison.Ordinal))
-            {
-                connectCommand.Execute();
-                return;
-            }
-        }
-
-        connectCommand.Execute();
+        return new ConnectCommand(address, KeyWordThree);
     }
 }

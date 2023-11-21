@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
@@ -15,11 +16,9 @@ public class ParseTreeGotoCommand : CommandHandlerBase
                parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
         string path = parts[2];
-        var gotoCommand = new TreeGotoCommand(path);
-
-        gotoCommand.Execute();
+        return new TreeGotoCommand(path);
     }
 }

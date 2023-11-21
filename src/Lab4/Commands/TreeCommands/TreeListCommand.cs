@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Strategy;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands;
 
@@ -8,34 +6,20 @@ public class TreeListCommand : ICommand
 {
     private readonly int _depth;
 
+    private IStrategy? _strategy;
+
     public TreeListCommand(int depth)
     {
         _depth = depth;
     }
 
-    public void Execute()
+    public void ChangeStrategy(IStrategy strategy)
     {
-        string basePath = Directory.GetCurrentDirectory();
-        ListDirectoriesAndFiles(basePath, _depth, 0);
+        _strategy = strategy;
     }
 
-    private static void ListDirectoriesAndFiles(string path, int maxDepth, int currentDepth)
+    public void Execute()
     {
-        if (currentDepth > maxDepth)
-            return;
-
-        IList<string> directories = Directory.GetDirectories(path);
-        IList<string> files = Directory.GetFiles(path);
-
-        foreach (string directory in directories)
-        {
-            Console.WriteLine("Directory: " + directory);
-            ListDirectoriesAndFiles(directory, maxDepth, currentDepth + 1);
-        }
-
-        foreach (string file in files)
-        {
-            Console.WriteLine("File: " + file);
-        }
+        _strategy?.TreeList(_depth);
     }
 }

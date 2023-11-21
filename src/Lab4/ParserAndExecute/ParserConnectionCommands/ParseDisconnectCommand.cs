@@ -12,9 +12,8 @@ public class ParseDisconnectCommand : CommandHandlerBase
         return parts[0].Equals(KeyWordOne, StringComparison.OrdinalIgnoreCase);
     }
 
-    protected override void Process(IList<string> parts)
+    protected override ICommand? Process(IList<string> parts)
     {
-        var disconnectCommand = new DisconnectCommand();
-        disconnectCommand.Execute();
+        return new DisconnectCommand();
     }
 }
