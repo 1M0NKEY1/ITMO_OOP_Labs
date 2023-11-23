@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.DisplaysDriver;
 
 public interface IDisplayDriver
 {
     void ClearOutput();
+    void OutputMessage(string message);
     void AddText(string? addText);
-    void NewTextColor(ConsoleColor color, IMessage message);
+    string NewTextColor(Color color, string message);
 }

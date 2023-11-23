@@ -1,16 +1,25 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
+﻿using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.DisplaysDriver;
 
 public class DisplayDriver : IDisplayDriver
 {
-    private string? _emptyString;
-    private Display _display = new();
+    private readonly IShowText? _showText;
+    private string _emptyString = string.Empty;
+
+    public DisplayDriver(IShowText showText)
+    {
+        _showText = showText;
+    }
+
+    public void OutputMessage(string message)
+    {
+        _showText?.DrawText(message);
+    }
 
     public void ClearOutput()
     {
-        Console.Clear();
+        _showText?.ClearOutput();
     }
 
     public void AddText(string? addText)
@@ -18,8 +27,8 @@ public class DisplayDriver : IDisplayDriver
         _emptyString += addText;
     }
 
-    public void NewTextColor(ConsoleColor color, IMessage message)
+    public string NewTextColor(Color color, string message)
     {
-        _display.WriteTextWithColor(color, message);
+        return Crayon.Output.Rgb(color.R, color.G, color.B).Text(message);
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
-public interface IDisplay
+public interface IDisplay : IRenderableReceivevedMessage
 {
-    void WriteText(IMessage message);
-    void WriteTextWithColor(ConsoleColor color, IMessage message);
+    string RenderMessage();
+    void RenderTextWithColor(Color color);
 }

@@ -1,17 +1,34 @@
-﻿using System;
+﻿using System.Drawing;
+using Itmo.ObjectOrientedProgramming.Lab3.DisplaysDriver;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
 public class Display : IDisplay
 {
-    public void WriteText(IMessage message)
+    private readonly IDisplayDriver _driver;
+    private IMessage? _message;
+    public Display(IDisplayDriver driver)
     {
-        Console.Write(message.Heading + message.Body);
+        _driver = driver;
     }
 
-    public void WriteTextWithColor(ConsoleColor color, IMessage message)
+    public string RenderMessage()
     {
-        Console.ForegroundColor = color;
-        Console.Write(message.Heading + message.Body);
+        return string.Concat(_message?.Heading, _message?.Body);
+    }
+
+    public void RenderText()
+    {
+        _driver.OutputMessage(RenderMessage());
+    }
+
+    public void RenderTextWithColor(Color color)
+    {
+        _driver.OutputMessage(_driver.NewTextColor(color, RenderMessage()));
+    }
+
+    public void RenderReceivedMessage(IMessage message)
+    {
+        _message = message;
     }
 }
