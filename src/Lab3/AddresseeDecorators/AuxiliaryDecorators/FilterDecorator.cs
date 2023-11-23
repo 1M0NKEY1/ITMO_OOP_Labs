@@ -2,22 +2,22 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
-public class FilterDecorator : AddresseeBase
+public class FilterDecorator : IAddressee
 {
-    private readonly AddresseeBase _addresseeBase;
+    private readonly IAddressee _addressee;
     private readonly LevelOfImportance _levelOfImportance;
 
-    public FilterDecorator(AddresseeBase addresseeBase, LevelOfImportance levelOfImportance)
+    public FilterDecorator(IAddressee addressee, LevelOfImportance levelOfImportance)
     {
-        _addresseeBase = addresseeBase;
+        _addressee = addressee;
         _levelOfImportance = levelOfImportance;
     }
 
-    public override void ReceiveMessage(IMessage message)
+    public void ReceiveMessage(IMessage message)
     {
         if (message.LevelOfImportance == _levelOfImportance)
         {
-            _addresseeBase.ReceiveMessage(message);
+            _addressee.ReceiveMessage(message);
         }
     }
 }

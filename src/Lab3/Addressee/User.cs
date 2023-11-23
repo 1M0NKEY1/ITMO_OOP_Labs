@@ -4,25 +4,25 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
 public class User : IUser
 {
-    public IList<IMessage> ListOfReadMessage { get; } = new List<IMessage>();
-    public IList<IMessage> ListOfUnreadMessages { get; } = new List<IMessage>();
+    private readonly IList<IMessage> _listOfReadMessage = new List<IMessage>();
+    private readonly IList<IMessage> _listOfUnreadMessages = new List<IMessage>();
 
     public void SaveMessage(IMessage message)
     {
-        ListOfUnreadMessages.Add(message);
+        _listOfUnreadMessages.Add(message);
     }
 
     public void ChangeStatus(IMessage message)
     {
-        if (ListOfReadMessage.Contains(message))
+        if (_listOfReadMessage.Contains(message))
         {
-            ListOfReadMessage.Remove(message);
-            ListOfUnreadMessages.Add(message);
+            _listOfReadMessage.Remove(message);
+            _listOfUnreadMessages.Add(message);
         }
-        else if (ListOfUnreadMessages.Contains(message))
+        else if (_listOfUnreadMessages.Contains(message))
         {
-            ListOfUnreadMessages.Remove(message);
-            ListOfReadMessage.Add(message);
+            _listOfUnreadMessages.Remove(message);
+            _listOfReadMessage.Add(message);
         }
     }
 }

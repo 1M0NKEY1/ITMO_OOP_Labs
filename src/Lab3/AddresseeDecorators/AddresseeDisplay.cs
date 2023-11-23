@@ -1,20 +1,18 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
-public class AddresseeDisplay : AddresseeBase
+public class AddresseeDisplay : IAddressee
 {
-    private readonly Display _display = new();
-    private ConsoleColor _color;
+    private readonly IDisplay _display;
 
-    public void SetColor(ConsoleColor color)
+    public AddresseeDisplay(IDisplay display)
     {
-        _color = color;
+        _display = display;
     }
 
-    public override void ReceiveMessage(IMessage message)
+    public void ReceiveMessage(IMessage message)
     {
-        _display.WriteTextWithColor(_color, message);
+        _display.RenderReceivedMessage(message);
     }
 }

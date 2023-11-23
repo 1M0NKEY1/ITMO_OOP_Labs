@@ -2,5 +2,5 @@
 
 public interface IRenderText
 {
-    string Render(IMessage message);
+    string Render(IMessage? message);
 }

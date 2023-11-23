@@ -3,4 +3,5 @@
 public interface IShowText : IRenderText
 {
     void DrawText(string text);
+    void ClearOutput();
 }

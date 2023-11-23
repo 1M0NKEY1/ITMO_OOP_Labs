@@ -2,12 +2,17 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
-public class AddresseeMessenger : AddresseeBase
+public class AddresseeMessenger : IAddressee
 {
-    private readonly Messenger _messenger = new(new ConsoleShowText());
+    private readonly IMessenger _messenger;
 
-    public override void ReceiveMessage(IMessage message)
+    public AddresseeMessenger(IMessenger messenger)
     {
-        _messenger.WriteText(message);
+        _messenger = messenger;
+    }
+
+    public void ReceiveMessage(IMessage message)
+    {
+        _messenger.RenderReceivedMessage(message);
     }
 }

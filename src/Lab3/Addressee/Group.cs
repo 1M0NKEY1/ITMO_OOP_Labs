@@ -5,10 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
 public class Group
 {
-    private readonly IList<AddresseeBase> _groupOfAddressee = new List<AddresseeBase>();
+    private readonly IList<IAddressee> _groupOfAddressee = new List<IAddressee>();
 
-    public void AddAddresseeInGroup(AddresseeBase addresseeBase)
+    public void AddAddresseeInGroup(IAddressee addressee)
     {
-        _groupOfAddressee.Add(addresseeBase);
+        _groupOfAddressee.Add(addressee);
     }
 }

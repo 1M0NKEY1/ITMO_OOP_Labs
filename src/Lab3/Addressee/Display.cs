@@ -12,6 +12,11 @@ public class Display : IDisplay
         _driver = driver;
     }
 
+    public void RenderReceivedMessage(IMessage message)
+    {
+        _message = message;
+    }
+
     public string RenderMessage()
     {
         return string.Concat(_message?.Heading, _message?.Body);
@@ -25,10 +30,5 @@ public class Display : IDisplay
     public void RenderTextWithColor(Color color)
     {
         _driver.OutputMessage(_driver.NewTextColor(color, RenderMessage()));
-    }
-
-    public void RenderReceivedMessage(IMessage message)
-    {
-        _message = message;
     }
 }
