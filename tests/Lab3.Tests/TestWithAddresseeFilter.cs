@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 using Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 using Itmo.ObjectOrientedProgramming.Lab3.LevelOfImportant;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesBody;
@@ -42,7 +43,7 @@ public class TestWithAddresseeFilter
     {
         var mocklogger = new Mock<ILogger>();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new FilterDecorator(new AddresseeUser(), new LowLevelOfImportance()));
+        _topicBuilder.WithAddressee(new FilterDecorator(new AddresseeUser(new User()), new LowLevelOfImportance()));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new LowLevelOfImportance());

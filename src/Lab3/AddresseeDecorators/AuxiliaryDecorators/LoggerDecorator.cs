@@ -1,19 +1,19 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
-public class LoggerDecorator : AddresseeBase
+public class LoggerDecorator : IAddressee
 {
-    private readonly AddresseeBase _addresseeBase;
+    private readonly IAddressee _addressee;
     private readonly ILogger _logger;
 
-    public LoggerDecorator(AddresseeBase addresseeBase, ILogger logger)
+    public LoggerDecorator(IAddressee addressee, ILogger logger)
     {
-        _addresseeBase = addresseeBase;
+        _addressee = addressee;
         _logger = logger;
     }
 
-    public override void ReceiveMessage(IMessage message)
+    public void ReceiveMessage(IMessage message)
     {
         _logger.OutputText("Received message");
-        _addresseeBase.ReceiveMessage(message);
+        _addressee.ReceiveMessage(message);
     }
 }

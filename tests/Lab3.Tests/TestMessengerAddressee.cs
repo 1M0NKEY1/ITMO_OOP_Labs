@@ -44,7 +44,7 @@ public class TestMessengerAddressee
         var mockShowText = new Mock<IShowText>();
         var messenger = new Messenger(mockShowText.Object);
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseeMessenger());
+        _topicBuilder.WithAddressee(new AddresseeMessenger(messenger));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
@@ -53,7 +53,7 @@ public class TestMessengerAddressee
         Topic topic = _topicBuilder.Create();
         topic.SendMessage(message);
 
-        messenger.WriteText(message);
+        messenger.WriteText();
         mockShowText.Verify(x => x.Render(It.IsAny<IMessage>()), "messenger 239 time 239 and 241 - religious");
     }
 }

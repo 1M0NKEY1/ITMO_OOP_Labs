@@ -4,6 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.LevelOfImportant;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesBody;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesBuilder;
 using Itmo.ObjectOrientedProgramming.Lab3.MessagesHeadings;
+using Itmo.ObjectOrientedProgramming.Lab3.Tests.Moqs;
 using Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 using Itmo.ObjectOrientedProgramming.Lab3.TopicDir.TopicsBuilder;
 using Xunit;
@@ -32,13 +33,13 @@ public class TestMessageIsUnread
         }
     }
 
-    public static bool CompleteBuild(MessageBuilder messageBuilder, TopicBuilder topicBuilder)
+    public static bool CompleteBuild(MessageBuilder messageBuilder, TopicBuilder topicBuilder, MoqUser user)
     {
         Message message = messageBuilder.Create();
         Topic topic = topicBuilder.Create();
         topic.SendMessage(message);
 
-        return topic.MessageStatus(message);
+        return user.ListOfUnreadMessages.Contains(message);
     }
 
     [Theory]
@@ -48,12 +49,13 @@ public class TestMessageIsUnread
         MessageHeading messageHeading,
         MessageBody messageBody)
     {
+        var moqUser = new MoqUser();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new AddresseeUser());
+        _topicBuilder.WithAddressee(new AddresseeUser(moqUser));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
 
-        Assert.True(CompleteBuild(_messageBuilder, _topicBuilder));
+        Assert.True(CompleteBuild(_messageBuilder, _topicBuilder, moqUser));
     }
 }

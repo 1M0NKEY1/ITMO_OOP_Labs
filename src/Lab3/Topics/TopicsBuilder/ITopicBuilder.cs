@@ -6,5 +6,5 @@ public interface ITopicBuilder
 {
     Topic Create();
     ITopicBuilder WithName(string topicName);
-    ITopicBuilder WithAddressee(AddresseeBase addressee);
+    ITopicBuilder WithAddressee(IAddressee addressee);
 }
