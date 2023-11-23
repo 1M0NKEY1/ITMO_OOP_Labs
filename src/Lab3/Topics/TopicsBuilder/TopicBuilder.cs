@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.TopicDir.TopicsBuilder;
 public class TopicBuilder : ITopicBuilder
 {
     private string? _name;
-    private AddresseeBase? _addressee;
+    private IAddressee? _addressee;
 
     public Topic Create()
     {
@@ -18,7 +18,7 @@ public class TopicBuilder : ITopicBuilder
         return this;
     }
 
-    public ITopicBuilder WithAddressee(AddresseeBase addressee)
+    public ITopicBuilder WithAddressee(IAddressee addressee)
     {
         _addressee = addressee;
         return this;

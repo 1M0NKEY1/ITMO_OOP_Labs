@@ -15,4 +15,15 @@
       <Folder Include="Messages\Entities\" />
     </ItemGroup>
 
+
+
+
+
+
+
+
+    <ItemGroup>
+      <PackageReference Include="Crayon" />
+    </ItemGroup>
+
 </Project>
