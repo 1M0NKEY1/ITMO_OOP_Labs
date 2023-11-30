@@ -41,7 +41,7 @@ public class TestChangeMessageReadToRead
         user.ChangeStatus(message);
         user.ChangeStatus(message);
 
-        return user.ListOfUnreadMessages.Contains(message);
+        return !user.ListOfUnreadMessages.Contains(message);
     }
 
     [Theory]

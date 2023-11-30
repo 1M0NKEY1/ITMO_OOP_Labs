@@ -40,7 +40,7 @@ public class TestChangeMessageStatus
         topic.SendMessage(message);
         user.ChangeStatus(message);
 
-        return user.ListOfReadMessage.Contains(message);
+        return !user.ListOfUnreadMessages.Contains(message);
     }
 
     [Theory]
