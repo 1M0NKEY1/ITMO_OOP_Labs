@@ -11,4 +11,9 @@ public class Group
     {
         _groupOfAddressee.Add(addressee);
     }
+
+    public void RemoveAddresseeFromGroup(IAddressee addressee)
+    {
+        _groupOfAddressee.Remove(addressee);
+    }
 }
