@@ -19,4 +19,18 @@ public class Message : IMessage
     public string? Heading => _heading?.GetHeadingText();
     public string? Body => _body?.GetBodyText();
     public LevelOfImportance? LevelOfImportance { get; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null || GetType() != obj.GetType())
+            return false;
+
+        var equalMessage = (Message)obj;
+        return _heading == equalMessage._heading && _body == equalMessage._body;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

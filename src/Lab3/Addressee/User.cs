@@ -1,21 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addresse;
 
 public class User : IUser
 {
-    private readonly IList<IMessage> _listOfUnreadMessages = new List<IMessage>();
+    private readonly IList<UserMessageStatus> _messages = new List<UserMessageStatus>();
+    private readonly IMessageStatusProxy _proxy;
+
+    public User(IMessageStatusProxy proxy)
+    {
+        _proxy = proxy;
+    }
 
     public void SaveMessage(IMessage message)
     {
-        _listOfUnreadMessages.Add(message);
+        _messages.Add(new UserMessageStatus(message, false));
     }
 
     public void ChangeStatus(IMessage message)
     {
-        if (_listOfUnreadMessages.Contains(message))
+        UserMessageStatus? messageStatus = _messages.FirstOrDefault(target => target.Message.Equals(message));
+        if (messageStatus is not null)
         {
-            _listOfUnreadMessages.Remove(message);
+            _proxy.ReadMessage(messageStatus);
         }
     }
 }
