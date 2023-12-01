@@ -43,7 +43,7 @@ public class TestWithAddresseeFilter
     {
         var mocklogger = new Mock<ILogger>();
         _topicBuilder.WithName(topicName);
-        _topicBuilder.WithAddressee(new FilterDecorator(new AddresseeUser(new User()), new LowLevelOfImportance()));
+        _topicBuilder.WithAddressee(new FilterDecorator(new AddresseeUser(new User(new MessageStatusProxy())), new LowLevelOfImportance()));
         _messageBuilder.WithHeading(messageHeading);
         _messageBuilder.WithBody(messageBody);
         _messageBuilder.WithLevelOfImportance(new LowLevelOfImportance());

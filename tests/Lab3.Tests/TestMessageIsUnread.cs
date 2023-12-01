@@ -39,7 +39,7 @@ public class TestMessageIsUnread
         Topic topic = topicBuilder.Create();
         topic.SendMessage(message);
 
-        return user.ListOfUnreadMessages.Contains(message);
+        return !user.Messages[FindIndex(message, user)].ReadStatus;
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class TestMessageIsUnread
         MessageHeading messageHeading,
         MessageBody messageBody)
     {
-        var moqUser = new MoqUser();
+        var moqUser = new MoqUser(new MoqMessageStatusProxy());
         _topicBuilder.WithName(topicName);
         _topicBuilder.WithAddressee(new AddresseeUser(moqUser));
         _messageBuilder.WithHeading(messageHeading);
@@ -57,5 +57,18 @@ public class TestMessageIsUnread
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
 
         Assert.True(CompleteBuild(_messageBuilder, _topicBuilder, moqUser));
+    }
+
+    private static int FindIndex(IMessage message, MoqUser user)
+    {
+        for (int i = 0; i < user.Messages.Count; i++)
+        {
+            if (user.Messages[i].Equals(message))
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }

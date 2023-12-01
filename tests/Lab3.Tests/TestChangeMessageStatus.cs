@@ -40,7 +40,7 @@ public class TestChangeMessageStatus
         topic.SendMessage(message);
         user.ChangeStatus(message);
 
-        return !user.ListOfUnreadMessages.Contains(message);
+        return user.Messages[FindIndex(message, user)].ReadStatus;
     }
 
     [Theory]
@@ -50,7 +50,7 @@ public class TestChangeMessageStatus
         MessageHeading messageHeading,
         MessageBody messageBody)
     {
-        var moqUser = new MoqUser();
+        var moqUser = new MoqUser(new MoqMessageStatusProxy());
         _topicBuilder.WithName(topicName);
         _topicBuilder.WithAddressee(new AddresseeUser(moqUser));
         _messageBuilder.WithHeading(messageHeading);
@@ -58,5 +58,18 @@ public class TestChangeMessageStatus
         _messageBuilder.WithLevelOfImportance(new HighLevelOfImportance());
 
         Assert.True(CompleteBuild(_messageBuilder, _topicBuilder, moqUser));
+    }
+
+    private static int FindIndex(IMessage message, MoqUser user)
+    {
+        for (int i = 0; i < user.Messages.Count; i++)
+        {
+            if (user.Messages[i].Equals(message))
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }
