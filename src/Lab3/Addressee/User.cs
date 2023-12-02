@@ -23,7 +23,7 @@ public class User : IUser
         UserMessageStatus? messageStatus = _messages.FirstOrDefault(target => target.Message.Equals(message));
         if (messageStatus is not null)
         {
-            _proxy.ReadMessage(messageStatus);
+            _messages[_messages.IndexOf(messageStatus)] = _proxy.ReadMessage(messageStatus);
         }
     }
 }
