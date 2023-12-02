@@ -6,10 +6,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseDisconnectCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "disconnect";
+    private const string KeyWordDisconnect = "disconnect";
     protected override bool CanHandle(IList<string> parts)
     {
-        return parts[0].Equals(KeyWordOne, StringComparison.OrdinalIgnoreCase);
+        return parts[0].Equals(KeyWordDisconnect, StringComparison.OrdinalIgnoreCase);
     }
 
     protected override ICommand? Process(IList<string> parts)

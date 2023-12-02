@@ -7,15 +7,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseTreeListCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "tree";
-    private const string KeyWordTwo = "list";
-    private const string KeyWordThree = "-d";
+    private const string KeyWordTree = "tree";
+    private const string KeyWordList = "list";
+    private const string KeyWordDashD = "-d";
     protected override bool CanHandle(IList<string> parts)
     {
         return parts.Count == 4 &&
-               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal) &&
-               parts[2].Equals(KeyWordThree, StringComparison.Ordinal);
+               parts[0].Equals(KeyWordTree, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordList, StringComparison.Ordinal) &&
+               parts[2].Equals(KeyWordDashD, StringComparison.Ordinal);
     }
 
     protected override ICommand? Process(IList<string> parts)

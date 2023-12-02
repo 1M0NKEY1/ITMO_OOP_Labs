@@ -6,15 +6,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseConnectCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "connect";
-    private const string KeyWordTwo = "-m";
-    private const string KeyWordThree = "local";
+    private const string KeyWordConnect = "connect";
+    private const string KeyWordDashM = "-m";
+    private const string KeyWordLocal = "local";
     protected override bool CanHandle(IList<string> parts)
     {
         return parts.Count >= 2 &&
                parts.Count <= 4 &&
-               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[2].Equals(KeyWordTwo, StringComparison.Ordinal) &&
+               parts[0].Equals(KeyWordConnect, StringComparison.Ordinal) &&
+               parts[2].Equals(KeyWordDashM, StringComparison.Ordinal) &&
                !string.IsNullOrWhiteSpace(parts[1]);
     }
 
@@ -22,6 +22,6 @@ public class ParseConnectCommand : CommandHandlerBase
     {
         string address = parts[1];
 
-        return new ConnectCommand(address, KeyWordThree);
+        return new ConnectCommand(address, KeyWordLocal);
     }
 }

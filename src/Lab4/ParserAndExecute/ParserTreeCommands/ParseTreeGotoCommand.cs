@@ -7,13 +7,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseTreeGotoCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "tree";
-    private const string KeyWordTwo = "goto";
+    private const string KeyWordTree = "tree";
+    private const string KeyWordGoto = "goto";
     protected override bool CanHandle(IList<string> parts)
     {
         return parts.Count == 3 &&
-               parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
+               parts[0].Equals(KeyWordTree, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordGoto, StringComparison.Ordinal);
     }
 
     protected override ICommand? Process(IList<string> parts)

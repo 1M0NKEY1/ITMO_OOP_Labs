@@ -7,12 +7,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseMoveFileCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "file";
-    private const string KeyWordTwo = "move";
+    private const string KeyWordFile = "file";
+    private const string KeyWordMove = "move";
     protected override bool CanHandle(IList<string> parts)
     {
-        return parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
+        return parts[0].Equals(KeyWordFile, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordMove, StringComparison.Ordinal);
     }
 
     protected override ICommand? Process(IList<string> parts)

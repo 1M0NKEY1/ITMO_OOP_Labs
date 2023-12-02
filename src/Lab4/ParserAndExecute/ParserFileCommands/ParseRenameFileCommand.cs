@@ -7,12 +7,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseRenameFileCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "file";
-    private const string KeyWordTwo = "rename";
+    private const string KeyWordFile = "file";
+    private const string KeyWordRename = "rename";
     protected override bool CanHandle(IList<string> parts)
     {
-        return parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
+        return parts[0].Equals(KeyWordFile, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordRename, StringComparison.Ordinal);
     }
 
     protected override ICommand? Process(IList<string> parts)

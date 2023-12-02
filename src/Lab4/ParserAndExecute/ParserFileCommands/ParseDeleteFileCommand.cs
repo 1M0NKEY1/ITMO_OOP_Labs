@@ -7,12 +7,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab4;
 
 public class ParseDeleteFileCommand : CommandHandlerBase
 {
-    private const string KeyWordOne = "file";
-    private const string KeyWordTwo = "delete";
+    private const string KeyWordFile = "file";
+    private const string KeyWordDelete = "delete";
     protected override bool CanHandle(IList<string> parts)
     {
-        return parts[0].Equals(KeyWordOne, StringComparison.Ordinal) &&
-               parts[1].Equals(KeyWordTwo, StringComparison.Ordinal);
+        return parts[0].Equals(KeyWordFile, StringComparison.Ordinal) &&
+               parts[1].Equals(KeyWordDelete, StringComparison.Ordinal);
     }
 
     protected override ICommand? Process(IList<string> parts)

@@ -12,25 +12,7 @@ public static class CombineLogic
     public static void Main()
     {
         const string mode = "local";
-        var parseConnectCommand = new ParseConnectCommand();
-        var parseDisconnectCommand = new ParseDisconnectCommand();
-        var parseCopyFileCommand = new ParseCopyFileCommand();
-        var parseDeleteFileCommand = new ParseDeleteFileCommand();
-        var parseMoveFileCommand = new ParseMoveFileCommand();
-        var parseRenameFileCommand = new ParseRenameFileCommand();
-        var parseShowFileCommand = new ParseShowFileCommand();
-        var parseTreeGotoCommand = new ParseTreeGotoCommand();
-        var parseTreeListCommand = new ParseTreeListCommand();
-
-        parseConnectCommand.SetNextHandler(parseDisconnectCommand);
-        parseDisconnectCommand.SetNextHandler(parseCopyFileCommand);
-        parseCopyFileCommand.SetNextHandler(parseDeleteFileCommand);
-        parseDeleteFileCommand.SetNextHandler(parseMoveFileCommand);
-        parseMoveFileCommand.SetNextHandler(parseRenameFileCommand);
-        parseRenameFileCommand.SetNextHandler(parseShowFileCommand);
-        parseShowFileCommand.SetNextHandler(parseTreeGotoCommand);
-        parseTreeGotoCommand.SetNextHandler(parseTreeListCommand);
-        parseTreeListCommand.SetNextHandler(parseConnectCommand);
+        var config = new Config();
 
         while (true)
         {
@@ -38,7 +20,7 @@ public static class CombineLogic
             if (input is not null)
             {
                 IList<string> request = new Request(input).SplitString();
-                ICommand? command = parseConnectCommand.Handle(request);
+                ICommand? command = config.CreateParseConnectCommand().Handle(request);
                 if (command is ConnectCommand)
                 {
                     if (((ConnectCommand)command).Mode.Equals(mode, StringComparison.Ordinal))

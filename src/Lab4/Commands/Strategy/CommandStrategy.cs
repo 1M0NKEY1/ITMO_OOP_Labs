@@ -8,8 +8,8 @@ public class CommandStrategy : IStrategy
 {
     public void Connect(string address, string mode)
     {
-        const string KeyWordThree = "local";
-        if (mode.Equals(KeyWordThree, StringComparison.Ordinal))
+        const string KeyWordLocal = "local";
+        if (mode.Equals(KeyWordLocal, StringComparison.Ordinal))
         {
             var fileInfo = new FileInfo(address);
 
@@ -77,11 +77,11 @@ public class CommandStrategy : IStrategy
     public void ShowFile(string path, string mode)
     {
         string absolutePath = Path.GetFullPath(path);
-        const string KeyWordFour = "console";
+        const string KeyWordConsole = "console";
 
         if (File.Exists(absolutePath))
         {
-            if (mode.Equals(KeyWordFour, StringComparison.Ordinal))
+            if (mode.Equals(KeyWordConsole, StringComparison.Ordinal))
             {
                 string fileContent = File.ReadAllText(absolutePath);
                 Console.WriteLine(fileContent);
