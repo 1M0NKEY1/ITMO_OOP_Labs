@@ -8,7 +8,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Tests;
 
 public class TestShowCommand
 {
-    private const string InputString = @"file show C:\Users\Egor\OneDrive\Документы\Test.txt -m console";
+    private const string InputString = @"file show C:\Users\Egor\RiderProjects\1M0NKEY1\tests\Lab4.Tests\TestTextFile.txt -m console";
     private const string OutputExpectedText = "a";
 
     public static IEnumerable<object[]> GetObjects
