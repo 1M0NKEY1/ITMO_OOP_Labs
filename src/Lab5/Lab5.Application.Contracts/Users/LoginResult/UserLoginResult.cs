@@ -4,7 +4,7 @@ public abstract record UserLoginResult
 {
     private UserLoginResult() { }
 
-    protected sealed record Success : UserLoginResult;
+    public sealed record Success : UserLoginResult;
 
-    protected sealed record NotFound : UserLoginResult;
+    public sealed record NotFound : UserLoginResult;
 }
