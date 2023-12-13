@@ -43,13 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{7AAE99
 		.env = .env
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A03E956B-EEA2-4E8F-9007-53FC922372EA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5.Infrastructure.DataAccess", "src\Lab5\Lab5.Infrastructure.DataAccess\Lab5.Infrastructure.DataAccess.csproj", "{A96D83DF-0B91-462F-BA05-418C1565B9FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5.Presentation.Console", "src\Lab5\Lab5.Presentation.Console\Lab5.Presentation.Console.csproj", "{A9EA5E0D-098E-4091-8624-E2D5952A748B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5.Applixation.Models", "src\Lab5\Lab5.Applixation.Models\Lab5.Applixation.Models.csproj", "{650F5844-5AB9-4449-83F1-8A7379087E9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5.Application.Models", "src\Lab5\Lab5.Application.Models\Lab5.Application.Models.csproj", "{650F5844-5AB9-4449-83F1-8A7379087E9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5.Application", "src\Lab5\Lab5.Application\Lab5.Application.csproj", "{71621C9D-908F-44C2-BF61-AC89E24B9673}"
 EndProject
