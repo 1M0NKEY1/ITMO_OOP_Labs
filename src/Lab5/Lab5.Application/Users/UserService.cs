@@ -26,13 +26,16 @@ internal class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
-    public void CreateAccount(long id, string name, long pin)
+    public OperationResult CreateAccount(long id, string name, long pin)
     {
         User? user = _repository.FindUserByUserId(id, pin);
         if (user is null)
         {
             _repository.CreateAccount(id, name, pin);
+            return new OperationResult.Completed();
         }
+
+        return new OperationResult.Rejected();
     }
 
     public decimal ShowAccountBalance()
@@ -41,14 +44,26 @@ internal class UserService : IUserService
         return 0;
     }
 
-    public void AddMoneyToBalance(decimal money)
+    public OperationResult AddMoneyToBalance(decimal money)
     {
-        if (_currentUserManager.User != null) _repository.AddMoneyToBalance(_currentUserManager.User.UserId, money);
+        if (_currentUserManager.User != null)
+        {
+            _repository.AddMoneyToBalance(_currentUserManager.User.UserId, money);
+            return new OperationResult.Completed();
+        }
+
+        return new OperationResult.Rejected();
     }
 
-    public void RemoveMoneyFromBalance(decimal money)
+    public OperationResult RemoveMoneyFromBalance(decimal money)
     {
-        if (_currentUserManager.User != null) _repository.RemoveMoneyFromBalance(_currentUserManager.User.UserId, money);
+        if (_currentUserManager.User != null)
+        {
+            _repository.RemoveMoneyFromBalance(_currentUserManager.User.UserId, money);
+            return new OperationResult.Completed();
+        }
+
+        return new OperationResult.Rejected();
     }
 
     public IList<string>? ShowAccountHistory()
