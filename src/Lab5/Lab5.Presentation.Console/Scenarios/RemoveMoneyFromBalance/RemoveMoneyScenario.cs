@@ -1,9 +1,10 @@
 ﻿using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.SecondLayer;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.RemoveMoneyFromBalance;
 
-public class RemoveMoneyScenario : IScenario
+public class RemoveMoneyScenario : ISecondScenario
 {
     private readonly IUserService _userService;
 
@@ -27,6 +28,6 @@ public class RemoveMoneyScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("-------------------");
     }
 }

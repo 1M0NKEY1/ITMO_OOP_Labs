@@ -2,8 +2,8 @@
 
 public interface IUserService
 {
-    UserLoginResult Login(long id, long pin);
-    OperationResult CreateAccount(long id, string name, long pin);
+    UserLoginResult Login(string name, long pin);
+    OperationResult CreateAccount(string name, long pin);
     decimal ShowAccountBalance();
     OperationResult AddMoneyToBalance(decimal money);
     OperationResult RemoveMoneyFromBalance(decimal money);

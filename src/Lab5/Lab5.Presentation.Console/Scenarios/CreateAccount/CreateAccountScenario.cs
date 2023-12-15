@@ -1,9 +1,10 @@
 ﻿using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.FirstLayer;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.CreateAccount;
 
-public class CreateAccountScenario : IScenario
+public class CreateAccountScenario : IFirstScenario
 {
     private readonly IUserService _userService;
 
@@ -15,11 +16,10 @@ public class CreateAccountScenario : IScenario
     public string Name => "Create Account";
     public void Run()
     {
-        long userid = AnsiConsole.Ask<long>("Enter your userid");
         string name = AnsiConsole.Ask<string>("Enter your name");
         long pin = AnsiConsole.Ask<long>("Enter your pin");
 
-        OperationResult result = _userService.CreateAccount(userid, name, pin);
+        OperationResult result = _userService.CreateAccount(name, pin);
 
         string message = result switch
         {
@@ -29,6 +29,6 @@ public class CreateAccountScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("-------------------");
     }
 }

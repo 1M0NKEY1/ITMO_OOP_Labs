@@ -1,10 +1,11 @@
 ﻿using Lab5.Application.Contracts.Admins;
 using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.SecondLayer;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.ChangeAdminKey;
 
-public class ChangeAdminKeyScenario : IScenario
+public class ChangeAdminKeyScenario : ISecondScenario
 {
     private readonly IAdminService _adminService;
 
@@ -29,6 +30,6 @@ public class ChangeAdminKeyScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("-------------------");
     }
 }

@@ -21,13 +21,13 @@ public class Initial : SqlMigration
         (
             admin_id bigint primary key generated always as identity ,
             admin_name text not null ,
-            admin_key bigint ,
+            admin_key bigint
         );
         
         create table account_operation_history
         (
-            user_id bigint primary key generated always as identify ,
-            operation_type text not null ,
+            user_id bigint ,
+            operation_type text not null
         );
         """;
 

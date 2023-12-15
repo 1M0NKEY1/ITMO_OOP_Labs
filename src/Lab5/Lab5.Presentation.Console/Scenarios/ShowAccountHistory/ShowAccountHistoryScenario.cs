@@ -1,9 +1,10 @@
 ﻿using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.SecondLayer;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.ShowAccountHistory;
 
-public class ShowAccountHistoryScenario : IScenario
+public class ShowAccountHistoryScenario : ISecondScenario
 {
     private readonly IUserService _userService;
 
@@ -25,6 +26,6 @@ public class ShowAccountHistoryScenario : IScenario
             }
         }
 
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("-------------------");
     }
 }

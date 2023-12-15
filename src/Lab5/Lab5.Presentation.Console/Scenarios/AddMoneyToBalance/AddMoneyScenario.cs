@@ -1,9 +1,10 @@
 ﻿using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.SecondLayer;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.AddMoneyToBalance;
 
-public class AddMoneyScenario : IScenario
+public class AddMoneyScenario : ISecondScenario
 {
     private readonly IUserService _userService;
 
@@ -27,6 +28,6 @@ public class AddMoneyScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("-------------------");
     }
 }

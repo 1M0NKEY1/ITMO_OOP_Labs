@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Scenarios.SecondLayer;
 
 namespace Lab5.Presentation.Console.Scenarios.ShowAccountHistory;
 
-public class ShowAccountHistoryScenarioProvider : IScenarioProvider
+public class ShowAccountHistoryScenarioProvider : ISecondScenarioProvider
 {
     private readonly IUserService _service;
     private readonly ICurrentUserService _currentUser;
@@ -17,7 +18,7 @@ public class ShowAccountHistoryScenarioProvider : IScenarioProvider
     }
 
     public bool TryGetScenario(
-        [NotNullWhen(true)] out IScenario? scenario)
+        [NotNullWhen(true)] out ISecondScenario? scenario)
     {
         if (_currentUser.User is not null)
         {

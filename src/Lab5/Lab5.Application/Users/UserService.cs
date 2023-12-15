@@ -16,9 +16,9 @@ internal class UserService : IUserService
         _currentUserManager = currentUserManager;
     }
 
-    public UserLoginResult Login(long id, long pin)
+    public UserLoginResult Login(string name, long pin)
     {
-        _user = _repository.FindUserByUserId(id, pin);
+        _user = _repository.FindUserByUserName(name, pin);
 
         if (_user is not null) return new UserLoginResult.NotFound();
 
@@ -26,16 +26,10 @@ internal class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
-    public OperationResult CreateAccount(long id, string name, long pin)
+    public OperationResult CreateAccount(string name, long pin)
     {
-        User? user = _repository.FindUserByUserId(id, pin);
-        if (user is null)
-        {
-            _repository.CreateAccount(id, name, pin);
-            return new OperationResult.Completed();
-        }
-
-        return new OperationResult.Rejected();
+        _repository.CreateAccount(name, pin);
+        return new OperationResult.Completed();
     }
 
     public decimal ShowAccountBalance()

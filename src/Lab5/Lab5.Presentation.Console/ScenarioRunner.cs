@@ -21,7 +21,10 @@ public class ScenarioRunner
             .UseConverter(x => x.Name);
 
         IScenario scenario = AnsiConsole.Prompt(selector);
-        scenario.Run();
+        while (true)
+        {
+            scenario.Run();
+        }
     }
 
     private IEnumerable<IScenario> GetScenarios()
