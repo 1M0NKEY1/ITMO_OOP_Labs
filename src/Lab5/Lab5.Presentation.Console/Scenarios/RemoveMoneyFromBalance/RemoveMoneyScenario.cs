@@ -22,12 +22,13 @@ public class RemoveMoneyScenario : ISecondScenario
 
         string message = result switch
         {
-            OperationResult.Completed => "Money removed to the account",
+            OperationResult.Completed => "Money removed from the account",
             OperationResult.Rejected => "Check your account",
             _ => throw new ArgumentOutOfRangeException(nameof(result)),
         };
 
+        AnsiConsole.WriteLine("----------------------------");
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("-------------------");
+        AnsiConsole.WriteLine("----------------------------");
     }
 }

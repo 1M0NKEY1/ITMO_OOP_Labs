@@ -90,8 +90,6 @@ public class UserRepository : IUserRepository
         }
 
         reader.Close();
-
-        command.ExecuteReader();
     }
 
     public decimal ShowAccountBalance(long id)
@@ -128,8 +126,8 @@ public class UserRepository : IUserRepository
     {
         string operationType = "Replenishment of the balance for " + money.ToString(CultureInfo.InvariantCulture);
         const string sql = """
-                           select balance
-                           from users
+                           update users
+                           set balance = balance + @money
                            where user_id = @user_id;
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
@@ -143,37 +141,19 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            decimal tempBalance = reader.GetDecimal(0);
-            tempBalance += money;
-
-            reader.Close();
-
-            const string updateSql = """
-                                     update users
-                                     set balance = @balance
-                                     where user_id = @user_id;
-                                     """;
-
-            using var updateCommand = new NpgsqlCommand(updateSql, connection);
-            updateCommand.Parameters.AddWithValue("user_id", id);
-            updateCommand.Parameters.AddWithValue("balance", tempBalance);
-
-            UpdateOperationInHistory(id, operationType);
-
-            updateCommand.ExecuteNonQuery();
-        }
+        command.AddParameter("user_id", id);
+        command.AddParameter("money", money);
+        UpdateOperationInHistory(id, operationType);
+        command.ExecuteNonQuery();
     }
 
     public void RemoveMoneyFromBalance(long id, decimal money)
     {
         string operationType = "Withdrawal of " + money.ToString(CultureInfo.InvariantCulture) + " from the balance";
         const string sql = """
-                           select balance
-                           from users
-                           where user_id = @id;
+                           update users
+                           set balance = balance - @money
+                           where user_id = @user_id;
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -186,28 +166,10 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        using NpgsqlDataReader reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            decimal tempBalance = reader.GetDecimal(0);
-            tempBalance -= money;
-
-            reader.Close();
-
-            const string updateSql = """
-                                     update users
-                                     set balance = @balance
-                                     where user_id = @user_id;
-                                     """;
-
-            using var updateCommand = new NpgsqlCommand(updateSql, connection);
-            updateCommand.Parameters.AddWithValue("user_id", id);
-            updateCommand.Parameters.AddWithValue("balance", tempBalance);
-
-            UpdateOperationInHistory(id, operationType);
-
-            updateCommand.ExecuteNonQuery();
-        }
+        command.AddParameter("user_id", id);
+        command.AddParameter("money", money);
+        UpdateOperationInHistory(id, operationType);
+        command.ExecuteNonQuery();
     }
 
     public IList<string> ShowAccountHistory(long id)
@@ -229,6 +191,7 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("user_id", id);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 

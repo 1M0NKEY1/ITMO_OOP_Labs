@@ -27,7 +27,8 @@ public class AddMoneyScenario : ISecondScenario
             _ => throw new ArgumentOutOfRangeException(nameof(result)),
         };
 
+        AnsiConsole.WriteLine("----------------------------");
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("-------------------");
+        AnsiConsole.WriteLine("----------------------------");
     }
 }

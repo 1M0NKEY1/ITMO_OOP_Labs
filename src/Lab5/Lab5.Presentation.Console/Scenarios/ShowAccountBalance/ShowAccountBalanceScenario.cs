@@ -19,7 +19,8 @@ public class ShowAccountBalanceScenario : ISecondScenario
     {
         decimal result = _userService.ShowAccountBalance();
 
+        AnsiConsole.WriteLine("----------------------------");
         AnsiConsole.WriteLine(CultureInfo.CurrentCulture, result);
-        AnsiConsole.Ask<string>("-------------------");
+        AnsiConsole.WriteLine("----------------------------");
     }
 }

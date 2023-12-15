@@ -18,6 +18,7 @@ public class ShowAccountHistoryScenario : ISecondScenario
     {
         IList<string>? result = _userService.ShowAccountHistory();
 
+        AnsiConsole.WriteLine("----------------------------");
         if (result != null)
         {
             foreach (string operation in result)
@@ -26,6 +27,6 @@ public class ShowAccountHistoryScenario : ISecondScenario
             }
         }
 
-        AnsiConsole.Ask<string>("-------------------");
+        AnsiConsole.WriteLine("----------------------------");
     }
 }
