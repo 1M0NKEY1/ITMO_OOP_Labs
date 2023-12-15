@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Itmo.Dev.Platform.Postgres.Connection;
 using Itmo.Dev.Platform.Postgres.Extensions;
 using Lab5.Application.Abstractions.Repositories;
 using Lab5.Applixation.Models;
@@ -10,12 +9,6 @@ namespace DataAccess.Repositories;
 public class UserRepository : IUserRepository
 {
     private const decimal StartBalance = 0;
-    private readonly IPostgresConnectionProvider _connectionProvider;
-
-    public UserRepository(IPostgresConnectionProvider connectionProvider)
-    {
-        _connectionProvider = connectionProvider;
-    }
 
     public User? FindUserByUserName(string name, long pin)
     {

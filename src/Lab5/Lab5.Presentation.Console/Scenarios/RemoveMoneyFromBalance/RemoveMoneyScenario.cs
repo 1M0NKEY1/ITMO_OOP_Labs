@@ -18,7 +18,7 @@ public class RemoveMoneyScenario : ISecondScenario
     {
         decimal money = AnsiConsole.Ask<decimal>("Replenishment money");
 
-        OperationResult result = _userService.AddMoneyToBalance(money);
+        OperationResult result = _userService.RemoveMoneyFromBalance(money);
 
         string message = result switch
         {
