@@ -22,4 +22,9 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Lab5\Lab5.Application.Abstractions\Lab5.Application.Abstractions.csproj" />
+      <ProjectReference Include="..\..\src\Lab5\Lab5.Application.Contracts\Lab5.Application.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>
