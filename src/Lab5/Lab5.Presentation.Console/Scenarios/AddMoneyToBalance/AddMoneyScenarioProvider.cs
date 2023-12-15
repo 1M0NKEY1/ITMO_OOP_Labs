@@ -20,7 +20,7 @@ public class AddMoneyScenarioProvider : ISecondScenarioProvider
     public bool TryGetScenario(
         [NotNullWhen(true)] out ISecondScenario? scenario)
     {
-        if (_currentUser.User is not null)
+        if (_currentUser.User is null)
         {
             scenario = null;
             return false;

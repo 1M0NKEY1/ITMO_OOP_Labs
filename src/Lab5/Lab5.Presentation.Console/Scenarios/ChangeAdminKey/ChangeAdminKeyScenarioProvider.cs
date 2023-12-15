@@ -20,7 +20,7 @@ public class ChangeAdminKeyScenarioProvider : ISecondScenarioProvider
     public bool TryGetScenario(
         [NotNullWhen(true)] out ISecondScenario? scenario)
     {
-        if (_currentAdmin.Admin is not null)
+        if (_currentAdmin.Admin is null)
         {
             scenario = null;
             return false;

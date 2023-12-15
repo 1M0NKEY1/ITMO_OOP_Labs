@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
         const string sql = """
                          select user_id, user_name, pin, balance
                          from users
-                         where user_name = @name and pin = @pin;
+                         where user_name = @user_name and pin = @pin;
                          """;
 
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.AddParameter("name", name);
+        command.AddParameter("user_name", name);
         command.AddParameter("pin", pin);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
         const string operationType = "Account has been created";
         const string sql = """
                            insert into users (user_name, pin, balance)
-                           values (@name, @pin, @StartBalance);
+                           values (@user_name, @pin, @balance);
                            """;
 
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
@@ -70,14 +70,14 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.AddParameter("name", name);
+        command.AddParameter("user_name", name);
         command.AddParameter("pin", pin);
-        command.AddParameter("StartBalance", StartBalance);
+        command.AddParameter("balance", StartBalance);
 
         const string sql2 = """
                             select user_id
                             from users
-                            where user_name = @name;
+                            where user_name = @user_name;
                             """;
         using var command2 = new NpgsqlCommand(sql2, connection);
 
@@ -99,7 +99,7 @@ public class UserRepository : IUserRepository
         const string sql = """
                            select balance
                            from users
-                           where user_id = @id;
+                           where user_id = @user_id;
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -112,9 +112,16 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("user_id", id);
+
         using NpgsqlDataReader reader = command.ExecuteReader();
 
-        return reader.GetDecimal(3);
+        if (reader.Read())
+        {
+            return reader.GetDecimal(0);
+        }
+
+        return 0;
     }
 
     public void AddMoneyToBalance(long id, decimal money)
@@ -123,7 +130,7 @@ public class UserRepository : IUserRepository
         const string sql = """
                            select balance
                            from users
-                           where user_id = @id;
+                           where user_id = @user_id;
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -139,7 +146,7 @@ public class UserRepository : IUserRepository
         using NpgsqlDataReader reader = command.ExecuteReader();
         if (reader.Read())
         {
-            decimal tempBalance = reader.GetDecimal(3);
+            decimal tempBalance = reader.GetDecimal(0);
             tempBalance += money;
 
             reader.Close();
@@ -147,11 +154,11 @@ public class UserRepository : IUserRepository
             const string updateSql = """
                                      update users
                                      set balance = @balance
-                                     where user_id = @id;
+                                     where user_id = @user_id;
                                      """;
 
             using var updateCommand = new NpgsqlCommand(updateSql, connection);
-            updateCommand.Parameters.AddWithValue("id", id);
+            updateCommand.Parameters.AddWithValue("user_id", id);
             updateCommand.Parameters.AddWithValue("balance", tempBalance);
 
             UpdateOperationInHistory(id, operationType);
@@ -182,7 +189,7 @@ public class UserRepository : IUserRepository
         using NpgsqlDataReader reader = command.ExecuteReader();
         if (reader.Read())
         {
-            decimal tempBalance = reader.GetDecimal(3);
+            decimal tempBalance = reader.GetDecimal(0);
             tempBalance -= money;
 
             reader.Close();
@@ -190,11 +197,11 @@ public class UserRepository : IUserRepository
             const string updateSql = """
                                      update users
                                      set balance = @balance
-                                     where user_id = @id;
+                                     where user_id = @user_id;
                                      """;
 
             using var updateCommand = new NpgsqlCommand(updateSql, connection);
-            updateCommand.Parameters.AddWithValue("id", id);
+            updateCommand.Parameters.AddWithValue("user_id", id);
             updateCommand.Parameters.AddWithValue("balance", tempBalance);
 
             UpdateOperationInHistory(id, operationType);
@@ -209,7 +216,7 @@ public class UserRepository : IUserRepository
         const string sql = """
                            select operation_type
                            from account_operation_history
-                           where user_id = @id;
+                           where user_id = @user_id;
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -227,7 +234,7 @@ public class UserRepository : IUserRepository
 
         while (reader.Read())
         {
-            newList.Add(reader.GetString(1));
+            newList.Add(reader.GetString(0));
         }
 
         return newList;
@@ -237,7 +244,7 @@ public class UserRepository : IUserRepository
     {
         const string sql = """
                            insert into account_operation_history (user_id, operation_type)
-                           values (@id, @operation);
+                           values (@user_id, @operation);
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -250,7 +257,7 @@ public class UserRepository : IUserRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.AddParameter("id", id);
+        command.AddParameter("user_id", id);
         command.AddParameter("operation", operation);
 
         command.ExecuteReader();

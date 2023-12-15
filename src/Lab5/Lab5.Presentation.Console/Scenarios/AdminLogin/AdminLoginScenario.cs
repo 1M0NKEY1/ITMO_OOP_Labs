@@ -33,7 +33,11 @@ public class AdminLoginScenario : IFirstScenario
             _ => throw new ArgumentOutOfRangeException(nameof(result)),
         };
 
-        AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("-------------------");
+        while (true)
+        {
+            _scenarioRunner.Run();
+            AnsiConsole.WriteLine(message);
+            AnsiConsole.Ask<string>("-------------------");
+        }
     }
 }

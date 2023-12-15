@@ -20,7 +20,7 @@ internal class UserService : IUserService
     {
         _user = _repository.FindUserByUserName(name, pin);
 
-        if (_user is not null) return new UserLoginResult.NotFound();
+        if (_user is null) return new UserLoginResult.NotFound();
 
         _currentUserManager.User = _user;
         return new UserLoginResult.Success();
@@ -34,35 +34,37 @@ internal class UserService : IUserService
 
     public decimal ShowAccountBalance()
     {
-        if (_currentUserManager.User != null) return _repository.ShowAccountBalance(_currentUserManager.User.UserId);
-        return 0;
+        if (_currentUserManager.User is null) return 0;
+
+        return _repository.ShowAccountBalance(_currentUserManager.User.UserId);
     }
 
     public OperationResult AddMoneyToBalance(decimal money)
     {
-        if (_currentUserManager.User != null)
+        if (_currentUserManager.User is null)
         {
-            _repository.AddMoneyToBalance(_currentUserManager.User.UserId, money);
-            return new OperationResult.Completed();
+            return new OperationResult.Rejected();
         }
 
-        return new OperationResult.Rejected();
+        _repository.AddMoneyToBalance(_currentUserManager.User.UserId, money);
+        return new OperationResult.Completed();
     }
 
     public OperationResult RemoveMoneyFromBalance(decimal money)
     {
-        if (_currentUserManager.User != null)
+        if (_currentUserManager.User is null)
         {
-            _repository.RemoveMoneyFromBalance(_currentUserManager.User.UserId, money);
-            return new OperationResult.Completed();
+            return new OperationResult.Rejected();
         }
 
-        return new OperationResult.Rejected();
+        _repository.RemoveMoneyFromBalance(_currentUserManager.User.UserId, money);
+        return new OperationResult.Completed();
     }
 
     public IList<string>? ShowAccountHistory()
     {
-        if (_currentUserManager.User != null) return _repository.ShowAccountHistory(_currentUserManager.User.UserId);
-        return null;
+        if (_currentUserManager.User is null) return null;
+
+        return _repository.ShowAccountHistory(_currentUserManager.User.UserId);
     }
 }
