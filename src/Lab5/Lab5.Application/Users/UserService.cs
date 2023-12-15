@@ -46,7 +46,7 @@ internal class UserService : IUserService
             return new OperationResult.Rejected();
         }
 
-        _repository.RemoveMoneyFromBalance(_currentUserManager.User.UserId, money);
+        _repository.AddMoneyToBalance(_currentUserManager.User.UserId, money);
         return new OperationResult.Completed();
     }
 
