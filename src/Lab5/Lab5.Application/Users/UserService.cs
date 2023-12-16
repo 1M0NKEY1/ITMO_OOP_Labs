@@ -8,7 +8,6 @@ internal class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly CurrentUserManager _currentUserManager;
-    private User? _user;
 
     public UserService(IUserRepository repository, CurrentUserManager currentUserManager)
     {
@@ -18,11 +17,11 @@ internal class UserService : IUserService
 
     public UserLoginResult Login(string name, long pin)
     {
-        _user = _repository.FindUserByUserName(name, pin);
+        User? user = _repository.FindUserByUserName(name, pin);
 
-        if (_user is null) return new UserLoginResult.NotFound();
+        if (user is null) return new UserLoginResult.NotFound();
 
-        _currentUserManager.User = _user;
+        _currentUserManager.User = user;
         return new UserLoginResult.Success();
     }
 
