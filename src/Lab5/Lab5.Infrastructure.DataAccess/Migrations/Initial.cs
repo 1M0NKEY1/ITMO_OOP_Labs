@@ -27,7 +27,8 @@ public class Initial : SqlMigration
         create table account_operation_history
         (
             user_id bigint ,
-            operation_type text not null
+            operation_type text not null ,
+            delta_balance numeric
         );
         """;
 

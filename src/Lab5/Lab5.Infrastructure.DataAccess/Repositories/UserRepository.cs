@@ -79,7 +79,7 @@ public class UserRepository : IUserRepository
         if (reader.Read())
         {
             long userId = reader.GetInt64(0);
-            UpdateOperationInHistory(userId, operationType);
+            UpdateOperationInHistory(userId, operationType, StartBalance);
         }
 
         reader.Close();
@@ -136,13 +136,12 @@ public class UserRepository : IUserRepository
         using var command = new NpgsqlCommand(sql, connection);
         command.AddParameter("user_id", id);
         command.AddParameter("money", money);
-        UpdateOperationInHistory(id, operationType);
+        UpdateOperationInHistory(id, operationType, money);
         command.ExecuteNonQuery();
     }
 
     public void RemoveMoneyFromBalance(long id, decimal money)
     {
-        string operationType = "Withdrawal of " + money.ToString(CultureInfo.InvariantCulture) + " from the balance";
         const string sql = """
                            update users
                            set balance = balance - @money
@@ -161,7 +160,10 @@ public class UserRepository : IUserRepository
         using var command = new NpgsqlCommand(sql, connection);
         command.AddParameter("user_id", id);
         command.AddParameter("money", money);
-        UpdateOperationInHistory(id, operationType);
+
+        string operationType = "Withdrawal of " + money.ToString(CultureInfo.InvariantCulture) + " from the balance";
+
+        UpdateOperationInHistory(id, operationType, money);
         command.ExecuteNonQuery();
     }
 
@@ -196,11 +198,11 @@ public class UserRepository : IUserRepository
         return newList;
     }
 
-    private static void UpdateOperationInHistory(long id, string operation)
+    private static void UpdateOperationInHistory(long id, string operation, decimal delta_money)
     {
         const string sql = """
-                           insert into account_operation_history (user_id, operation_type)
-                           values (@user_id, @operation);
+                           insert into account_operation_history (user_id, operation_type, delta_money)
+                           values (@user_id, @operation, @delta_money);
                            """;
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
         {
@@ -215,6 +217,7 @@ public class UserRepository : IUserRepository
         using var command = new NpgsqlCommand(sql, connection);
         command.AddParameter("user_id", id);
         command.AddParameter("operation", operation);
+        command.AddParameter("delta_money", delta_money);
 
         command.ExecuteReader();
     }
