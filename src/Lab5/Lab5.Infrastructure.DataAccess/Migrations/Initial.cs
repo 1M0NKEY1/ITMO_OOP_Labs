@@ -28,13 +28,14 @@ public class Initial : SqlMigration
         (
             user_id bigint ,
             operation_type text not null ,
-            delta_balance numeric
+            delta_money numeric
         );
         """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
         """
             drop table users;
+            drop table admins;
             drop table account_operation_history
         """;
 }
