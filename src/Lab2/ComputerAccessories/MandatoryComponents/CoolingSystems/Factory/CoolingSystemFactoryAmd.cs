@@ -2,14 +2,14 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Computer.CoolingSystem;
 
-public class CoolingSystemFactoryAmd : CoolingSystemsFactory
+public class CoolingSystemFactoryAmd : CoolingSystemsFactoryBase
 {
-    private readonly string _name;
-    private readonly int _coolingDimension;
-    private readonly int _coolingTDP;
-    private readonly AmdSocketType _amdSocketType;
+    private string? _name;
+    private int _coolingDimension;
+    private int _coolingTDP;
+    private AmdSocketType? _amdSocketType;
 
-    public CoolingSystemFactoryAmd(string name, int coolingDimension, int coolingTDP, AmdSocketType amdSocketType)
+    public void NewInstance(string? name, int coolingDimension, int coolingTDP, AmdSocketType? amdSocketType)
     {
         _name = name;
         _coolingDimension = coolingDimension;
@@ -17,7 +17,7 @@ public class CoolingSystemFactoryAmd : CoolingSystemsFactory
         _amdSocketType = amdSocketType;
     }
 
-    public override CoolingSystems CreateCoolingSystem()
+    public override CoolingSystemsBase Create()
     {
         return new CoolingSystemAmd(_name, _coolingDimension, _coolingTDP, _amdSocketType);
     }

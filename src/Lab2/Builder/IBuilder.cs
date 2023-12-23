@@ -13,13 +13,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ComputerAccessories.Builder;
 public interface IBuilder
 {
     Computer? Create();
-    IBuilder WithComputerCase(ComputerCases computerCases);
-    IBuilder WithCoolingSystem(CoolingSystems coolingSystems);
-    IBuilder WithCpu(Cpu cpu);
-    IBuilder WithMotherboard(MotherBoard motherBoard);
-    IBuilder WithPowerUnit(PowerUnit powerUnit);
-    IBuilder WithRam(Ram ram);
-    IBuilder WithSsd(SSD ssd);
-    IBuilder WithVideoCard(VideoCard videoCard);
-    IBuilder WithWifiAdapter(WifiAdapter wifiAdapter);
+    IBuilder WithComputerCase(ComputerCasesBase computerCasesBase);
+    IBuilder WithCoolingSystem(CoolingSystemsBase coolingSystemsBase);
+    IBuilder WithCpu(CpuBase cpuBase);
+    IBuilder WithMotherboard(MotherBoardBase motherBoardBase);
+    IBuilder WithPowerUnit(PowerUnitBase powerUnitBase);
+    IBuilder WithRam(RamBase ramBase);
+    IBuilder WithSsd(SSDBase ssdBase);
+    IBuilder WithVideoCard(VideoCardBase videoCardBase);
+    IBuilder WithWifiAdapter(WifiAdapterBase wifiAdapterBase);
 }

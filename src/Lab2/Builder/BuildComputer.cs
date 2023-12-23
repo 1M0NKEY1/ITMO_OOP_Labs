@@ -16,15 +16,15 @@ public class BuildComputer : IBuilder
     private IList<ComputerBuildResult> _criticalResultList = new List<ComputerBuildResult>();
     private IList<ComputerBuildResult> _nonCriticalResultList = new List<ComputerBuildResult>();
 
-    private ComputerCases? _computerCases;
-    private CoolingSystems? _coolingSystems;
-    private Cpu? _cpu;
-    private MotherBoard? _motherBoard;
-    private PowerUnit? _powerUnit;
-    private Ram? _ram;
-    private SSD? _ssd;
-    private VideoCard? _videoCard;
-    private WifiAdapter? _wifiAdapter;
+    private ComputerCasesBase? _computerCases;
+    private CoolingSystemsBase? _coolingSystems;
+    private CpuBase? _cpu;
+    private MotherBoardBase? _motherBoard;
+    private PowerUnitBase? _powerUnit;
+    private RamBase? _ram;
+    private SSDBase? _ssd;
+    private VideoCardBase? _videoCard;
+    private WifiAdapterBase? _wifiAdapter;
 
     public Computer Create()
     {
@@ -40,57 +40,57 @@ public class BuildComputer : IBuilder
             _wifiAdapter);
     }
 
-    public IBuilder WithComputerCase(ComputerCases computerCases)
+    public IBuilder WithComputerCase(ComputerCasesBase computerCasesBase)
     {
-        _computerCases = computerCases;
+        _computerCases = computerCasesBase;
         return this;
     }
 
-    public IBuilder WithCoolingSystem(CoolingSystems coolingSystems)
+    public IBuilder WithCoolingSystem(CoolingSystemsBase coolingSystemsBase)
     {
-        _coolingSystems = coolingSystems;
+        _coolingSystems = coolingSystemsBase;
         return this;
     }
 
-    public IBuilder WithCpu(Cpu cpu)
+    public IBuilder WithCpu(CpuBase cpuBase)
     {
-        _cpu = cpu;
+        _cpu = cpuBase;
         return this;
     }
 
-    public IBuilder WithMotherboard(MotherBoard motherBoard)
+    public IBuilder WithMotherboard(MotherBoardBase motherBoardBase)
     {
-        _motherBoard = motherBoard;
+        _motherBoard = motherBoardBase;
         return this;
     }
 
-    public IBuilder WithPowerUnit(PowerUnit powerUnit)
+    public IBuilder WithPowerUnit(PowerUnitBase powerUnitBase)
     {
-        _powerUnit = powerUnit;
+        _powerUnit = powerUnitBase;
         return this;
     }
 
-    public IBuilder WithRam(Ram ram)
+    public IBuilder WithRam(RamBase ramBase)
     {
-        _ram = ram;
+        _ram = ramBase;
         return this;
     }
 
-    public IBuilder WithSsd(SSD ssd)
+    public IBuilder WithSsd(SSDBase ssdBase)
     {
-        _ssd = ssd;
+        _ssd = ssdBase;
         return this;
     }
 
-    public IBuilder WithVideoCard(VideoCard videoCard)
+    public IBuilder WithVideoCard(VideoCardBase videoCardBase)
     {
-        _videoCard = videoCard;
+        _videoCard = videoCardBase;
         return this;
     }
 
-    public IBuilder WithWifiAdapter(WifiAdapter wifiAdapter)
+    public IBuilder WithWifiAdapter(WifiAdapterBase wifiAdapterBase)
     {
-        _wifiAdapter = wifiAdapter;
+        _wifiAdapter = wifiAdapterBase;
         return this;
     }
 

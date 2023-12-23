@@ -72,23 +72,23 @@ public class TestBuildWithCriticalPower
     {
         ComponentsDataBase.FillDataBase();
 
-        _buildComputer.WithComputerCase((ComputerCases?)ComponentsDataBase.GetByName(caseName)
+        _buildComputer.WithComputerCase((ComputerCasesBase?)ComponentsDataBase.GetByName(caseName)
                                         ?? throw new CreateBuilderNullException(caseName));
-        _buildComputer.WithCoolingSystem((CoolingSystems?)ComponentsDataBase.GetByName(coolingName)
+        _buildComputer.WithCoolingSystem((CoolingSystemsBase?)ComponentsDataBase.GetByName(coolingName)
                                          ?? throw new CreateBuilderNullException(coolingName));
-        _buildComputer.WithCpu((Cpu?)ComponentsDataBase.GetByName(cpuName)
+        _buildComputer.WithCpu((CpuBase?)ComponentsDataBase.GetByName(cpuName)
                                ?? throw new CreateBuilderNullException(cpuName));
-        _buildComputer.WithMotherboard((MotherBoard?)ComponentsDataBase.GetByName(motherboardName)
+        _buildComputer.WithMotherboard((MotherBoardBase?)ComponentsDataBase.GetByName(motherboardName)
                                        ?? throw new CreateBuilderNullException(motherboardName));
-        _buildComputer.WithPowerUnit((PowerUnit?)ComponentsDataBase.GetByName(powerUnitName)
+        _buildComputer.WithPowerUnit((PowerUnitBase?)ComponentsDataBase.GetByName(powerUnitName)
                                      ?? throw new CreateBuilderNullException(powerUnitName));
-        _buildComputer.WithRam((Ram?)ComponentsDataBase.GetByName(ramName)
+        _buildComputer.WithRam((RamBase?)ComponentsDataBase.GetByName(ramName)
                                ?? throw new CreateBuilderNullException(ramName));
-        _buildComputer.WithSsd((SSD?)ComponentsDataBase.GetByName(ssdName)
+        _buildComputer.WithSsd((SSDBase?)ComponentsDataBase.GetByName(ssdName)
                                ?? throw new CreateBuilderNullException(ssdName));
-        _buildComputer.WithVideoCard((VideoCard?)ComponentsDataBase.GetByName(videoCardName)
+        _buildComputer.WithVideoCard((VideoCardBase?)ComponentsDataBase.GetByName(videoCardName)
                                      ?? throw new CreateBuilderNullException(videoCardName));
-        _buildComputer.WithWifiAdapter((WifiAdapter?)ComponentsDataBase.GetByName(wifiAdapterName)
+        _buildComputer.WithWifiAdapter((WifiAdapterBase?)ComponentsDataBase.GetByName(wifiAdapterName)
                                        ?? throw new CreateBuilderNullException(wifiAdapterName));
 
         Assert.True(CompleteBuild(_buildComputer));
